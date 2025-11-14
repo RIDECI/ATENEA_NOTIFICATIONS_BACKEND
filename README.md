@@ -269,7 +269,7 @@ Implementa los **detalles técnicos**: controladores REST, persistencia, configu
 
 ### Diagrama de Bases de Datos
 
-![DiagramaBasesDatos](docs/uml/DiagramaBaseDatos.png)
+![DiagramaBasesDatos](docs/uml/DiagramaBaseDeDatos.png)
 
 ---
 
