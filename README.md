@@ -157,7 +157,7 @@ hotfix/[descripcion-breve-del-fix]
 
 ## Arquitectura del Proyecto
 
-El backend de **ATENEA_ADMINISTRATION_BACKEND** sigue una **arquitectura limpia y desacoplada**, priorizando:
+El backend de **ATENEA_NOTIFICATIONS_BACKEND** sigue una **arquitectura limpia y desacoplada**, priorizando:
 
 * Separación de responsabilidades
 * Mantenibilidad
@@ -226,9 +226,38 @@ Implementa los **detalles técnicos**: controladores REST, persistencia, configu
 
 ## Diagramas del Módulo
 
+
+## Diagrama de Contexto
+
+![alt text](docs/uml/DiagramaContexto.png)
+
+
+---
+
+### Diagrama de Despliegue
+
+![DiagramaDespliegue](docs/uml/DiagramaDespliegue.png)
+
+
+---
+
+### Diagrama de Componentes General
+
+![alt text](docs/uml/DiagramaComponentesGeneral.png)
+
+
+---
+
 ### Diagrama de Componentes Específico
 
 ![alt text](docs/uml/DiagramaComponentesEspecifico.png)
+
+---
+
+
+## Diagrama de Casos de Uso
+
+![alt text](docs/uml/DiagramaCasosUso.png)
 
 ---
 
@@ -240,13 +269,8 @@ Implementa los **detalles técnicos**: controladores REST, persistencia, configu
 
 ### Diagrama de Bases de Datos
 
-![DiagramaBasesDatos](docs/uml/DiagramaBasesDeDatos.png)
+![DiagramaBasesDatos](docs/uml/DiagramaBaseDatos.png)
 
 ---
 
-### Diagrama de Despliegue Específico del Módulo
-
-![DiagramaDespliegue](docs/uml/DiagramaDespliegue.png)
-
----
 
