@@ -24,7 +24,8 @@
 * [ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 * [ Arquitectura Limpia - Organización de Capas](#️-arquitectura-limpia---organización-de-capas)
 * [Diagramas del Módulo](#diagramas-del-módulo)
-
+- [Ejecución Local](#ejecución-local)  
+- [Calidad y CI/CD](#calidad-y-cicd)
 
 ---
 
@@ -261,6 +262,63 @@ Implementa los **detalles técnicos**: controladores REST, persistencia, configu
 ### Diagrama de Bases de Datos
 
 ![DiagramaBasesDatos](docs/uml/DiagramaBaseDeDatos.png)
+
+# Ejecución Local
+Requisitos
+
+- Java 17
+- Maven 3.x (incluye mvnw)
+- Docker & Docker Compose
+- Puerto 8080 (o el definido en application.yml) libre
+
+# Ejecución con Maven
+
+ 1. Clonar el repositorio
+   `git clone https://github.com/RIDECI/ATENEA_NOTIFICATIONS_BACKEND.git`
+
+   `cd ATENEA_NOTIFICATIONS_BACKEND`
+
+2. Compilar y ejecutar pruebas
+   
+   `./mvnw clean test`
+
+3. Ejecutar la aplicación
+ 
+   `./mvnw spring-boot:run`
+
+La aplicación arrancará en: 
+
+`http://localhosto:8080`
+
+# Ejecuciín con Docker / Docker Compose
+
+`docker build -t atenea-notifications-backend .`
+
+`docker-compose up -d`
+
+Mongo/RabbitMQ/Kafka + backend se levantan según `docker-compose.yml`.
+
+## Calidad y CI/CD
+
+Incluye:
+
+### GitHub Actions
+
+   -Ejecución de pruebas
+   
+   -Reporte Jacoco
+      
+   -Análisis SonarQube
+   
+### Jacoco
+
+   -Cobertura mínima requerida
+   
+### SonarQube
+
+-Análisis de bugs, vulnerabilidades y code smells
+
+
 
 ---
 
