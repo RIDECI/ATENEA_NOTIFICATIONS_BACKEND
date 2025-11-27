@@ -2,8 +2,10 @@ package edu.dosw.rideci.domain.model;
 
 import edu.dosw.rideci.domain.model.Enum.EventType;
 import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class InAppNotification {
 
@@ -19,7 +23,10 @@ public class InAppNotification {
     private String title;
     private String message;
     private EventType eventType;
-    private String priority; // "LOW", "NORMAL", "HIGH"
+    /**
+     * Prioridad como texto: "LOW", "NORMAL", "HIGH"
+     */
+    private String priority;
     private NotificationStatus status;
     private OffsetDateTime createdAt;
     private OffsetDateTime readAt;

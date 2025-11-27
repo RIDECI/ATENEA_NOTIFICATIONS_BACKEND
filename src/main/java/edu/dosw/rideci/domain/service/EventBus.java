@@ -3,22 +3,27 @@ package edu.dosw.rideci.domain.service;
 import edu.dosw.rideci.domain.model.Enum.EventType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Slf4j
 @Component
 public class EventBus {
 
-    private final Map<EventType, List<NotificationSubscriber>> subscribers = new HashMap<>();
+    private final Map<EventType, List<NotificationSubscriber>> subscribers = new ConcurrentHashMap<>();
     private final BlockingQueue<NotificationEvent> eventQueue = new LinkedBlockingQueue<>();
     private volatile boolean isRunning = false;
 
     public void publish(NotificationEvent event) {
+        if (event == null) {
+            return;
+        }
         eventQueue.offer(event);
     }
 
@@ -42,10 +47,13 @@ public class EventBus {
         Thread worker = new Thread(this::processLoop, "notification-event-bus");
         worker.setDaemon(true);
         worker.start();
+        log.info("EventBus started");
     }
 
+    @PreDestroy
     public void stop() {
         isRunning = false;
+        log.info("EventBus stopped");
     }
 
     private void processLoop() {

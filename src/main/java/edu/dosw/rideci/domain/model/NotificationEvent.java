@@ -1,43 +1,39 @@
 package edu.dosw.rideci.domain.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.dosw.rideci.domain.model.Enum.EventType;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
-import java.util.Map;
-import java.util.UUID;
+import java.time.Instant;
 
-@Getter
-public abstract class NotificationEvent {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class NotificationEvent {
 
-    @Getter
-    private final String eventId;
-    private final EventType eventType;
-    private final String sourceModule;
-    private final OffsetDateTime timestamp;
-    private final Map<String, Object> payload;
-    private final String priority; // "LOW", "NORMAL", "HIGH"
-    private final UUID userId;
+    private String eventId;
+    private EventType eventType;
+    private String sourceModule;
+    private String userId;
+    private String message;
+    private int priority;
+    private Instant timestamp;
+    private String payload;
 
-    protected NotificationEvent(EventType eventType,
-                                String sourceModule,
-                                Map<String, Object> payload,
-                                String priority,
-                                UUID userId) {
-
-        this.eventId = UUID.randomUUID().toString();
-        this.eventType = eventType;
-        this.sourceModule = sourceModule;
-        this.timestamp = OffsetDateTime.now();
-        this.payload = payload;
-        this.priority = priority;
-        this.userId = userId;
-    }
-
-    public abstract boolean validate();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public String toJSON() {
-        return "NotificationEvent{eventId=" + eventId + ", eventType=" + eventType + "}";
+        try {
+            return MAPPER.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "{\"eventId\":\"" + eventId + "\",\"eventType\":\"" +
+                    (eventType != null ? eventType.name() : "UNKNOWN") + "\"}";
+        }
     }
 
 }

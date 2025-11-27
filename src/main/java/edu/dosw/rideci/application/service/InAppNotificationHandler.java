@@ -19,6 +19,7 @@ public class InAppNotificationHandler implements NotificationSubscriber {
 
     private final EventBus eventBus;
     private final CreateNotificationUseCase createNotificationUseCase;
+    private final NotificationApplicationMapper notificationApplicationMapper;
 
     private final String handlerId = "in-app-notification-handler";
     private final boolean isActive = true;
@@ -37,7 +38,7 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         String message = buildMessage(event);
 
         InAppNotification notification =
-                NotificationApplicationMapper.fromEvent(event, title, message);
+                notificationApplicationMapper.fromEvent(event, title, message);
 
         createNotificationUseCase.createNotification(notification);
     }
@@ -76,7 +77,7 @@ public class InAppNotificationHandler implements NotificationSubscriber {
     }
 
     private String buildMessage(NotificationEvent event) {
-
+        // ajusta esto según lo que tengas en NotificationEvent
         return event.toJSON();
     }
 }
