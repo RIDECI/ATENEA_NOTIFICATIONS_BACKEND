@@ -15,19 +15,6 @@ public class RabbitMQConfig {
     public static final String ROUTING_KEY = "events.notification.#";
 
     @Bean
-    public CachingConnectionFactory connectionFactory() {
-        CachingConnectionFactory factory =
-                new CachingConnectionFactory(System.getenv("RABBIT_HOST"));
-
-        factory.setPort(Integer.parseInt(System.getenv("RABBIT_PORT")));
-        factory.setUsername(System.getenv("RABBIT_USER"));
-        factory.setPassword(System.getenv("RABBIT_PASSWORD"));
-        factory.setVirtualHost(System.getenv("RABBIT_VHOST"));
-
-        return factory;
-    }
-
-    @Bean
     public DirectExchange eventsExchange() {
         return new DirectExchange(EVENTS_EXCHANGE, true, false);
     }
