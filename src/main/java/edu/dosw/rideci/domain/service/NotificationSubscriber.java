@@ -1,6 +1,6 @@
 package edu.dosw.rideci.domain.service;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 
 import java.util.List;
@@ -29,9 +29,9 @@ public interface NotificationSubscriber {
      * Devuelve la lista de tipos de eventos a los que este suscriptor
      * desea estar registrado.
      *
-     * @return Lista de {@link EventType} soportados por el suscriptor.
+     * @return Lista de {@link NotificationType} soportados por el suscriptor.
      */
-    List<EventType> getSubscribedEvents();
+    List<NotificationType> getSubscribedEvents();
 
     /**
      * Devuelve el nombre identificador del suscriptor.

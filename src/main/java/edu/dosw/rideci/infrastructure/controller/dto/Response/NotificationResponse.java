@@ -1,6 +1,6 @@
 package edu.dosw.rideci.infrastructure.controller.dto.Response;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.Enum.NotificationChannel;
 import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import lombok.Builder;
@@ -32,7 +32,7 @@ public class NotificationResponse {
     private UUID userId;
 
     /** Tipo de evento asociado a la notificación. */
-    private EventType eventType;
+    private NotificationType eventType;
 
     /** Canal por el que se entrega la notificación. */
     private NotificationChannel channel;

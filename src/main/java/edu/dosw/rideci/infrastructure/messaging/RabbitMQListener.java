@@ -2,7 +2,7 @@ package edu.dosw.rideci.infrastructure.messaging;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import edu.dosw.rideci.domain.service.EventBus;
 import edu.dosw.rideci.infrastructure.config.RabbitMQConfig;
@@ -26,7 +26,7 @@ public class RabbitMQListener {
     public void onMessage(String message) {
         try {
             JsonNode json = objectMapper.readTree(message);
-            EventType type = EventType.valueOf(json.get("type").asText());
+            NotificationType type = NotificationType.valueOf(json.get("type").asText());
 
             NotificationEvent event = NotificationEvent.builder()
                     .eventId(UUID.randomUUID().toString())
@@ -46,9 +46,9 @@ public class RabbitMQListener {
         }
     }
 
-    private int priorityFor(EventType type) {
+    private int priorityFor(NotificationType type) {
         return switch (type) {
-            case EMERGY_BOTON, SECURITY_INCIDENT, LOCATION_ALERT -> 1;
+            case EMERGENCY_BUTTON_PRESSED, SECURITY_INCIDENT, LOCATION_ALERT -> 1;
             case TRIP_CREATED, TRIP_UPDATED, TRIP_CANCELLED, TRIP_COMPLETED,
                  PAYMENT_CONFIRMED, PAYMENT_FAILED,
                  DRIVER_VALIDATED, NEW_DISTINTIVE -> 2;

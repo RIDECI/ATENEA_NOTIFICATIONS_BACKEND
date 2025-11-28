@@ -2,13 +2,14 @@ package edu.dosw.rideci.domain.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+
 
 /**
  * Evento de dominio utilizado para disparar notificaciones en RideECI.
@@ -30,7 +31,7 @@ public class NotificationEvent {
     private String eventId;
 
     /** Tipo de evento que ocurrió en el dominio. */
-    private EventType eventType;
+    private NotificationType eventType;
 
     /** Nombre o identificador del módulo origen del evento. */
     private String sourceModule;
@@ -55,6 +56,16 @@ public class NotificationEvent {
 
     /** Mapper estático para serializar el evento a JSON. */
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    /**
+     * Obtiene el tipo de evento.
+     *
+     * @return Tipo de evento como {@link NotificationType}.
+     */
+
+    public NotificationType getEventType() {
+        return eventType;
+    }
 
     /**
      * Serializa el evento a una representación JSON.

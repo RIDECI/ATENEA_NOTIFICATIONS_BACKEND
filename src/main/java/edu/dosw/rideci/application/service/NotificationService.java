@@ -4,7 +4,7 @@ import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
 import edu.dosw.rideci.application.port.in.GetUserNotificationsUseCase;
 import edu.dosw.rideci.application.port.in.MarkNotificationAsReadUseCase;
 import edu.dosw.rideci.application.port.out.NotificationRepositoryPort;
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import edu.dosw.rideci.domain.service.EventBus;
@@ -55,7 +55,7 @@ public class NotificationService implements
         InAppNotification saved = notificationRepositoryPort.save(notification);
         NotificationEvent event = NotificationEvent.builder()
                 .eventId(UUID.randomUUID().toString())
-                .eventType(EventType.NOTIFICATION_CREATED)
+                .eventType(NotificationType.NOTIFICATION_CREATED)
                 .sourceModule("ATENEA_NOTIFICATIONS_BACKEND")
                 .userId(saved.getUserId() != null ? saved.getUserId().toString() : null)
                 .message(saved.getMessage())

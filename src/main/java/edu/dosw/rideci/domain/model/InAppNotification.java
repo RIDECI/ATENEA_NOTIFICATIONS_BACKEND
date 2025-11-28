@@ -1,6 +1,6 @@
 package edu.dosw.rideci.domain.model;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +42,7 @@ public class InAppNotification {
     private String message;
 
     /** Tipo de evento del dominio que originó la notificación. */
-    private EventType eventType;
+    private NotificationType eventType;
 
     /**
      * Prioridad de la notificación como texto.
