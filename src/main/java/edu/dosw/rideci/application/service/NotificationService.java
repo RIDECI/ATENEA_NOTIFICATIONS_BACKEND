@@ -4,12 +4,16 @@ import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
 import edu.dosw.rideci.application.port.in.GetUserNotificationsUseCase;
 import edu.dosw.rideci.application.port.in.MarkNotificationAsReadUseCase;
 import edu.dosw.rideci.application.port.out.NotificationRepositoryPort;
+import edu.dosw.rideci.domain.model.Enum.EventType;
 import edu.dosw.rideci.domain.model.InAppNotification;
+import edu.dosw.rideci.domain.model.NotificationEvent;
+import edu.dosw.rideci.domain.service.EventBus;
 import edu.dosw.rideci.domain.service.NotificationDomainService;
 import edu.dosw.rideci.exceptions.NotificationNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +22,8 @@ import java.util.UUID;
  * Implementa los casos de uso de creación, consulta por usuario y marcación como leída.
  *
  * Coordina la lógica de dominio ({@link NotificationDomainService}) con el
- * puerto de persistencia ({@link NotificationRepositoryPort}).
+ * puerto de persistencia ({@link NotificationRepositoryPort}) y la publicación
+ * de eventos de dominio mediante {@link EventBus}.
  *
  * @author RideECI
  * @version 1.0
@@ -32,11 +37,14 @@ public class NotificationService implements
 
     private final NotificationRepositoryPort notificationRepositoryPort;
     private final NotificationDomainService domainService;
+    private final EventBus eventBus;
 
     /**
      * Crea una nueva notificación in-app.
-     * Inicializa la notificación mediante el servicio de dominio
-     * y la persiste en el repositorio.
+     * Inicializa la notificación mediante el servicio de dominio,
+     * la persiste en el repositorio y publica un evento de dominio
+     * para que otros componentes (como el suscriptor de email)
+     * puedan reaccionar.
      *
      * @param notification Notificación a crear.
      * @return Notificación creada y persistida.
@@ -44,7 +52,21 @@ public class NotificationService implements
     @Override
     public InAppNotification createNotification(InAppNotification notification) {
         domainService.initializeNotification(notification);
-        return notificationRepositoryPort.save(notification);
+        InAppNotification saved = notificationRepositoryPort.save(notification);
+        NotificationEvent event = NotificationEvent.builder()
+                .eventId(UUID.randomUUID().toString())
+                .eventType(EventType.NOTIFICATION_CREATED)
+                .sourceModule("ATENEA_NOTIFICATIONS_BACKEND")
+                .userId(saved.getUserId() != null ? saved.getUserId().toString() : null)
+                .message(saved.getMessage())
+                .priority(1)
+                .timestamp(Instant.now())
+                .notification(saved)
+                .build();
+
+        eventBus.publish(event);
+
+        return saved;
     }
 
     /**

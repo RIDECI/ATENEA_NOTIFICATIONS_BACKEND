@@ -49,5 +49,7 @@ public enum EventType {
     EMERGY_BOTON,
 
     /** Actualización de la información de un viaje. */
-    TRIP_UPDATED
+    TRIP_UPDATED,
+
+    NOTIFICATION_CREATED
 }
