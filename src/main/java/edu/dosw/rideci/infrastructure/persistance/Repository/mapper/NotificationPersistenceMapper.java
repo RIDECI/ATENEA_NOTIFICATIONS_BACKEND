@@ -4,16 +4,35 @@ import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.infrastructure.persistance.Entity.NotificationEntity;
 
 /**
- * Mapper entre el modelo de dominio y la "entidad" de persistencia.
- * Aunque actualmente usamos almacenamiento en memoria, este mapper
- * permite mantener la separación de capas.
+ * Mapper entre el modelo de dominio y la entidad de persistencia de notificaciones.
+ *
+ * Aunque actualmente se utilice almacenamiento en memoria, este mapper mantiene
+ * la separación de capas entre dominio e infraestructura, facilitando una futura
+ * migración a una base de datos real sin impactar el modelo de dominio.
+ *
+ * Provee métodos estáticos para convertir:
+ * - De {@link InAppNotification} a {@link NotificationEntity}.
+ * - De {@link NotificationEntity} a {@link InAppNotification}.
+ *
+ * @author RideECI
+ * @version 1.0
  */
 public final class NotificationPersistenceMapper {
 
+    /**
+     * Constructor privado para impedir la instanciación de la clase utility.
+     */
     private NotificationPersistenceMapper() {
-        // Utility class
+
     }
 
+    /**
+     * Convierte una notificación del dominio en su representación de persistencia.
+     *
+     * @param notification Notificación del dominio a convertir.
+     * @return Entidad de persistencia {@link NotificationEntity} correspondiente,
+     *         o {@code null} si {@code notification} es {@code null}.
+     */
     public static NotificationEntity toEntity(InAppNotification notification) {
         if (notification == null) {
             return null;
@@ -35,6 +54,13 @@ public final class NotificationPersistenceMapper {
                 .build();
     }
 
+    /**
+     * Convierte una entidad de persistencia de notificación en el modelo de dominio.
+     *
+     * @param entity Entidad {@link NotificationEntity} a convertir.
+     * @return Instancia de {@link InAppNotification} correspondiente,
+     *         o {@code null} si {@code entity} es {@code null}.
+     */
     public static InAppNotification toDomain(NotificationEntity entity) {
         if (entity == null) {
             return null;
@@ -46,7 +72,6 @@ public final class NotificationPersistenceMapper {
                 .title(entity.getTitle())
                 .message(entity.getMessage())
                 .eventType(entity.getEventType())
-
                 .priority(entity.getPriority())
                 .status(entity.getStatus())
                 .createdAt(entity.getCreatedAt())

@@ -11,20 +11,33 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
 
+/**
+ * Mapper de aplicación para transformar eventos de notificación del dominio
+ * ({@link NotificationEvent}) en notificaciones internas de la app
+ * ({@link InAppNotification}).
+ *
+ * Aplica valores por defecto, construye el título según el tipo de evento
+ * y gestiona las fechas de creación y lectura.
+ *
+ * @author RideECI
+ * @version 1.0
+ */
 @Component
 public class NotificationApplicationMapper {
 
     /**
-     * Mapea un NotificationEvent a un InAppNotification con valores por defecto.
+     * Convierte un {@link NotificationEvent} en una {@link InAppNotification},
+     * aplicando valores por defecto cuando sea necesario.
+     *
+     * @param event Evento de dominio origen de la notificación.
+     * @return Notificación interna mapeada, o {@code null} si {@code event} es {@code null}.
      */
     public InAppNotification toInApp(NotificationEvent event) {
         if (event == null) {
             return null;
         }
 
-
         InAppNotification notification = new InAppNotification();
-
 
         if (event.getEventId() != null && !event.getEventId().isBlank()) {
             notification.setNotificationId(UUID.fromString(event.getEventId()));
@@ -36,13 +49,8 @@ public class NotificationApplicationMapper {
         notification.setTitle(buildTitle(event.getEventType()));
         notification.setMessage(event.getMessage());
         notification.setEventType(event.getEventType());
-
-
         notification.setPriority(String.valueOf(event.getPriority()));
-
-
         notification.setStatus(NotificationStatus.UNREAD);
-
 
         Instant ts = event.getTimestamp() != null ? event.getTimestamp() : Instant.now();
         OffsetDateTime createdAt = OffsetDateTime.ofInstant(ts, ZoneOffset.UTC);
@@ -54,8 +62,13 @@ public class NotificationApplicationMapper {
     }
 
     /**
-     * Sobrecarga usada por InAppNotificationHandler:
-     * permite sobreescribir título y mensaje.
+     * Convierte un {@link NotificationEvent} en una {@link InAppNotification}
+     * permitiendo sobreescribir título y mensaje por defecto.
+     *
+     * @param event           Evento de dominio origen de la notificación.
+     * @param titleOverride   Título personalizado (opcional).
+     * @param messageOverride Mensaje personalizado (opcional).
+     * @return Notificación interna con posibles sobreescrituras, o {@code null} si {@code event} es {@code null}.
      */
     public InAppNotification fromEvent(NotificationEvent event,
                                        String titleOverride,
@@ -75,6 +88,12 @@ public class NotificationApplicationMapper {
         return notification;
     }
 
+    /**
+     * Construye el título de la notificación a partir del tipo de evento.
+     *
+     * @param type Tipo de evento.
+     * @return Título legible para el usuario final.
+     */
     private String buildTitle(EventType type) {
         if (type == null) {
             return "Notification";

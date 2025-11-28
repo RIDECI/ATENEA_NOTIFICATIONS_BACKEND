@@ -15,6 +15,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Controlador REST para la gestión de notificaciones.
+ * Expone endpoints para crear notificaciones, consultar por usuario
+ * y marcar una notificación como leída.
+ *
+ * Orquesta los casos de uso de notificaciones y realiza el mapeo
+ * entre DTOs y el modelo de dominio.
+ *
+ * @author RideECI
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/notifications")
 @RequiredArgsConstructor
@@ -24,6 +35,12 @@ public class NotificationController {
     private final GetUserNotificationsUseCase getUserNotificationsUseCase;
     private final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
 
+    /**
+     * Crea una nueva notificación.
+     *
+     * @param request Datos de la notificación a crear.
+     * @return La notificación creada en formato {@link NotificationResponse}.
+     */
     @PostMapping
     public ResponseEntity<NotificationResponse> createNotification(
             @Valid @RequestBody CreateNotificationRequest request) {
@@ -35,6 +52,12 @@ public class NotificationController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Obtiene las notificaciones asociadas a un usuario.
+     *
+     * @param userId Identificador del usuario.
+     * @return Lista de notificaciones del usuario en formato {@link NotificationResponse}.
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<NotificationResponse>> getUserNotifications(
             @PathVariable UUID userId) {
@@ -49,6 +72,12 @@ public class NotificationController {
         return ResponseEntity.ok(responses);
     }
 
+    /**
+     * Marca una notificación como leída.
+     *
+     * @param notificationId Identificador de la notificación.
+     * @return La notificación actualizada en formato {@link NotificationResponse}.
+     */
     @PatchMapping("/{notificationId}/read")
     public ResponseEntity<NotificationResponse> markAsRead(
             @PathVariable UUID notificationId) {

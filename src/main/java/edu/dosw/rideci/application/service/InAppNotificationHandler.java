@@ -13,6 +13,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Manejador de notificaciones in-app basado en eventos de dominio.
+ * Se suscribe al {@link EventBus} y crea notificaciones internas para ciertos tipos de eventos.
+ *
+ * @author RideECI
+ * @version 1.0
+ */
 @Component
 @RequiredArgsConstructor
 public class InAppNotificationHandler implements NotificationSubscriber {
@@ -24,6 +31,10 @@ public class InAppNotificationHandler implements NotificationSubscriber {
     private final String handlerId = "in-app-notification-handler";
     private final boolean isActive = true;
 
+    /**
+     * Registra este manejador en el {@link EventBus} para los eventos soportados,
+     * siempre y cuando el manejador esté activo.
+     */
     @PostConstruct
     public void register() {
         if (!isActive) {
@@ -32,6 +43,13 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         getSubscribedEvents().forEach(e -> eventBus.subscribe(e, this));
     }
 
+    /**
+     * Procesa un evento de notificación recibido.
+     * Construye un título y mensaje amigables, mapea el evento a una
+     * {@link InAppNotification} y delega su creación al caso de uso.
+     *
+     * @param event Evento de dominio que origina la notificación.
+     */
     @Override
     public void handleEvent(NotificationEvent event) {
         String title = buildTitle(event);
@@ -43,6 +61,11 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         createNotificationUseCase.createNotification(notification);
     }
 
+    /**
+     * Define la lista de tipos de evento a los que este manejador se suscribe.
+     *
+     * @return Lista de tipos de {@link EventType} soportados por este manejador.
+     */
     @Override
     public List<EventType> getSubscribedEvents() {
         return List.of(
@@ -57,11 +80,22 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         );
     }
 
+    /**
+     * Obtiene el identificador único de este manejador de notificaciones.
+     *
+     * @return Nombre del manejador.
+     */
     @Override
     public String getName() {
         return handlerId;
     }
 
+    /**
+     * Construye el título de la notificación en función del tipo de evento.
+     *
+     * @param event Evento de notificación.
+     * @return Título de la notificación en formato legible.
+     */
     private String buildTitle(NotificationEvent event) {
         return switch (event.getEventType()) {
             case TRIP_CREATED -> "New trip created";
@@ -76,8 +110,14 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         };
     }
 
+    /**
+     * Construye el mensaje de la notificación a partir del contenido del evento.
+     * Actualmente utiliza la representación JSON del evento.
+     *
+     * @param event Evento de notificación.
+     * @return Mensaje de la notificación.
+     */
     private String buildMessage(NotificationEvent event) {
-        // ajusta esto según lo que tengas en NotificationEvent
         return event.toJSON();
     }
 }
