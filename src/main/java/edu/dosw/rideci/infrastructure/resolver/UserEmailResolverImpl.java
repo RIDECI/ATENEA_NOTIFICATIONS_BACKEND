@@ -18,6 +18,6 @@ public class UserEmailResolverImpl implements UserEmailResolver {
     @Override
     public String resolveEmail(String userId) {
 
-        return "raseayala@gmail.com";
+        return "raquel.selma-a@mail.escuelaing.edu.co";
     }
 }
