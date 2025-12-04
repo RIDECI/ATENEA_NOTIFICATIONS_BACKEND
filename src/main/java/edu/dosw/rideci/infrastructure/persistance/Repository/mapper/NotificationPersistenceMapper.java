@@ -1,7 +1,5 @@
 package edu.dosw.rideci.infrastructure.persistance.Repository.mapper;
 
-import edu.dosw.rideci.infrastructure.persistance.Entity.NotificationEntity;
-
 /**
  * Mapper entre el modelo de dominio y la "entidad" de persistencia.
  * Aunque actualmente usamos almacenamiento en memoria, este mapper

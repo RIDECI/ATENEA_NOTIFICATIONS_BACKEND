@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 import java.util.List;
 
 @Data
@@ -28,15 +27,16 @@ public class User {
     private List<AppNotification> appNotifications;
     private List<EmailNotification> emailNotifications;
 
+
     public void addAppNotification(AppNotification notification) {
-        if (this.appNotifications != null) {
-            this.appNotifications.add(notification);
+        if (appNotifications != null) {
+            appNotifications.add(notification);
         }
     }
 
     public void addEmailNotification(EmailNotification notification) {
-        if (this.emailNotifications != null) {
-            this.emailNotifications.add(notification);
+        if (emailNotifications != null) {
+            emailNotifications.add(notification);
         }
     }
 }
