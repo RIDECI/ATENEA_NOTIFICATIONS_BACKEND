@@ -1,8 +1,5 @@
 package edu.dosw.rideci.infrastructure.controller.dto.Response;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
-import edu.dosw.rideci.domain.model.Enum.NotificationChannel;
-import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

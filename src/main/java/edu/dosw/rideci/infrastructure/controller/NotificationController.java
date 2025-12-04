@@ -3,7 +3,6 @@ package edu.dosw.rideci.infrastructure.controller;
 import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
 import edu.dosw.rideci.application.port.in.GetUserNotificationsUseCase;
 import edu.dosw.rideci.application.port.in.MarkNotificationAsReadUseCase;
-import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.infrastructure.controller.dto.NotificationDtoMapper;
 import edu.dosw.rideci.infrastructure.controller.dto.Request.CreateNotificationRequest;
 import edu.dosw.rideci.infrastructure.controller.dto.Response.NotificationResponse;

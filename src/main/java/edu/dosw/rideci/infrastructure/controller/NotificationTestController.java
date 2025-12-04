@@ -1,7 +1,6 @@
 package edu.dosw.rideci.infrastructure.controller;
 
 import edu.dosw.rideci.application.port.in.ReceiveExternalEventUseCase;
-import edu.dosw.rideci.domain.model.NotificationEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
