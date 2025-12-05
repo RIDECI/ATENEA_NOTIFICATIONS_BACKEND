@@ -204,7 +204,6 @@ public class RabbitMQConfig {
                 .with(TRAVEL_COMPLETED_ROUTING_KEY);
     }
 
-    // Bindings de comunicación
     @Bean
     public Binding reportCreatedBinding() {
         return BindingBuilder.bind(notificationReportCreatedQueue())
