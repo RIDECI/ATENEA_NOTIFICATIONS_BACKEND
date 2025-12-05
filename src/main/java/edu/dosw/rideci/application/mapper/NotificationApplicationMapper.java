@@ -1,9 +1,5 @@
 package edu.dosw.rideci.application.mapper;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
-import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
-import edu.dosw.rideci.domain.model.InAppNotification;
-import edu.dosw.rideci.domain.model.NotificationEvent;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;

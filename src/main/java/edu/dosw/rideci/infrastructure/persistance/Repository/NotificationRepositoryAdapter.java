@@ -1,7 +1,6 @@
 package edu.dosw.rideci.infrastructure.persistance.Repository;
 
 import edu.dosw.rideci.application.port.out.NotificationRepositoryPort;
-import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.infrastructure.persistance.Entity.NotificationEntity;
 import edu.dosw.rideci.infrastructure.persistance.Repository.mapper.NotificationPersistenceMapper;
 import org.springframework.stereotype.Component;

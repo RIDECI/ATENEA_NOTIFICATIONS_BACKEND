@@ -1,7 +1,5 @@
 package edu.dosw.rideci.infrastructure.persistance.Entity;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
-import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

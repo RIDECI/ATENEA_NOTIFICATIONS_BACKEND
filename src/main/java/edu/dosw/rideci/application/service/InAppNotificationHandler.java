@@ -2,11 +2,6 @@ package edu.dosw.rideci.application.service;
 
 import edu.dosw.rideci.application.mapper.NotificationApplicationMapper;
 import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
-import edu.dosw.rideci.domain.model.Enum.EventType;
-import edu.dosw.rideci.domain.model.InAppNotification;
-import edu.dosw.rideci.domain.model.NotificationEvent;
-import edu.dosw.rideci.domain.service.EventBus;
-import edu.dosw.rideci.domain.service.NotificationSubscriber;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
