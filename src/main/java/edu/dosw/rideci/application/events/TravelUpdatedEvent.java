@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -14,24 +12,12 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TravelCreatedEvent {
+public class TravelUpdatedEvent {
     private String travelId;
-    private Long organizerId;
-    private Long driverId;
-    private Integer availableSlots;
-    private Double estimatedCost;
-    private String status;
-
-    // Objetos flexibles que pueden ser Map o String
     private Object origin;
     private Object destiny;
 
-    private List<Long> passengersId;
-    private String travelType;
-    private LocalDateTime departureDateAndTime;
-    private String conditions;
-
-    // Métodos auxiliares para extraer información
+    // Métodos auxiliares similares a TravelCreatedEvent
     public String getOriginAddress() {
         return extractAddress(origin);
     }

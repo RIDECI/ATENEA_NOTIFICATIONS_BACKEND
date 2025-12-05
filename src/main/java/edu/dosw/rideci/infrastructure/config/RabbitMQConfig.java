@@ -10,11 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    // Exchanges existentes
+    // Exchanges
     public static final String RIDECI_EVENTS_EXCHANGE = "rideci.events.exchange";
     public static final String USER_EXCHANGE = "user.exchange";
-
-    // Exchanges del módulo de comunicación y seguridad
     public static final String TRAVEL_EXCHANGE = "travel.exchange";
     public static final String REPORT_EXCHANGE = "rideci.report.exchange";
     public static final String CONVERSATION_EXCHANGE = "rideci.conversation.exchange";
@@ -25,9 +23,13 @@ public class RabbitMQConfig {
     public static final String NOTIFICATION_USER_QUEUE = "notification.user.queue";
     public static final String DLQ_QUEUE = "rideci.notification.events.dlq";
 
-    // Nuevas queues para comunicación y seguridad
+    // Queues de viajes
     public static final String NOTIFICATION_TRAVEL_CREATED_QUEUE = "notification.travel.created.queue";
+    public static final String NOTIFICATION_TRAVEL_UPDATED_QUEUE = "notification.travel.updated.queue";
+    public static final String NOTIFICATION_TRAVEL_CANCELLED_QUEUE = "notification.travel.cancelled.queue";
     public static final String NOTIFICATION_TRAVEL_COMPLETED_QUEUE = "notification.travel.completed.queue";
+
+    // Queues de comunicación
     public static final String NOTIFICATION_REPORT_CREATED_QUEUE = "notification.report.created.queue";
     public static final String NOTIFICATION_CONVERSATION_CREATED_QUEUE = "notification.conversation.created.queue";
     public static final String NOTIFICATION_MESSAGE_SENT_QUEUE = "notification.message.sent.queue";
@@ -36,9 +38,13 @@ public class RabbitMQConfig {
     public static final String NOTIFICATION_ROUTING_KEY = "events.notification.#";
     public static final String USER_SYNC_FAILED_ROUTING_KEY = "user.sync.failed";
 
-    // Routing keys del módulo de comunicación y seguridad
+    // Routing keys de viajes
     public static final String TRAVEL_CREATED_ROUTING_KEY = "travel.created";
+    public static final String TRAVEL_UPDATED_ROUTING_KEY = "travel.updated";
+    public static final String TRAVEL_CANCELLED_ROUTING_KEY = "travel.cancelled";
     public static final String TRAVEL_COMPLETED_ROUTING_KEY = "travel.completed";
+
+    // Routing keys de comunicación
     public static final String REPORT_CREATED_ROUTING_KEY = "report.created";
     public static final String CONVERSATION_CREATED_ROUTING_KEY = "conversation.created";
     public static final String CHAT_MESSAGE_ROUTING_KEY = "chat.message";
@@ -91,10 +97,26 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    // Nuevas queues para comunicación y seguridad
+    // Queues de viajes
     @Bean
     public Queue notificationTravelCreatedQueue() {
         return QueueBuilder.durable(NOTIFICATION_TRAVEL_CREATED_QUEUE)
+                .withArgument("x-dead-letter-exchange", TRAVEL_EXCHANGE)
+                .withArgument("x-dead-letter-routing-key", DLQ_QUEUE)
+                .build();
+    }
+
+    @Bean
+    public Queue notificationTravelUpdatedQueue() {
+        return QueueBuilder.durable(NOTIFICATION_TRAVEL_UPDATED_QUEUE)
+                .withArgument("x-dead-letter-exchange", TRAVEL_EXCHANGE)
+                .withArgument("x-dead-letter-routing-key", DLQ_QUEUE)
+                .build();
+    }
+
+    @Bean
+    public Queue notificationTravelCancelledQueue() {
+        return QueueBuilder.durable(NOTIFICATION_TRAVEL_CANCELLED_QUEUE)
                 .withArgument("x-dead-letter-exchange", TRAVEL_EXCHANGE)
                 .withArgument("x-dead-letter-routing-key", DLQ_QUEUE)
                 .build();
@@ -108,6 +130,7 @@ public class RabbitMQConfig {
                 .build();
     }
 
+    // Queues de comunicación
     @Bean
     public Queue notificationReportCreatedQueue() {
         return QueueBuilder.durable(NOTIFICATION_REPORT_CREATED_QUEUE)
@@ -152,12 +175,26 @@ public class RabbitMQConfig {
                 .with(USER_SYNC_FAILED_ROUTING_KEY);
     }
 
-    // Nuevos bindings para comunicación y seguridad
+    // Bindings de viajes
     @Bean
     public Binding travelCreatedBinding() {
         return BindingBuilder.bind(notificationTravelCreatedQueue())
                 .to(travelExchange())
                 .with(TRAVEL_CREATED_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding travelUpdatedBinding() {
+        return BindingBuilder.bind(notificationTravelUpdatedQueue())
+                .to(travelExchange())
+                .with(TRAVEL_UPDATED_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding travelCancelledBinding() {
+        return BindingBuilder.bind(notificationTravelCancelledQueue())
+                .to(travelExchange())
+                .with(TRAVEL_CANCELLED_ROUTING_KEY);
     }
 
     @Bean
@@ -167,6 +204,7 @@ public class RabbitMQConfig {
                 .with(TRAVEL_COMPLETED_ROUTING_KEY);
     }
 
+    // Bindings de comunicación
     @Bean
     public Binding reportCreatedBinding() {
         return BindingBuilder.bind(notificationReportCreatedQueue())
