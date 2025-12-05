@@ -4,10 +4,13 @@ import edu.dosw.rideci.domain.model.Enum.EmailSendStatus;
 import edu.dosw.rideci.domain.model.Enum.EmailType;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,28 +18,43 @@ import java.time.LocalDateTime;
 @Document(collection = "email_notifications")
 public class EmailNotificationEntity {
 
+
     @Id
     private String id;
 
-    @Field("user_id")
-    private String userId;  // Solo ID
+    @DBRef
+    private UserEntity user;
 
-    @Field("email_type")
+    @Field("tipo_email")
     private EmailType emailType;
 
-    private String content;
+    @Setter
+    @Field("asunto")
+    private String subject;
 
+    @Field("contenido")
+    private String emailBody;
+
+    @Setter
+    @Field("timestamp")
     private LocalDateTime timestamp;
 
-    @Field("send_status")
+    @Setter
+    @Field("estado_envio")
     private EmailSendStatus sendStatus;
 
+    @Setter
+    @Field("error")
     private String error;
 
-    // Campos de auditoría
-    @Field("created_at")
-    private LocalDateTime createdAt;
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 
-    @Field("updated_at")
-    private LocalDateTime updatedAt;
+    public void setEmailType(EmailType emailType) {
+        this.emailType = emailType; }
+
+    public void setContenido(String contenido) {
+        this.emailBody = contenido; }
+
 }

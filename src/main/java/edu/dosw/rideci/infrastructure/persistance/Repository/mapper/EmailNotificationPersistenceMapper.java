@@ -2,50 +2,80 @@ package edu.dosw.rideci.infrastructure.persistance.Repository.mapper;
 
 import edu.dosw.rideci.domain.model.EmailNotification;
 import edu.dosw.rideci.infrastructure.persistance.Entity.EmailNotificationEntity;
+import edu.dosw.rideci.infrastructure.persistance.Entity.UserEntity;
 import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 @Component
 public class EmailNotificationPersistenceMapper {
 
     public EmailNotificationEntity toEntity(EmailNotification domain) {
-        if (domain == null) return null;
+        if (domain == null) {
+            return null;
+        }
+
+        UserEntity userEntity = null;
+        if (domain.getUser() != null && domain.getUser().getId() != null) {
+            userEntity = UserEntity.builder()
+                    .id(domain.getUser().getId())
+                    .build();
+        }
+
+        LocalDateTime ts = domain.getTimestamp() != null
+                ? domain.getTimestamp()
+                : LocalDateTime.now();
 
         return EmailNotificationEntity.builder()
                 .id(domain.getId())
-                .userId(domain.getUser() != null ? domain.getUser().getId() : null)
+                .user(userEntity)
                 .emailType(domain.getEmailType())
-                .content(domain.getContent())
-                .timestamp(domain.getTimestamp())
+                .subject(domain.getSubject())
+                .emailBody(domain.getEmailBody())
+                .timestamp(ts)
                 .sendStatus(domain.getSendStatus())
                 .error(domain.getError())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
     }
 
     public EmailNotification toDomain(EmailNotificationEntity entity) {
-        if (entity == null) return null;
+        if (entity == null) {
+            return null;
+        }
 
         return EmailNotification.builder()
                 .id(entity.getId())
+
                 .emailType(entity.getEmailType())
-                .content(entity.getContent())
+                .subject(entity.getSubject())
+                .emailBody(entity.getEmailBody())
                 .timestamp(entity.getTimestamp())
                 .sendStatus(entity.getSendStatus())
                 .error(entity.getError())
                 .build();
     }
 
-    public EmailNotificationEntity updateEntityFromDomain(EmailNotificationEntity entity, EmailNotification domain) {
-        if (entity == null || domain == null) return entity;
+    public EmailNotificationEntity updateEntityFromDomain(
+            EmailNotificationEntity entity,
+            EmailNotification domain
+    ) {
+        if (entity == null || domain == null) {
+            return entity;
+        }
 
+        UserEntity userEntity = null;
+        if (domain.getUser() != null && domain.getUser().getId() != null) {
+            userEntity = UserEntity.builder()
+                    .id(domain.getUser().getId())
+                    .build();
+        }
+
+        entity.setUser(userEntity);
         entity.setEmailType(domain.getEmailType());
-        entity.setContent(domain.getContent());
+        entity.setSubject(domain.getSubject());
         entity.setTimestamp(domain.getTimestamp());
         entity.setSendStatus(domain.getSendStatus());
         entity.setError(domain.getError());
-        entity.setUpdatedAt(LocalDateTime.now());
 
         return entity;
     }

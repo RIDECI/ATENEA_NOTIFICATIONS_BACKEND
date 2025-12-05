@@ -1,13 +1,24 @@
 package edu.dosw.rideci.infrastructure.controller;
 
+import edu.dosw.rideci.application.port.in.CreateEmergencyBroadcastUseCase;
+import edu.dosw.rideci.application.port.in.FilterNotificationsUseCase;
+import edu.dosw.rideci.application.port.in.GetCategoryNotificationsByDayUseCase;
+import edu.dosw.rideci.application.port.in.GetRecentNotificationsUseCase;
+import edu.dosw.rideci.application.port.in.SendEmailNotificationUseCase;
+import edu.dosw.rideci.domain.model.AppNotification;
+import edu.dosw.rideci.domain.model.Enum.Category;
 import edu.dosw.rideci.infrastructure.controller.dto.NotificationDtoMapper;
 import edu.dosw.rideci.infrastructure.controller.dto.Request.CreateNotificationRequest;
+import edu.dosw.rideci.infrastructure.controller.dto.Request.EmailNotificationRequest;
 import edu.dosw.rideci.infrastructure.controller.dto.Response.NotificationResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,27 +27,52 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final CreateNotificationUseCase createNotificationUseCase;
-    private final GetUserNotificationsUseCase getUserNotificationsUseCase;
-    private final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
+    private final CreateEmergencyBroadcastUseCase createEmergencyBroadcastUseCase;
+    private final FilterNotificationsUseCase filterNotificationsUseCase;
+    private final GetCategoryNotificationsByDayUseCase getCategoryNotificationsByDayUseCase;
+    private final GetRecentNotificationsUseCase getRecentNotificationsUseCase;
+    private final SendEmailNotificationUseCase sendEmailNotificationUseCase;
 
-    @PostMapping
-    public ResponseEntity<NotificationResponse> createNotification(
+    @PostMapping("/emergency-broadcast")
+    public ResponseEntity<List<NotificationResponse>> createEmergencyBroadcast(
             @Valid @RequestBody CreateNotificationRequest request) {
 
-        InAppNotification domain = NotificationDtoMapper.toDomain(request);
-        InAppNotification created = createNotificationUseCase.createNotification(domain);
-        NotificationResponse response = NotificationDtoMapper.toResponse(created);
+        CreateEmergencyBroadcastUseCase.CreateEmergencyBroadcastCommand command =
+                new CreateEmergencyBroadcastUseCase.CreateEmergencyBroadcastCommand(
+                        request.getMessage(),
+                        request.getCategory(),
+                        request.getTargetUserIds(),
+                        request.getPriorityLevel()
+                );
 
-        return ResponseEntity.ok(response);
+        List<AppNotification> created = createEmergencyBroadcastUseCase
+                .createEmergencyBroadcast(command);
+
+        List<NotificationResponse> responses = created.stream()
+                .map(NotificationDtoMapper::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<NotificationResponse>> getUserNotifications(
-            @PathVariable UUID userId) {
+    @GetMapping("/filter")
+    public ResponseEntity<List<NotificationResponse>> filterNotifications(
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate,
+            @RequestParam(required = false) Category category,
+            @RequestParam String userId) {
 
-        List<InAppNotification> notifications =
-                getUserNotificationsUseCase.getNotificationsByUserId(userId);
+        FilterNotificationsUseCase.FilterNotificationsCommand command =
+                new FilterNotificationsUseCase.FilterNotificationsCommand(
+                        startDate, endDate, category, userId
+                );
+
+        List<AppNotification> notifications =
+                filterNotificationsUseCase.filterNotifications(command);
 
         List<NotificationResponse> responses = notifications.stream()
                 .map(NotificationDtoMapper::toResponse)
@@ -45,13 +81,57 @@ public class NotificationController {
         return ResponseEntity.ok(responses);
     }
 
-    @PatchMapping("/{notificationId}/read")
-    public ResponseEntity<NotificationResponse> markAsRead(
-            @PathVariable UUID notificationId) {
+    @GetMapping("/category-by-day")
+    public ResponseEntity<List<NotificationResponse>> getCategoryNotificationsByDay(
+            @RequestParam Category category,
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date,
+            @RequestParam String userId) {
 
-        InAppNotification updated = markNotificationAsReadUseCase.markAsRead(notificationId);
-        NotificationResponse response = NotificationDtoMapper.toResponse(updated);
+        GetCategoryNotificationsByDayUseCase.GetCategoryNotificationsByDayCommand command =
+                new GetCategoryNotificationsByDayUseCase.GetCategoryNotificationsByDayCommand(
+                        category, date, userId
+                );
 
-        return ResponseEntity.ok(response);
+        List<AppNotification> notifications =
+                getCategoryNotificationsByDayUseCase.getCategoryNotificationsByDay(command);
+
+        List<NotificationResponse> responses = notifications.stream()
+                .map(NotificationDtoMapper::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/recent")
+    public ResponseEntity<List<NotificationResponse>> getRecentNotifications(
+            @RequestParam int limit,
+            @RequestParam String userId) {
+
+        GetRecentNotificationsUseCase.GetRecentNotificationsCommand command =
+                new GetRecentNotificationsUseCase.GetRecentNotificationsCommand(limit, userId);
+
+        List<AppNotification> notifications =
+                getRecentNotificationsUseCase.getRecentNotifications(command);
+
+        List<NotificationResponse> responses = notifications.stream()
+                .map(NotificationDtoMapper::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity<Void> sendEmailNotification(
+            @Valid @RequestBody EmailNotificationRequest request) {
+
+        sendEmailNotificationUseCase.sendEmail(
+                UUID.fromString(request.getUserId()),
+                request.getEmailType(),
+                request.getTemplateData()
+        );
+
+        return ResponseEntity.accepted().build();
     }
 }

@@ -19,7 +19,7 @@ public class AppNotificationEntity {
     private String id;
 
     @Field("user_id")
-    private String userId;  // Solo ID, no objeto completo
+    private String userId;
 
     @Field("message_type")
     private MessageType messageType;
@@ -33,7 +33,6 @@ public class AppNotificationEntity {
     @Field("is_read")
     private boolean read;
 
-    // Campos de auditoría
     @Field("created_at")
     private LocalDateTime createdAt;
 
