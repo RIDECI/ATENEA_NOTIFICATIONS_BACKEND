@@ -1,5 +1,6 @@
 package edu.dosw.rideci.infrastructure.persistance.Repository.mapper;
 
+import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.infrastructure.persistance.Entity.NotificationEntity;
 
 /**

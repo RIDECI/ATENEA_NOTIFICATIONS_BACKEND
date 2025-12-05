@@ -2,6 +2,9 @@ package edu.dosw.rideci.infrastructure.messaging;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.NotificationEvent;
+import edu.dosw.rideci.domain.service.EventBus;
 import edu.dosw.rideci.infrastructure.config.RabbitMQConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

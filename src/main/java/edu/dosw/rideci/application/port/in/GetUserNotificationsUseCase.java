@@ -1,5 +1,7 @@
 package edu.dosw.rideci.application.port.in;
 
+import edu.dosw.rideci.domain.model.InAppNotification;
+
 import java.util.List;
 import java.util.UUID;
 
