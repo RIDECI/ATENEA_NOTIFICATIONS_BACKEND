@@ -1,8 +1,9 @@
 # 👨‍💼  ATENEA_NOTIFICATIONS_BACKEND
 
-It centralizes the sending and management of notifications from the RIDECI ecosystem,
-allowing the mobility, institutional security, and administration modules to
-send in-app messages and emails in a unified, reliable, and traceable manner to users.
+Centraliza el envío y gestión de notificaciones del ecosistema RIDECI,
+permitiendo a los módulos de movilidad, seguridad institucional y administración
+enviar mensajes in-app y correos electrónicos de forma unificada, confiable y
+trazable a los usuarios.
 
 ## 👥 Developers
 * Raquel Iveth Selma Alaya  
