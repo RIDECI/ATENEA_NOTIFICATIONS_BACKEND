@@ -12,4 +12,8 @@ public class UserCreatedEvent {
     private String email;
     private String phoneNumber;
     private String role;
+
+    public UserCreatedEvent() {
+        this.timestamp = LocalDateTime.now();
+    }
 }

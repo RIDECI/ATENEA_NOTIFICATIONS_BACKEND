@@ -43,7 +43,7 @@ public class GetCategoryNotificationsByDayService implements GetCategoryNotifica
 
         return filteredNotifications.stream()
                 .filter(notification -> !notification.getTimestamp().isBefore(startOfDay)
-                        && !notification.getTimestamp().isBefore(endOfDay))
+                        && !notification.getTimestamp().isAfter(endOfDay))
                 .collect(Collectors.toList());
     }
 }
