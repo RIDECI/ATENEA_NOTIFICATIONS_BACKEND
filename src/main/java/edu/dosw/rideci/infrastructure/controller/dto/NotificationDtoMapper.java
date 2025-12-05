@@ -1,5 +1,6 @@
 package edu.dosw.rideci.infrastructure.controller.dto;
 
+import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.infrastructure.controller.dto.Request.CreateNotificationRequest;
 import edu.dosw.rideci.infrastructure.controller.dto.Response.NotificationResponse;
 

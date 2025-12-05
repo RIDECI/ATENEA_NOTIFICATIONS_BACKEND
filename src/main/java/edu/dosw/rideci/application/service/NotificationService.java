@@ -4,6 +4,8 @@ import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
 import edu.dosw.rideci.application.port.in.GetUserNotificationsUseCase;
 import edu.dosw.rideci.application.port.in.MarkNotificationAsReadUseCase;
 import edu.dosw.rideci.application.port.out.NotificationRepositoryPort;
+import edu.dosw.rideci.domain.model.InAppNotification;
+import edu.dosw.rideci.domain.service.NotificationDomainService;
 import edu.dosw.rideci.exceptions.NotificationNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
