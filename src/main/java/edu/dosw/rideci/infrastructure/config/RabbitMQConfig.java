@@ -49,6 +49,11 @@ public class RabbitMQConfig {
     public static final String CONVERSATION_CREATED_ROUTING_KEY = "conversation.created";
     public static final String CHAT_MESSAGE_ROUTING_KEY = "chat.message";
 
+    // Routing key de restablecimiento de contraseña
+    public static final String PASSWORD_EXCHANGE = "rideci.password.exchange";
+    public static final String NOTIFICATION_PASSWORD_RESET_QUEUE = "notification.password.reset.queue";
+    public static final String PASSWORD_RESET_ROUTING_KEY = "password.reset";
+
     // Exchanges
     @Bean
     public TopicExchange rideciEventsExchange() {
@@ -79,6 +84,12 @@ public class RabbitMQConfig {
     public TopicExchange chatExchange() {
         return new TopicExchange(CHAT_EXCHANGE, true, false);
     }
+
+    @Bean
+    public TopicExchange passwordExchange() {
+        return new TopicExchange(PASSWORD_EXCHANGE, true, false);
+    }
+
 
     // Queues existentes
     @Bean
@@ -160,6 +171,16 @@ public class RabbitMQConfig {
         return QueueBuilder.durable(DLQ_QUEUE).build();
     }
 
+    // Queue de restablecimiento de contraseña
+    @Bean
+    public Queue notificationPasswordResetQueue() {
+        return QueueBuilder.durable(NOTIFICATION_PASSWORD_RESET_QUEUE)
+                .withArgument("x-dead-letter-exchange", PASSWORD_EXCHANGE)
+                .withArgument("x-dead-letter-routing-key", DLQ_QUEUE)
+                .build();
+    }
+
+
     // Bindings existentes
     @Bean
     public Binding notificationEventsBinding() {
@@ -235,5 +256,13 @@ public class RabbitMQConfig {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
+    }
+
+    // Binding de restablecimiento de contraseña
+    @Bean
+    public Binding passwordResetBinding() {
+        return BindingBuilder.bind(notificationPasswordResetQueue())
+                .to(passwordExchange())
+                .with(PASSWORD_RESET_ROUTING_KEY);
     }
 }

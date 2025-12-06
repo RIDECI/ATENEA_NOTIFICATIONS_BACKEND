@@ -22,7 +22,6 @@ public class TravelCreatedEvent {
     private Double estimatedCost;
     private String status;
 
-    // Objetos flexibles que pueden ser Map o String
     private Object origin;
     private Object destiny;
 
@@ -31,7 +30,7 @@ public class TravelCreatedEvent {
     private LocalDateTime departureDateAndTime;
     private String conditions;
 
-    // Métodos auxiliares para extraer información
+
     public String getOriginAddress() {
         return extractAddress(origin);
     }

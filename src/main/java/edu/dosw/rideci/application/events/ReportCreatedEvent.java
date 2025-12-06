@@ -13,7 +13,6 @@ public class ReportCreatedEvent {
     private Long tripId;
     private String type;
 
-    // En lugar de Location, usar campos separados
     private Double locationLatitude;
     private Double locationLongitude;
     private String locationAddress;
