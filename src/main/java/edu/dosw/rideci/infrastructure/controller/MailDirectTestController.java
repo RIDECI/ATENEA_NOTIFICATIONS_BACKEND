@@ -15,17 +15,21 @@ public class MailDirectTestController {
 
     private final JavaMailSender mailSender;
 
+    // ============================
+    // PRUEBA COMPLETA CON DEBUG
+    // ============================
     @PostMapping("/debug-full")
     public ResponseEntity<String> sendDebugFull() {
-        String to = "juanandrade.jaja@gmail.com";
-        String from = "ridecicvdsdosw@gmail.com";
 
-        log.info(">>> [DEBUG-FULL] Iniciando prueba COMPLETA de Mailjet");
+        String to = "juanpablonietocortes32@gmail.com";
+        String from = "rideci-email@rideci.online";
+
+        log.info(">>> [ZOHO-DEBUG] Iniciando prueba COMPLETA Zoho SMTP");
         log.info(">>> Destinatario: {}", to);
         log.info(">>> Remitente: {}", from);
 
         try {
-            // 1. Obtener configuración actual
+            // Mostrar configuración actual del SMTP cargado por Spring
             org.springframework.mail.javamail.JavaMailSenderImpl mailSenderImpl =
                     (org.springframework.mail.javamail.JavaMailSenderImpl) mailSender;
 
@@ -36,71 +40,72 @@ public class MailDirectTestController {
             log.info(">>>   Protocol: {}", mailSenderImpl.getProtocol());
             log.info(">>>   JavaMail Properties: {}", mailSenderImpl.getJavaMailProperties());
 
-            // 2. Enviar email con try-catch detallado
+            // Construir correo
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(to);
-            message.setSubject("[DEBUG] Prueba Mailjet - " + System.currentTimeMillis());
+            message.setFrom(from);
+            message.setSubject("[DEBUG] Prueba Zoho SMTP - " + System.currentTimeMillis());
             message.setText(
-                    "DEBUG EMAIL\n\n" +
+                    "Prueba completa de Zoho SMTP\n\n" +
                             "Timestamp: " + java.time.Instant.now() + "\n" +
                             "From: " + from + "\n" +
                             "To: " + to + "\n" +
-                            "API Key: bad07fb30f57586ed3f33c44f1c18538\n" +
                             "Este es un email de prueba para debug."
             );
-            message.setFrom(from);
 
-            log.info(">>> [DEBUG-FULL] Intentando enviar email...");
+            log.info(">>> [ZOHO-DEBUG] Enviando email...");
             mailSender.send(message);
-            log.info(">>> [DEBUG-FULL] mailSender.send() completado sin excepciones");
+            log.info(">>> [ZOHO-DEBUG] Email enviado SIN errores");
 
             return ResponseEntity.ok(
-                    "✅ mailSender.send() completado sin excepciones.\n" +
-                            "Revisa los logs DEBUG para ver la conversación SMTP.\n" +
-                            "Luego ve a Mailjet Dashboard → Transactional → Emails para ver el estado."
+                    "✅ Email enviado correctamente.\n" +
+                            "Revisa tu correo: " + to
             );
 
         } catch (Exception e) {
-            log.error(">>> [DEBUG-FULL] ERROR COMPLETO:", e);
+            log.error(">>> [ZOHO-DEBUG] ERROR COMPLETO:", e);
             return ResponseEntity.status(500)
-                    .body("❌ Error completo:\n" +
+                    .body("❌ Error al enviar correo:\n" +
                             "Clase: " + e.getClass().getName() + "\n" +
-                            "Mensaje: " + e.getMessage() + "\n" +
-                            "Causa: " + (e.getCause() != null ? e.getCause().getMessage() : "null"));
+                            "Mensaje: " + e.getMessage());
         }
     }
 
+
+    // ============================
+    // PRUEBA SIMPLE
+    // ============================
     @PostMapping
     public ResponseEntity<String> sendTestMail() {
-        String to = "juanandrade.jaja@gmail.com";
-        log.info(">>> Enviando correo de prueba a {} usando Mailjet", to);
-        log.info(">>> Remitente VERIFICADO: ridecicvdsdosw@gmail.com");
+
+        String to = "juanpablonietocortes32@gmail.com";
+        String from = "rideci-email@rideci.online";
+
+        log.info(">>> Enviando correo de prueba a {}", to);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
-        message.setSubject("🚀 Mailjet Configurado - ATENEA");
+        message.setFrom(from);
+        message.setSubject("🚀 Zoho SMTP funcionando - ATENEA");
         message.setText(
                 "Hola Juan,\n\n" +
-                        "¡Excelente! Has configurado Mailjet correctamente.\n\n" +
+                        "Zoho SMTP está funcionando correctamente desde tu backend ATENEA.\n\n" +
                         "Detalles:\n" +
-                        "- Remitente: ridecicvdsdosw@gmail.com\n" +
-                        "- API Key: bad07fb30f57586ed3f33c44f1c18538\n" +
-                        "- Aplicación: ATENEA_NOTIFICATIONS_BACKEND\n\n" +
-                        "Ahora puedes desplegar tu aplicación en cualquier servidor.\n\n" +
-                        "Saludos,\nEquipo ATENEA"
+                        "- Remitente: " + from + "\n" +
+                        "- Destinatario: " + to + "\n\n" +
+                        "Todo listo para enviar notificaciones reales.\n\n" +
+                        "Saludos,\nATENEA Notifications"
         );
-
-        // USAR EL EMAIL VERIFICADO EN MAILJET
-        message.setFrom("ridecicvdsdosw@gmail.com");
 
         try {
             mailSender.send(message);
             log.info(">>> Correo enviado exitosamente");
-            return ResponseEntity.ok("✅ Correo enviado a juanandrade.jaja@gmail.com desde ridecicvdsdosw@gmail.com");
+            return ResponseEntity.ok("✅ Correo enviado a " + to);
         } catch (Exception e) {
             log.error(">>> Error: {}", e.getMessage(), e);
             return ResponseEntity.status(500)
-                    .body("❌ Error: " + e.getMessage());
+                    .body("❌ Error enviando correo: " + e.getMessage());
         }
     }
+
 }
