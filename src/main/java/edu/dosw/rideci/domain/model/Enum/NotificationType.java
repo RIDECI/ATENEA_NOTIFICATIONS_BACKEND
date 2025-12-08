@@ -51,6 +51,7 @@ public enum NotificationType {
     /** Viaje completado. (RF-NOT-003) */
     TRIP_COMPLETED,
 
+
     /** Desviación de ruta detectada respecto a la estimada. (RF-NOT-004, Módulo 4) */
     ROUTE_DEVIATION_DETECTED,
 
@@ -65,6 +66,9 @@ public enum NotificationType {
 
     /** Pago fallido. (Módulo 3) */
     PAYMENT_FAILED,
+
+    /** Recuperación de contraseña o cuenta solicitada por el usuario. (RF-NOT-008) */
+    PASSWORD_RECOVERY,
 
     /** Alerta relacionada con la ubicación (por ejemplo, zonas de riesgo). */
     LOCATION_ALERT,
