@@ -532,7 +532,7 @@ public class EmailTemplateService {
     public String buildAccountSuspensionEmail(SendEmailNotificationUseCase.SendEmailNotificationCommand command) {
         UUID userId = command.userId();
         String reason = command.reason();
-        boolean permanent = true; // ajusta según tu lógica
+        boolean permanent = true;
 
         return buildAccountSuspensionEmail(userId, reason, permanent);
     }

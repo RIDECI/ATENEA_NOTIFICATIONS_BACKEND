@@ -92,4 +92,8 @@ public class InAppNotification {
     public String getDisplayMessage() {
         return title + " - " + message;
     }
+
+    public Object getId() {
+        return this.notificationId;
+    }
 }
