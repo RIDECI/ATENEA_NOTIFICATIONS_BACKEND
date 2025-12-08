@@ -536,4 +536,95 @@ public class EmailTemplateService {
 
         return buildAccountSuspensionEmail(userId, reason, permanent);
     }
+
+
+    /**
+     * Plantilla para correos de broadcast administrativo / eventos extraordinarios.
+     *
+     * Los campos (título, mensaje, motivo, tipo, prioridad, fecha, etc.) los arma
+     * el módulo de administración; aquí solo se formatea el HTML.
+     *
+     * @param userName            Nombre del destinatario (o "Usuario" si no lo tienes).
+     * @param appName             Nombre de la aplicación (RideECI, Atenea, etc.).
+     * @param title               Título lógico del broadcast (ej: "Alerta de seguridad").
+     * @param mainMessage         Mensaje principal que verá el usuario.
+     * @param reason              Motivo o contexto de por qué se envía este broadcast.
+     * @param broadcastTypeLabel  Texto amigable del tipo de broadcast
+     *                             (ej: "EMERGENCY", "SYSTEM_ANNOUNCEMENT"... ya convertido a texto).
+     * @param priorityLabel       Texto de prioridad (ej: "ALTA", "MEDIA", "BAJA").
+     * @param createdAt           Momento en que se generó este broadcast.
+     * @return                    HTML listo para enviar como cuerpo del correo.
+     */
+    public String buildAdminBroadcastEmail(
+            String userName,
+            String appName,
+            String title,
+            String mainMessage,
+            String reason,
+            String broadcastTypeLabel,
+            String priorityLabel,
+            OffsetDateTime createdAt
+    ) {
+        String safeUserName = (userName != null && !userName.isBlank()) ? userName : "Usuario";
+        String safeAppName  = (appName != null && !appName.isBlank()) ? appName : defaultAppName();
+
+        String reasonBlock = (reason != null && !reason.isBlank())
+                ? "<p><strong>Motivo del mensaje:</strong> " + reason + "</p>"
+                : "";
+
+        String typeBlock = (broadcastTypeLabel != null && !broadcastTypeLabel.isBlank())
+                ? "<li><strong>Tipo de aviso:</strong> " + broadcastTypeLabel + "</li>"
+                : "";
+
+        String priorityBlock = (priorityLabel != null && !priorityLabel.isBlank())
+                ? "<li><strong>Prioridad:</strong> " + priorityLabel + "</li>"
+                : "";
+
+        String dateBlock = (createdAt != null)
+                ? "<li><strong>Fecha del aviso:</strong> " + createdAt.toString() + "</li>"
+                : "";
+
+        return """
+            <html>
+              <body>
+                <p>Hola %s,</p>
+                <p>
+                  Has recibido un <strong>aviso importante</strong> de la administraci&oacute;n
+                  de <strong>%s</strong>.
+                </p>
+                <p><strong>%s</strong></p>
+                <p>%s</p>
+                %s
+                <p><strong>Detalles del aviso:</strong></p>
+                <ul>
+                  %s
+                  %s
+                  %s
+                </ul>
+                <p>
+                  Este mensaje fue generado por el m&oacute;dulo de administraci&oacute;n
+                  para informar sobre un evento extraordinario en la plataforma.
+                </p>
+                <p>
+                  Si tienes dudas, por favor contacta a soporte desde la aplicaci&oacute;n.
+                </p>
+                <p>
+                  Saludos,<br/>
+                  El equipo de %s
+                </p>
+              </body>
+            </html>
+            """.formatted(
+                safeUserName,
+                safeAppName,
+                title != null ? title : "Aviso administrativo",
+                mainMessage != null ? mainMessage : "",
+                reasonBlock,
+                typeBlock,
+                priorityBlock,
+                dateBlock,
+                safeAppName
+        );
+    }
+
 }

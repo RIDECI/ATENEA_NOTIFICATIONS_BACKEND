@@ -17,6 +17,18 @@ public class UserEmailResolverImpl implements UserEmailResolver {
 
     @Override
     public String resolveEmail(String userId) {
+        if ("Raquel".equalsIgnoreCase(userId)) {
+            return "raquel.selma-a@mail.escuelaing.edu.co";
+        }
+        if ("Juan".equalsIgnoreCase(userId)) {
+            return "juan.nieto.co@mail.escuelaing.edu.co";
+        }
+        if ("Néstor".equalsIgnoreCase(userId)) {
+            return "Nestor.lopez-c@mail.escuelaing.edu.co";
+        }
+        if ("Robinson".equalsIgnoreCase(userId)) {
+            return "Robinson.nunez-p@mail.escuelaing.edu.co";
+        }
 
         return "raquel.selma-a@mail.escuelaing.edu.co";
     }
