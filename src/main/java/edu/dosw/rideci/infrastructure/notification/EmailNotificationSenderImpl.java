@@ -35,11 +35,7 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
 
             helper.setTo(destinationEmail);
             helper.setSubject(buildSubject(notification));
-
-            // IMPORTANTE: true = contenido HTML
             helper.setText(buildBody(notification), true);
-
-            // Opcional: cambia esto si quieres usar otro remitente
             helper.setFrom("rideci-email@rideci.online");
 
             mailSender.send(mimeMessage);
@@ -57,10 +53,9 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
     private String buildSubject(InAppNotification notification) {
         String title = notification.getTitle();
         if (title == null || title.isBlank()) {
-            // fallback por si viene vacío
-            return "[RideECI] Notificación";
+            return "Notificación";
         }
-        return "[RideECI] " + title;
+        return title;
     }
 
     /**
@@ -70,7 +65,6 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
     private String buildBody(InAppNotification notification) {
         String message = notification.getMessage();
         if (message == null || message.isBlank()) {
-            // Fallback mínimo si por algún motivo viene vacío
             return """
                 <html>
                   <body>

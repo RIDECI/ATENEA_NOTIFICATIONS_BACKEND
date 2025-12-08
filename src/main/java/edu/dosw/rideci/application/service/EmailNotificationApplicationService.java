@@ -33,55 +33,55 @@ public class EmailNotificationApplicationService implements SendEmailNotificatio
 
             // 1) Recuperación de contraseña/cuenta
             case PASSWORD_RECOVERY -> {
-                subject = "[RideECI] Recuperación de contraseña";
+                subject = "Recuperación de contraseña";
                 body = templateService.buildPasswordRecoveryEmail(command);
             }
 
             // 2) Registro exitoso y verificación de cuenta
             case USER_REGISTERED -> {
-                subject = "[RideECI] Registro exitoso y verificación de cuenta";
+                subject = "Registro exitoso y verificación de cuenta";
                 body = templateService.buildRegistrationVerificationEmail(command);
             }
 
             // 3) Aprobación / rechazo de verificación de conductor
             case DRIVER_VALIDATED -> {
-                subject = "[RideECI] Resultado de verificación de conductor";
+                subject = "Resultado de verificación de conductor";
                 body = templateService.buildDriverVerificationResultEmail(command);
             }
 
             // 4) Confirmación de reserva de viaje
             case TRIP_CREATED -> {
-                subject = "[RideECI] Confirmación de reserva de viaje";
+                subject = "Confirmación de reserva de viaje";
                 body = templateService.buildTripBookingConfirmationEmail(command);
             }
 
             // 5) Cancelación o modificación de viaje
             case TRIP_UPDATED, TRIP_CANCELLED -> {
-                subject = "[RideECI] Actualización de tu viaje";
+                subject = "Actualización de tu viaje";
                 body = templateService.buildTripUpdateEmail(command);
             }
 
             // 6) Recordatorio de viaje próximo
             case UPCOMING_TRIP_REMINDER -> {
-                subject = "[RideECI] Recordatorio de viaje próximo";
+                subject = "Recordatorio de viaje próximo";
                 body = templateService.buildTripReminderEmail(command);
             }
 
             // 7) Confirmación de pago recibido/completado
             case PAYMENT_CONFIRMED-> {
-                subject = "[RideECI] Confirmación de pago";
+                subject = "Confirmación de pago";
                 body = templateService.buildPaymentConfirmationEmail(command);
             }
 
             // 8) Alerta de activación del botón de emergencia
             case EMERGENCY_ALERT -> {
-                subject = "[RideECI] Alerta de emergencia";
+                subject = "Alerta de emergencia";
                 body = templateService.buildEmergencyAlertEmail(command);
             }
 
             // 9) Aviso de suspensión o bloqueo de cuenta
             case ACCOUNT_SUSPENDED -> {
-                subject = "[RideECI] Aviso de suspensión o bloqueo de cuenta";
+                subject = "Aviso de suspensión o bloqueo de cuenta";
                 body = templateService.buildAccountSuspensionEmail(command);
             }
 
