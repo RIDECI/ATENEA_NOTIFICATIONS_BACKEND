@@ -1,6 +1,6 @@
 package edu.dosw.rideci.infrastructure.controller.dto.Request;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.Enum.NotificationChannel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ public class CreateNotificationRequest {
 
     /** Tipo de evento asociado a la notificación. */
     @NotNull
-    private EventType eventType;
+    private NotificationType eventType;
 
     /** Canal por el cual se enviará la notificación (email, push, in-app, etc.). */
     @NotNull

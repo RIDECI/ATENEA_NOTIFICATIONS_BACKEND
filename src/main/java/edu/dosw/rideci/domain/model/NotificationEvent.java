@@ -2,13 +2,14 @@ package edu.dosw.rideci.domain.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+
 
 /**
  * Evento de dominio utilizado para disparar notificaciones en RideECI.
@@ -17,8 +18,8 @@ import java.time.Instant;
  * Contiene información del tipo de evento, origen, usuario afectado,
  * mensaje, prioridad, marca de tiempo y un payload adicional.
  *
- * @author RideECI
- * @version 1.0
+ * Además, puede transportar una {@link InAppNotification} completa
+ * cuando el evento está relacionado con la creación de notificaciones.
  */
 @Data
 @NoArgsConstructor
@@ -30,12 +31,12 @@ public class NotificationEvent {
     private String eventId;
 
     /** Tipo de evento que ocurrió en el dominio. */
-    private EventType eventType;
+    private NotificationType eventType;
 
     /** Nombre o identificador del módulo origen del evento. */
     private String sourceModule;
 
-    /** Identificador del usuario asociado al evento (si aplica). */
+    /** Identificador del usuario asociado al evento (en texto). */
     private String userId;
 
     /** Mensaje principal asociado al evento. */
@@ -50,16 +51,24 @@ public class NotificationEvent {
     /** Payload adicional en formato texto (por ejemplo, JSON embebido). */
     private String payload;
 
+    /** Notificación in-app asociada al evento (si aplica). */
+    private InAppNotification notification;
+
     /** Mapper estático para serializar el evento a JSON. */
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     /**
+     * Obtiene el tipo de evento.
+     *
+     * @return Tipo de evento como {@link NotificationType}.
+     */
+
+    public NotificationType getEventType() {
+        return eventType;
+    }
+
+    /**
      * Serializa el evento a una representación JSON.
-     *
-     * En caso de fallo al serializar, devuelve un JSON mínimo con
-     * {@code eventId} y {@code eventType} (o {@code UNKNOWN} si es nulo).
-     *
-     * @return Cadena JSON que representa este {@link NotificationEvent}.
      */
     public String toJSON() {
         try {
@@ -69,5 +78,4 @@ public class NotificationEvent {
                     (eventType != null ? eventType.name() : "UNKNOWN") + "\"}";
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package edu.dosw.rideci.infrastructure.persistance.Entity;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +40,7 @@ public class NotificationEntity {
     private String message;
 
     /** Tipo de evento asociado a la notificación. */
-    private EventType eventType;
+    private NotificationType eventType;
 
     /**
      * Prioridad serializada como texto para desacoplar de enums concretos.

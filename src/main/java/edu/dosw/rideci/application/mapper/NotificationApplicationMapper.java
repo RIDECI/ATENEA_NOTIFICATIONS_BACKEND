@@ -1,6 +1,6 @@
 package edu.dosw.rideci.application.mapper;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.Enum.NotificationStatus;
 import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.domain.model.NotificationEvent;
@@ -20,7 +20,7 @@ import java.util.UUID;
  * y gestiona las fechas de creación y lectura.
  *
  * @author RideECI
- * @version 1.0
+ * @version 1.1
  */
 @Component
 public class NotificationApplicationMapper {
@@ -94,7 +94,7 @@ public class NotificationApplicationMapper {
      * @param type Tipo de evento.
      * @return Título legible para el usuario final.
      */
-    private String buildTitle(EventType type) {
+    private String buildTitle(NotificationType type) {
         if (type == null) {
             return "Notification";
         }
@@ -104,7 +104,7 @@ public class NotificationApplicationMapper {
             case TRIP_COMPLETED -> "Viaje completado";
             case PAYMENT_CONFIRMED -> "Pago confirmado";
             case PAYMENT_FAILED -> "Error en el pago";
-            case EMERGY_BOTON, SECURITY_INCIDENT -> "Alerta de seguridad";
+            case EMERGENCY_BUTTON_PRESSED, SECURITY_INCIDENT -> "Alerta de seguridad";
             case LOCATION_ALERT -> "Alerta de ubicación";
             case DRIVER_VALIDATED -> "Conductor validado";
             case USER_REGISTERED -> "Bienvenido a RideECI";

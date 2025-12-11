@@ -1,6 +1,6 @@
 package edu.dosw.rideci.domain.service;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Suscriptor de dominio para eventos {@link EventType#TRIP_CREATED}.
+ * Suscriptor de dominio para eventos {@link NotificationType#TRIP_CREATED}.
  *
  * Se registra en el {@link EventBus} al inicializarse y procesa
  * los eventos de viaje creado, permitiendo ejecutar lógica específica
@@ -29,11 +29,11 @@ public class TripCreatedNotificationSubscriber implements NotificationSubscriber
 
     /**
      * Registra este suscriptor en el {@link EventBus} para el evento
-     * {@link EventType#TRIP_CREATED} al iniciar el componente.
+     * {@link NotificationType#TRIP_CREATED} al iniciar el componente.
      */
     @PostConstruct
     public void init() {
-        eventBus.subscribe(EventType.TRIP_CREATED, this);
+        eventBus.subscribe(NotificationType.TRIP_CREATED, this);
         log.info("Subscriber registrado para TRIP_CREATED");
     }
 
@@ -43,12 +43,12 @@ public class TripCreatedNotificationSubscriber implements NotificationSubscriber
      */
     @PreDestroy
     public void destroy() {
-        eventBus.unsubscribe(EventType.TRIP_CREATED, this);
+        eventBus.unsubscribe(NotificationType.TRIP_CREATED, this);
         log.info("Subscriber removido para TRIP_CREATED");
     }
 
     /**
-     * Lógica específica cuando llega un evento {@link EventType#TRIP_CREATED}.
+     * Lógica específica cuando llega un evento {@link NotificationType#TRIP_CREATED}.
      * Actualmente solo registra en el log el procesamiento del evento.
      *
      * @param event Evento de viaje creado.
@@ -75,11 +75,11 @@ public class TripCreatedNotificationSubscriber implements NotificationSubscriber
      * Devuelve la lista de tipos de evento a los que este suscriptor
      * está interesado en reaccionar.
      *
-     * @return Lista con {@link EventType#TRIP_CREATED}.
+     * @return Lista con {@link NotificationType#TRIP_CREATED}.
      */
     @Override
-    public List<EventType> getSubscribedEvents() {
-        return List.of(EventType.TRIP_CREATED);
+    public List<NotificationType> getSubscribedEvents() {
+        return List.of(NotificationType.TRIP_CREATED);
     }
 
     /**

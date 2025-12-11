@@ -1,6 +1,6 @@
 package edu.dosw.rideci.domain.service;
 
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -27,7 +27,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class EventBus {
 
     /** Suscriptores registrados por tipo de evento. */
-    private final Map<EventType, List<NotificationSubscriber>> subscribers = new ConcurrentHashMap<>();
+    private final Map<NotificationType, List<NotificationSubscriber>> subscribers = new ConcurrentHashMap<>();
 
     /** Cola de eventos pendientes por procesar. */
     private final BlockingQueue<NotificationEvent> eventQueue = new LinkedBlockingQueue<>();
@@ -55,7 +55,7 @@ public class EventBus {
      * @param eventType  Tipo de evento al que se desea suscribir.
      * @param subscriber Suscriptor que será notificado cuando se publique un evento de ese tipo.
      */
-    public void subscribe(EventType eventType, NotificationSubscriber subscriber) {
+    public void subscribe(NotificationType eventType, NotificationSubscriber subscriber) {
         subscribers
                 .computeIfAbsent(eventType, k -> new ArrayList<>())
                 .add(subscriber);
@@ -68,7 +68,7 @@ public class EventBus {
      * @param eventType  Tipo de evento del que se desea desuscribir.
      * @param subscriber Suscriptor a eliminar.
      */
-    public void unsubscribe(EventType eventType, NotificationSubscriber subscriber) {
+    public void unsubscribe(NotificationType eventType, NotificationSubscriber subscriber) {
         List<NotificationSubscriber> list = subscribers.get(eventType);
         if (list != null) {
             list.remove(subscriber);
