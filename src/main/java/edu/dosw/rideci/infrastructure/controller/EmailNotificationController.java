@@ -14,7 +14,6 @@ public class EmailNotificationController {
 
     private final SendEmailNotificationUseCase sendEmailUseCase;
 
-    // 1) Recuperación de contraseña/cuenta
     @PostMapping("/password-recovery")
     public ResponseEntity<Void> sendPasswordRecovery(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -32,7 +31,6 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 2) Registro exitoso y verificación de cuenta
     @PostMapping("/registration-verification")
     public ResponseEntity<Void> sendRegistrationVerification(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -49,7 +47,6 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 3) Aprobación/rechazo de verificación de conductor
     @PostMapping("/driver-verification-result")
     public ResponseEntity<Void> sendDriverVerificationResult(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -67,7 +64,6 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 4) Confirmación de reserva de viaje
     @PostMapping("/trip-booking-confirmation")
     public ResponseEntity<Void> sendTripBookingConfirmation(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -85,8 +81,39 @@ public class EmailNotificationController {
         );
         return ResponseEntity.accepted().build();
     }
+    @PostMapping("/travel/created")
+    public ResponseEntity<Void> sendTravelCreatedNotification(
+            @RequestBody EmailNotificationRequest request
+    ) {
+        sendEmailUseCase.send(
+                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                        .type(NotificationType.TRIP_CREATED)
+                        .userId(request.userId())
+                        .emailOverride(request.email())
+                        .extraInfo(request.extraInfo())
+                        .scheduledAt(request.scheduledAt())
+                        .build()
+        );
+        return ResponseEntity.accepted().build();
+    }
 
-    // 5) Cancelación o modificación de viaje
+    @PostMapping("/travel/updated")
+    public ResponseEntity<Void> sendTravelUpdatedNotification(
+            @RequestBody EmailNotificationRequest request
+    ) {
+        sendEmailUseCase.send(
+                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                        .type(NotificationType.TRIP_UPDATED)
+                        .userId(request.userId())
+                        .emailOverride(request.email())
+                        .reason(request.reason())
+                        .extraInfo(request.extraInfo())
+                        .scheduledAt(request.scheduledAt())
+                        .build()
+        );
+        return ResponseEntity.accepted().build();
+    }
+
     @PostMapping("/trip-update")
     public ResponseEntity<Void> sendTripUpdate(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -104,7 +131,6 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 6) Recordatorio de viaje próximo
     @PostMapping("/trip-reminder")
     public ResponseEntity<Void> sendTripReminder(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -122,7 +148,40 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 7) Confirmación de pago recibido/completado
+
+    @PostMapping("/travel/completed")
+    public ResponseEntity<Void> sendTravelCompletedNotification(
+            @RequestBody EmailNotificationRequest request
+    ) {
+        sendEmailUseCase.send(
+                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                        .type(NotificationType.TRIP_COMPLETED)
+                        .userId(request.userId())
+                        .emailOverride(request.email())
+                        .extraInfo(request.extraInfo())
+                        .scheduledAt(request.scheduledAt())
+                        .build()
+        );
+        return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/travel/cancelled")
+    public ResponseEntity<Void> sendTravelCancelledNotification(
+            @RequestBody EmailNotificationRequest request
+    ) {
+        sendEmailUseCase.send(
+                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                        .type(NotificationType.TRIP_CANCELLED)
+                        .userId(request.userId())
+                        .emailOverride(request.email())
+                        .reason(request.reason())
+                        .extraInfo(request.extraInfo())
+                        .scheduledAt(request.scheduledAt())
+                        .build()
+        );
+        return ResponseEntity.accepted().build();
+    }
+
     @PostMapping("/payment-confirmation")
     public ResponseEntity<Void> sendPaymentConfirmation(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -141,7 +200,23 @@ public class EmailNotificationController {
         return ResponseEntity.accepted().build();
     }
 
-    // 8) Alerta de activación del botón de emergencia
+
+    @PostMapping("/account-suspension")
+    public ResponseEntity<Void> sendAccountSuspension(@RequestBody EmailNotificationRequest request) {
+        sendEmailUseCase.send(
+                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                        .type(NotificationType.ACCOUNT_SUSPENDED)
+                        .userId(request.userId())
+                        .emailOverride(request.email())
+                        // reason: motivo de la suspensión
+                        .reason(request.reason())
+                        .extraInfo(request.extraInfo())
+                        .scheduledAt(request.scheduledAt())
+                        .build()
+        );
+        return ResponseEntity.accepted().build();
+    }
+
     @PostMapping("/emergency-alert")
     public ResponseEntity<Void> sendEmergencyAlert(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
@@ -151,23 +226,6 @@ public class EmailNotificationController {
                         .emailOverride(request.email())
                         .tripId(request.tripId())
                         // reason: descripción breve del incidente
-                        .reason(request.reason())
-                        .extraInfo(request.extraInfo())
-                        .scheduledAt(request.scheduledAt())
-                        .build()
-        );
-        return ResponseEntity.accepted().build();
-    }
-
-    // 9) Aviso de suspensión o bloqueo de cuenta
-    @PostMapping("/account-suspension")
-    public ResponseEntity<Void> sendAccountSuspension(@RequestBody EmailNotificationRequest request) {
-        sendEmailUseCase.send(
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .type(NotificationType.ACCOUNT_SUSPENDED)
-                        .userId(request.userId())
-                        .emailOverride(request.email())
-                        // reason: motivo de la suspensión
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())

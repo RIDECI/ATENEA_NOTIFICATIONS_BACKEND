@@ -18,6 +18,9 @@ public enum NotificationType {
     /** Usuario registrado en la plataforma. */
     USER_REGISTERED,
 
+    /** Actualización de la información del usuario. */
+    USER_UPDATED,
+
     /** Conductor validado/aprobado en el sistema. (Módulo 7) */
     DRIVER_VALIDATED,
 
@@ -50,7 +53,6 @@ public enum NotificationType {
 
     /** Viaje completado. (RF-NOT-003) */
     TRIP_COMPLETED,
-
 
     /** Desviación de ruta detectada respecto a la estimada. (RF-NOT-004, Módulo 4) */
     ROUTE_DEVIATION_DETECTED,

@@ -1,4 +1,4 @@
-package edu.dosw.rideci.infrastructure.notification;
+package edu.dosw.rideci.infrastructure.messaging.listeners;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.dosw.rideci.infrastructure.config.RabbitMQConfig;
