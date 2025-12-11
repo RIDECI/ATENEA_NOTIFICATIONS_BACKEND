@@ -1,319 +1,282 @@
-# ATENEA_NOTIFICATIONS_BACKEND
+# 👨‍💼 ATENEA_NOTIFICATIONS_BACKEND
+
+It centralizes the sending and management of notifications from the
+RIDECI ecosystem, allowing the mobility, institutional security, and
+administration modules to send in-app messages and emails in a unified,
+reliable, and traceable manner to users.
+
+## 👥 Developers
+
+-   Raquel Iveth Selma Alaya\
+-   Nestor David Lopez Castañeda\
+-   Juan Pablo Nieto Cortes\
+-   Carlos David Astudillo Castiblanco\
+-   Robinson Steven Nuñez Portela
+
+------------------------------------------------------------------------
+
+# 🏛️ Project Architecture
+
+The ATENEA Notifications Backend has a decoupled **hexagonal / clean
+architecture** that isolates the core notification logic from
+infrastructure and external providers:
+
+### 🧠 Domain (Core)
+
+Business rules: creation, states, templates, channels, idempotency.
+
+### 🎯 Ports (Interfaces)
+
+Defines what the domain can do: send notifications, persist them,
+publish events, consume messages.
+
+### 🔌 Adapters (Infrastructure)
+
+Implementation of ports: databases, RabbitMQ, SMTP, integrations.
+
+### ✅ Benefits
+
+-   Clear **separation of concerns**
+-   **Maintainable** and replaceable components
+-   **Scalable** (expand to SMS, push, WhatsApp, etc.)
+-   **Testable** without infrastructure
+
+------------------------------------------------------------------------
+
+# 📂 Clean - Hexagonal Structure
+
+    📂 ATENEA_NOTIFICATIONS_BACKEND
+    ┣ 📂 src/
+    ┃ ┣ 📂 main/
+    ┃ ┃ ┣ 📂 java/
+    ┃ ┃ ┃ ┗ 📂 edu/dosw/rideci/
+    ┃ ┃ ┃   ┣ AteneaNotificationsBackEndApplication.java
+    ┃ ┃ ┃   ┣ 📂 domain/
+    ┃ ┃ ┃   ┃ ┣ 📂 model/
+    ┃ ┃ ┃   ┃ ┣ 📂 service/
+    ┃ ┃ ┃   ┃ ┗ 📂 event/
+    ┃ ┃ ┃   ┣ 📂 application/
+    ┃ ┃ ┃   ┃ ┣ 📂 ports/
+    ┃ ┃ ┃   ┃ ┃ ┣ 📂 input/
+    ┃ ┃ ┃   ┃ ┃ ┗ 📂 output/
+    ┃ ┃ ┃   ┃ ┗ 📂 usecases/
+    ┃ ┃ ┃   ┣ 📂 infrastructure/
+    ┃ ┃ ┃   ┃ ┗ 📂 adapters/
+    ┃ ┃ ┃   ┃   ┣ 📂 input/
+    ┃ ┃ ┃   ┃   ┃ ┣ 📂 controller/
+    ┃ ┃ ┃   ┃   ┃ ┗ 📂 listener/
+    ┃ ┃ ┃   ┃   ┗ 📂 output/
+    ┃ ┃ ┃   ┃     ┣ 📂 persistence/
+    ┃ ┃ ┃   ┃     ┗ 📂 email/
+    ┃ ┃ ┗ 📂 resources/
+    ┃ ┃   ┣ application.properties
+    ┃ ┃   ┗ application-*.yml
+    ┣ 📂 test/
+    ┣ 📂 docs/
+    ┃ ┣ uml/
+    ┃ ┗ pdf/
+    ┣ docker-compose.yml
+    ┣ Dockerfile
+    ┣ pom.xml
+    ┗ README.md
 
-## Desarrolladores
+------------------------------------------------------------------------
 
-* Raquel Iveth Selma Alaya
-* Nestor David Lopez Castañeda
-* Juan Pablo Nieto Cortes
-* Carlos David Astudillo Castiblanco
-* Robinson Steven Nuñez Portela
+# 📡 API Endpoints
 
+Swagger UI: `http://localhost:8080/swagger-ui.html`
 
----
+Method   URI                             Description
+  -------- ------------------------------- ----------------------------
+POST     /notifications/email            Send email notification
+POST     /notifications/in-app           Create in-app notification
+GET      /notifications/users/{userId}   List user notifications
+PATCH    /notifications/{id}/read        Mark as read
+PATCH    /notifications/{id}/archive     Archive notification
+GET      /notifications/{id}             Notification detail
+GET      /notifications                  Filter notifications
+POST     /notifications/templates        Create template
+PUT      /notifications/templates/{id}   Update template
+GET      /notifications/templates        List templates
+POST     /notifications/test/email       Test SMTP
+POST     /notifications/test/event       Test RabbitMQ
+GET      /actuator/health                Health check
 
-## Tabla de Contenidos
+------------------------------------------------------------------------
 
-* [ Estrategia de Versionamiento y Branching](#-estrategia-de-versionamiento-y-branching)
+# 📟 HTTP Status Codes
 
-    * [ Estrategia de Ramas (Git Flow)](#-estrategia-de-ramas-git-flow)
-    * [ Convenciones de Nomenclatura](#-convenciones-de-nomenclatura)
-    * [ Convenciones de Commits](#-convenciones-de-commits)
-* [ Arquitectura del Proyecto](#-arquitectura-del-proyecto)
+Code   Status
+  ------ -----------------------
+200    OK
+201    Created
+202    Accepted
+400    Bad Request
+401    Unauthorized
+404    Not Found
+409    Conflict
+500    Internal Server Error
 
-    * [ Estructura de Capas](#️-estructura-de-capas)
-* [ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
-* [ Arquitectura Limpia - Organización de Capas](#️-arquitectura-limpia---organización-de-capas)
-* [Diagramas del Módulo](#diagramas-del-módulo)
+------------------------------------------------------------------------
 
+# 📑 Input & Output Data
 
----
+### **EmailNotificationRequest**
 
-##  Estrategia de Versionamiento y Branching
+-   to
+-   subject
+-   body
+-   templateId?
+-   params?
+-   metadata?
 
-Se implementa una estrategia de versionamiento basada en **GitFlow**, garantizando un flujo de desarrollo **colaborativo, trazable y controlado**.
+### **InAppNotificationRequest**
 
-###  Beneficios:
+-   userId
+-   title
+-   message
+-   priority?
+-   type?
+-   expiresAt?
+-   metadata?
 
-- Permite trabajo paralelo sin conflictos
-- Mantiene versiones estables y controladas
-- Facilita correcciones urgentes (*hotfixes*)
-- Proporciona un historial limpio y entendible
+### **NotificationTemplateDto**
 
----
+-   id?
+-   name
+-   channel
+-   language
+-   subject
+-   body
+-   enabled
 
-##  Estrategia de Ramas (Git Flow)
+### **NotificationResponse**
 
-| **Rama**                | **Propósito**                            | **Recibe de**           | **Envía a**        | **Notas**                      |
-| ----------------------- | ---------------------------------------- | ----------------------- | ------------------ | ------------------------------ |
-| `main`                  | Código estable para PREPROD o Producción | `release/*`, `hotfix/*` | Despliegue         | Protegida con PR y CI exitoso  |
-| `develop`               | Rama principal de desarrollo             | `feature/*`             | `release/*`        | Base para integración continua |
-| `feature/*`             | Nuevas funcionalidades o refactors       | `develop`               | `develop`          | Se eliminan tras el merge      |
-| `release/*`             | Preparación de versiones estables        | `develop`               | `main` y `develop` | Incluye pruebas finales        |
-| `bugfix/*` o `hotfix/*` | Corrección de errores críticos           | `main`                  | `main` y `develop` | Parches urgentes               |
+-   id, userId?, channel, status, timestamps...
 
----
+### **PageResponse**
 
-##  Convenciones de Nomenclatura
+-   content, page, size, totalElements, totalPages
 
-### Feature Branches
+------------------------------------------------------------------------
 
-```
-feature/[nombre-funcionalidad]-atenea_[codigo-jira]
-```
+# 🔗 Connections with other Microservices
 
-**Ejemplos:**
+### **Travel Management / Nemesis Module**
 
-```
-- feature/authentication-module-atenea_23
-- feature/security-service-atenea_41
-```
+Trip events → emails & in-app messages.
 
-**Reglas:**
+### **Administration Module**
 
-*  Formato: *kebab-case*
-*  Incluir código Jira
-*  Descripción breve y clara
-*  Longitud máxima: 50 caracteres
+Driver approvals, blocks, reports → notifications.
 
----
+### **Auth / Users Module**
 
-### Release Branches
+Password recovery, email verification.
 
-```
-release/[version]
-```
+### **Email Provider / SMTP**
 
-**Ejemplos:**
+Office 365 or similar.
 
-```
-- release/1.0.0
-- release/1.1.0-beta
-```
+### **API Gateway**
 
----
+Authentication and routing.
 
-### Hotfix Branches
+### **Monitoring / Logging Stack**
 
-```
-hotfix/[descripcion-breve-del-fix]
-```
+Metrics, dashboards, logs.
 
-**Ejemplos:**
-
-```
-- hotfix/fix-token-expiration
-- hotfix/security-patch
-```
+------------------------------------------------------------------------
 
----
+# 🛠️ Technologies
 
-## Convenciones de Commits
+### Backend
 
-### Formato Estándar
+-   Java\
+-   Spring Boot\
+-   Maven
 
-```
-[codigo-jira] [tipo]: [descripción breve de la acción]
-```
+### Messaging & Email
 
-**Ejemplos:**
+-   RabbitMQ\
+-   Microsoft 365 SMTP
 
-```
-45-feat: agregar validación de token JWT
-46-fix: corregir error en autenticación por roles
-```
+### DevOps
 
----
+-   Docker\
+-   Kubernetes\
+-   Railway\
+-   Vercel
 
-### Tipos de Commit
+### CI/CD
 
-| **Tipo**   | **Descripción**                      | **Ejemplo**                                     |
-| ----------- | ------------------------------------ | ----------------------------------------------- |
-| `feat`      | Nueva funcionalidad                  | `22-feat: implementar autenticación con JWT`    |
-| `fix`       | Corrección de errores                | `24-fix: solucionar error en endpoint de login` |
-| `docs`      | Cambios en documentación             | `25-docs: actualizar README con nuevas rutas`   |
-| `refactor`  | Refactorización sin cambio funcional | `27-refactor: optimizar servicio de seguridad`  |
-| `test`      | Pruebas unitarias o de integración   | `29-test: agregar tests para AuthService`       |
-| `chore`     | Mantenimiento o configuración        | `30-chore: actualizar dependencias de Maven`    |
+-   GitHub Actions\
+-   SonarQube\
+-   JaCoCo
 
+### Documentation
 
-**Reglas:**
+-   Swagger\
+-   Postman
 
-* Un commit = una acción completa
-* Máximo **72 caracteres** por línea
-* Usar modo imperativo (“agregar”, “corregir”, etc.)
-* Descripción clara de qué y dónde
-* Commits pequeños y frecuentes
+### Design & Management
 
----
+-   Figma\
+-   Jira\
+-   Slack
 
-## Arquitectura del Proyecto
+------------------------------------------------------------------------
 
-El backend de **ATENEA_NOTIFICATIONS_BACKEND** sigue una **arquitectura limpia y desacoplada**, priorizando:
+# 🌿 Branches Strategy (Gitflow)
 
-* Separación de responsabilidades
-* Mantenibilidad
-* Escalabilidad
-* Facilidad de pruebas
+Branch       Purpose
+  ------------ -------------------
+main         Stable production
+develop      Main development
+feature/\*   New features
+release/\*   Pre-production
+hotfix/\*    Urgent fixes
 
----
+### Naming
 
-## Estructura de Capas
+-   feature/email-notifications\
+-   feature/rabbitmq-integration\
+-   release/v1.0.0\
+-   hotfix/securityPatch
 
-```
-📂 atenea_backend
- ┣ 📂 domain/
- ┃ ┣ 📄 Entities/
- ┃ ┣ 📄 ValueObjects/
- ┃ ┣ 📄 Enums/
- ┃ ┣ 📄 Services/
- ┃ ┗ 📄 Events/
- ┣ 📂 application/
- ┃ ┣ 📄 UseCases/
- ┃ ┣ 📄 DTOs/
- ┃ ┣ 📄 Mappers/
- ┃ ┗ 📄 Exceptions/
- ┣ 📂 infrastructure/
- ┃ ┣ 📄 Controllers/
- ┃ ┣ 📄 Database/
- ┃ ┣ 📄 Repositories/
- ┃ ┣ 📄 Config/
- ┃ ┗ 📄 Security/
- ┗ 📄 pom.xml
-```
+### Commit Format
 
----
+    type(scope): short description
 
-## Tecnologías Utilizadas
+------------------------------------------------------------------------
 
-| **Categoría**              | **Tecnologías**                           |
-| -------------------------- | ----------------------------------------- |
-| **Backend**                | Java 17, Spring Boot, Maven               |
-| **Base de Datos**          | MongoDB, PostgreSQL                       |
-| **Infraestructura**        | Docker, Kubernetes (K8s), Railway, Vercel |
-| **Seguridad**              | JWT, Spring Security                      |
-| **Integración Continua**   | GitHub Actions, Jacoco, SonarQube         |
-| **Documentación y Diseño** | Swagger UI, Figma                         |
-| **Comunicación y Gestión** | Slack, Jira                               |
-| **Testing**                | Postman                                   |
+# 🚀 Getting Started
 
----
+## Requirements
 
-## Arquitectura Limpia - Organización de Capas
+-   Java 17\
+-   Maven 3.x\
+-   Docker\
+-   Port 8080
 
-### DOMAIN (Dominio)
+## Clone Repository
 
-Representa el **núcleo del negocio**, define **qué hace el sistema, no cómo lo hace**.
-Incluye entidades, objetos de valor, enumeraciones, interfaces de repositorio y servicios de negocio.
+    git clone https://github.com/RIDECI/ATENEA_NOTIFICATIONS_BACKEND.git
+    cd ATENEA_NOTIFICATIONS_BACKEND
 
-### APPLICATION (Aplicación)
+## Dockerize
 
-Orquesta la lógica del negocio a través de **casos de uso**, **DTOs**, **mappers** y **excepciones personalizadas**.
+    docker compose up -d
 
-### INFRASTRUCTURE (Infraestructura)
+## Install Dependencies
 
-Implementa los **detalles técnicos**: controladores REST, persistencia, configuración, seguridad y conexión con servicios externos.
+    mvn clean install
+    mvn clean compile
 
----
+## Run
 
-## Diagramas del Módulo
+    mvn spring-boot:run
 
+------------------------------------------------------------------------
 
-## Diagrama de Contexto
-
-![alt text](docs/uml/DiagramaContexto.png)
-
-
----
-
-### Diagrama de Despliegue
-
-![DiagramaDespliegue](docs/uml/DiagramaDespliegue.png)
-
-
----
-
-### Diagrama de Componentes General
-
-![alt text](docs/uml/DiagramaComponentesGeneral.png)
-
-
----
-
-### Diagrama de Componentes Específico
-
-![alt text](docs/uml/DiagramaComponentesEspecifico.png)
-
----
-
-
-## Diagrama de Casos de Uso
-
-![alt text](docs/uml/DiagramaCasosUso.png)
-
----
-
-### Diagrama de Clases
-
-![alt text](docs/uml/DiagramaClases.png)
-
----
-
-### Diagrama de Bases de Datos
-
-![DiagramaBasesDatos](docs/uml/DiagramaBaseDeDatos.png)
-
----
-
-
-# Ejecución Local
-
-## Requesitos
-- Java 17
-- Maven 3.X
-- Docker + Docker Compose
-- Puerto disponiblo 8080
-
-## Ejecución con Maven
-### 1. Clonar el repositorio
-`git clone https://github.com/RIDECI/ATENEA_ADMINISTRATION_BACKEND.git`
-
-`cd ATENEA_ADMINISTRATION_BACKEND`
-
-### 2. Compilar y ejecutar pruebas
-`./mvnw clean test`
-
-### 3. Ejecutar la aplicación
-`./mvnw spring-boot:run`
-
-Aplicación disponible en:
-`http://loocalhost:8080`
-
-Ejecucionón con Docker / Docker Compose
-
-`docker build -t atenea-notifications-backend .`
-
-`docker-compose up -d`
-
-Mongo y backend se levantan automáticamente con la configuración existente
-
-## Calidad y CI/CD
-
-Incluye:
-
-### GitHub Actions
-
--Ejecución de pruebas
-
--Reporte Jacoco
-
--Análisis SonarQube
-
-### Jacoco
-
--Cobertura mínima requerida
-
-### SonarQube
-
--Análisis de bugs, vulnerabilidades y code smells
-
----
+# 🌎 RIDECI --- Connecting the community safely and sustainably.
