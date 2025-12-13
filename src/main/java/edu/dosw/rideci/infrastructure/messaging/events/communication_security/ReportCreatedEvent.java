@@ -28,7 +28,7 @@ public class ReportCreatedEvent {
     private String reportId;
 
     @JsonProperty("userId")
-    private String userId; // Usuario que crea el reporte
+    private String userId;
 
     @JsonProperty("userName")
     private String userName;

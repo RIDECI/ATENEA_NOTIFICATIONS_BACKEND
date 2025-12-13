@@ -116,7 +116,6 @@ public class EmailNotificationApplicationService implements SendEmailNotificatio
     }
 
     private String resolvePriority(NotificationType type) {
-        // Puedes ajustar la prioridad según el caso de uso
         return switch (type) {
             case EMERGENCY_ALERT -> "HIGH";
             case PAYMENT_CONFIRMED, PAYMENT_FAILED,

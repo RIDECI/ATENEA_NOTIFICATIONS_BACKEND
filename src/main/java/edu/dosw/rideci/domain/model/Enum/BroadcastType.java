@@ -22,6 +22,7 @@ public enum BroadcastType {
     /** Mensajes institucionales: políticas, comunicados oficiales, etc. */
     ADMIN_ANNOUNCEMENT,
 
+    /** Mensajes de prueba para verificar el sistema de broadcast. */
     TEST_BROADCAST
 
 }
