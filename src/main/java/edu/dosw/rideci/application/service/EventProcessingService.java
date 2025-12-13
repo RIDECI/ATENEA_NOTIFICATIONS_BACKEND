@@ -11,6 +11,7 @@ import edu.dosw.rideci.application.events.travel.TravelCancelledEvent;
 import edu.dosw.rideci.application.events.travel.TravelCompletedEvent;
 import edu.dosw.rideci.application.events.travel.TravelCreatedEvent;
 import edu.dosw.rideci.application.events.travel.TravelUpdatedEvent;
+import edu.dosw.rideci.application.port.in.SendEmailNotificationUseCase;
 import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import edu.dosw.rideci.domain.model.InAppNotification;
@@ -27,6 +28,8 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class EventProcessingService {
+
+    private final SendEmailNotificationUseCase sendEmailUseCase;
 
     // Método para crear un NotificationEvent a partir de cualquier evento
     public NotificationEvent createNotificationEvent(String sourceModule, NotificationType type,
@@ -312,12 +315,7 @@ public class EventProcessingService {
         log.info("📩 Procesando PasswordResetEvent: email={}, resetCode={}",
                 event.getEmail(), event.getResetCode());
 
-        // En este caso, como no tenemos userId, debemos obtenerlo de alguna manera
-        // Por ahora, asumiremos que el email es suficiente para identificar al usuario
-        // O podríamos buscar el userId a partir del email (pero eso requeriría una llamada a BD)
-
-        // Para propósitos de ejemplo, usaremos un UUID derivado del email
-        // EN PRODUCCIÓN: Deberías obtener el userId real a partir del email
+        // Generar un userId temporal a partir del email
         String userId = UUID.nameUUIDFromBytes(event.getEmail().getBytes()).toString();
 
         String message = String.format("Código de recuperación: %s. Expira en %d minutos",
@@ -337,5 +335,28 @@ public class EventProcessingService {
         inAppNotification.setPriority("HIGH");
         inAppNotification.setExpiresAt(OffsetDateTime.now().plusMinutes(event.getExpiryMinutes()));
         log.info("🔐 Notificación de recuperación de contraseña creada: {}", inAppNotification.getDisplayMessage());
+
+        // ENVIAR CORREO DE RECUPERACIÓN DE CONTRASEÑA
+        sendPasswordRecoveryEmail(event);
+    }
+
+    private void sendPasswordRecoveryEmail(PasswordResetEvent event) {
+        try {
+            log.info("📧 Enviando correo de recuperación de contraseña a: {}", event.getEmail());
+
+            sendEmailUseCase.send(
+                    SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
+                            .type(NotificationType.PASSWORD_RECOVERY)
+                            .userId(UUID.nameUUIDFromBytes(event.getEmail().getBytes()))
+                            .emailOverride(event.getEmail())
+                            .reason(event.getResetCode())
+                            .extraInfo("Expira en " + event.getExpiryMinutes() + " minutos")
+                            .build()
+            );
+
+            log.info("✅ Correo de recuperación enviado exitosamente a: {}", event.getEmail());
+        } catch (Exception e) {
+            log.error("❌ Error al enviar correo de recuperación: {}", e.getMessage(), e);
+        }
     }
 }
