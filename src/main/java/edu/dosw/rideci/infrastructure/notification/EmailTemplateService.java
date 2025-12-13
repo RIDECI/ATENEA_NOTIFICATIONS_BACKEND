@@ -33,7 +33,7 @@ public class EmailTemplateService {
         return """
         <html>
           <body>
-            <p>Hola %s,</p>
+            <p>Hola Usuario de RideECI,</p>
             <p>
               Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
               en <strong>%s</strong>.
@@ -58,18 +58,18 @@ public class EmailTemplateService {
             </p>
           </body>
         </html>
-        """.formatted(userName, appName, recoveryCode, expirationMinutes, appName);
+        """.formatted(appName, recoveryCode, expirationMinutes, appName);
     }
 
     public String buildPasswordRecoveryEmail(SendEmailNotificationUseCase.SendEmailNotificationCommand command) {
-        String userName = defaultUserName(command);
+        // Usamos el nombre genérico directamente en lugar de defaultUserName
         String appName = defaultAppName();
 
         // De momento usamos reason como link / token (ajusta en tu endpoint)
-        String recoveryLink = command.reason() != null ? command.reason() : "https://example.com/reset";
+        String recoveryCode = command.reason() != null ? command.reason() : "Código no disponible";
         int expirationMinutes = 30;
 
-        return buildPasswordRecoveryEmail(userName, appName, recoveryLink, expirationMinutes);
+        return buildPasswordRecoveryEmail("Usuario de RideECI", appName, recoveryCode, expirationMinutes);
     }
 
     public String buildRegistrationVerificationEmail(String userName, String appName,

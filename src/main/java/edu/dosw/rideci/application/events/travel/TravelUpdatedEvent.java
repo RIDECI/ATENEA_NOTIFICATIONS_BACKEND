@@ -1,4 +1,4 @@
-package edu.dosw.rideci.infrastructure.messaging.events.travel;
+package edu.dosw.rideci.application.events.travel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

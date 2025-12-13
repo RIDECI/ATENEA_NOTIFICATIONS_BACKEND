@@ -1,4 +1,4 @@
-package edu.dosw.rideci.infrastructure.messaging.events.authentication;
+package edu.dosw.rideci.application.events.authentication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -6,21 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
- * Evento que se publica cuando se crea o actualiza un usuario
- * Routing Keys probables: "auth.user.created", "auth.user.updated"
- * Exchange: "user.exchange"
+ * DTO para enviar a UserManagement via RabbitMQ
+ * Mensaje para crear un nuevo usuario
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class UserEvent {
 
     @JsonProperty("userId")
-    private String userId;
+    private Long userId;
 
     @JsonProperty("name")
     private String name;
@@ -41,17 +38,5 @@ public class UserEvent {
     private String address;
 
     @JsonProperty("role")
-    private String role; // STUDENT, TEACHER, ADMIN, etc.
-
-    @JsonProperty("eventType")
-    private String eventType; // CREATED, UPDATED, DELETED
-
-    @JsonProperty("eventTimestamp")
-    private LocalDateTime eventTimestamp;
-
-    @JsonProperty("isActive")
-    private Boolean isActive;
-
-    @JsonProperty("institutionalId")
-    private String institutionalId;
+    private String role;
 }

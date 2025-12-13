@@ -1,4 +1,4 @@
-package edu.dosw.rideci.infrastructure.messaging.events.payment;
+package edu.dosw.rideci.application.events.payment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Evento que representa un pago completado exitosamente
- * Routing Key esperada: "payment.completed"
+ * Evento que representa un pago que ha fallado
+ * Routing Key esperada: "payment.failed"
  * Exchange: "payment.exchange"
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PaymentCompletedEvent {
+public class PaymentFailedEvent {
 
     @JsonProperty("paymentId")
     private String paymentId;

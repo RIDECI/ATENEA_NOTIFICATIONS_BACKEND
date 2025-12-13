@@ -1,5 +1,16 @@
-package edu.dosw.rideci.infrastructure.messaging.listeners;
+package edu.dosw.rideci.application.events.listener;
 
+import edu.dosw.rideci.application.events.authentication.PasswordResetEvent;
+import edu.dosw.rideci.application.events.authentication.UserEvent;
+import edu.dosw.rideci.application.events.booking.BookingCreatedEvent;
+import edu.dosw.rideci.application.events.communication_security.ReportCreatedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentCompletedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentFailedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentRefundedEvent;
+import edu.dosw.rideci.application.events.travel.TravelCancelledEvent;
+import edu.dosw.rideci.application.events.travel.TravelCompletedEvent;
+import edu.dosw.rideci.application.events.travel.TravelCreatedEvent;
+import edu.dosw.rideci.application.events.travel.TravelUpdatedEvent;
 import edu.dosw.rideci.application.service.EventProcessingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +27,9 @@ public class EventListener {
     // ========== LISTENER PARA EVENTOS DE USUARIO ==========
 
     @RabbitListener(queues = "notif.user.events.queue")
-    public void handleUserEvent(edu.dosw.rideci.infrastructure.messaging.events.authentication.UserEvent event) {
-        log.info("🎧 [User Queue] Recibido UserEvent: userId={}, eventType={}",
-                event.getUserId(), event.getEventType());
+    public void handleUserEvent(UserEvent event) {
+        log.info("🎧 [User Queue] Recibido UserEvent: userId={}, email={}, name={}",
+                event.getUserId(), event.getEmail(), event.getName());
         try {
             eventProcessingService.handleUserEvent(event);
         } catch (Exception e) {
@@ -27,8 +38,8 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.user.events.queue")
-    public void handlePasswordResetEvent(edu.dosw.rideci.infrastructure.messaging.events.authentication.PasswordResetEvent event) {
-        log.info("🎧 [User Queue] Recibido PasswordResetEvent: userId={}", event.getUserId());
+    public void handlePasswordResetEvent(PasswordResetEvent event) {
+        log.info("🎧 [User Queue] Recibido PasswordResetEvent: email={}", event.getEmail());
         try {
             eventProcessingService.handlePasswordReset(event);
         } catch (Exception e) {
@@ -39,7 +50,7 @@ public class EventListener {
     // ========== LISTENER PARA EVENTOS DE VIAJES ==========
 
     @RabbitListener(queues = "notif.travel.events.queue")
-    public void handleTravelCreated(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCreatedEvent event) {
+    public void handleTravelCreated(TravelCreatedEvent event) {
         log.info("🎧 [Travel Queue] Recibido TravelCreatedEvent: travelId={}", event.getTravelId());
         try {
             eventProcessingService.handleTravelCreated(event);
@@ -49,7 +60,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.travel.events.queue")
-    public void handleTravelUpdated(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelUpdatedEvent event) {
+    public void handleTravelUpdated(TravelUpdatedEvent event) {
         log.info("🎧 [Travel Queue] Recibido TravelUpdatedEvent: travelId={}", event.getTravelId());
         try {
             eventProcessingService.handleTravelUpdated(event);
@@ -59,7 +70,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.travel.events.queue")
-    public void handleTravelCancelled(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCancelledEvent event) {
+    public void handleTravelCancelled(TravelCancelledEvent event) {
         log.info("🎧 [Travel Queue] Recibido TravelCancelledEvent: travelId={}", event.getTravelId());
         try {
             eventProcessingService.handleTravelCancelled(event);
@@ -69,7 +80,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.travel.events.queue")
-    public void handleTravelCompleted(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCompletedEvent event) {
+    public void handleTravelCompleted(TravelCompletedEvent event) {
         log.info("🎧 [Travel Queue] Recibido TravelCompletedEvent: travelId={}", event.getTravelId());
         try {
             eventProcessingService.handleTravelCompleted(event);
@@ -79,7 +90,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.travel.events.queue")
-    public void handleBookingCreated(edu.dosw.rideci.infrastructure.messaging.events.booking.BookingCreatedEvent event) {
+    public void handleBookingCreated(BookingCreatedEvent event) {
         log.info("🎧 [Travel/Booking Queue] Recibido BookingCreatedEvent: bookingId={}", event.getBookingId());
         try {
             eventProcessingService.handleBookingCreated(event);
@@ -91,7 +102,7 @@ public class EventListener {
     // ========== LISTENER PARA EVENTOS DE PAGO ==========
 
     @RabbitListener(queues = "notif.payment.events.queue")
-    public void handlePaymentCompleted(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentCompletedEvent event) {
+    public void handlePaymentCompleted(PaymentCompletedEvent event) {
         log.info("🎧 [Payment Queue] Recibido PaymentCompletedEvent: paymentId={}", event.getPaymentId());
         try {
             eventProcessingService.handlePaymentCompleted(event);
@@ -101,7 +112,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.payment.events.queue")
-    public void handlePaymentFailed(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentFailedEvent event) {
+    public void handlePaymentFailed(PaymentFailedEvent event) {
         log.info("🎧 [Payment Queue] Recibido PaymentFailedEvent: paymentId={}", event.getPaymentId());
         try {
             eventProcessingService.handlePaymentFailed(event);
@@ -111,7 +122,7 @@ public class EventListener {
     }
 
     @RabbitListener(queues = "notif.payment.events.queue")
-    public void handlePaymentRefunded(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentRefundedEvent event) {
+    public void handlePaymentRefunded(PaymentRefundedEvent event) {
         log.info("🎧 [Payment Queue] Recibido PaymentRefundedEvent: refundId={}", event.getRefundId());
         try {
             eventProcessingService.handlePaymentRefunded(event);
@@ -123,7 +134,7 @@ public class EventListener {
     // ========== LISTENER PARA EVENTOS DE COMUNICACIÓN/REPORTES ==========
 
     @RabbitListener(queues = "notif.communication.events.queue")
-    public void handleReportCreated(edu.dosw.rideci.infrastructure.messaging.events.communication_security.ReportCreatedEvent event) {
+    public void handleReportCreated(ReportCreatedEvent event) {
         log.info("🎧 [Communication Queue] Recibido ReportCreatedEvent: reportId={}", event.getReportId());
         try {
             eventProcessingService.handleReportCreated(event);

@@ -1,4 +1,4 @@
-package edu.dosw.rideci.infrastructure.messaging.events.communication_security;
+package edu.dosw.rideci.application.events.communication_security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

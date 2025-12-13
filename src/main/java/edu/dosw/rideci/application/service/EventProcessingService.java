@@ -1,5 +1,16 @@
 package edu.dosw.rideci.application.service;
 
+import edu.dosw.rideci.application.events.authentication.PasswordResetEvent;
+import edu.dosw.rideci.application.events.authentication.UserEvent;
+import edu.dosw.rideci.application.events.booking.BookingCreatedEvent;
+import edu.dosw.rideci.application.events.communication_security.ReportCreatedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentCompletedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentFailedEvent;
+import edu.dosw.rideci.application.events.payment.PaymentRefundedEvent;
+import edu.dosw.rideci.application.events.travel.TravelCancelledEvent;
+import edu.dosw.rideci.application.events.travel.TravelCompletedEvent;
+import edu.dosw.rideci.application.events.travel.TravelCreatedEvent;
+import edu.dosw.rideci.application.events.travel.TravelUpdatedEvent;
 import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import edu.dosw.rideci.domain.model.InAppNotification;
@@ -48,7 +59,7 @@ public class EventProcessingService {
     }
 
     // 1. Eventos de Pago
-    public void handlePaymentCompleted(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentCompletedEvent event) {
+    public void handlePaymentCompleted(PaymentCompletedEvent event) {
         log.info("📩 Procesando PaymentCompletedEvent: paymentId={}, userId={}",
                 event.getPaymentId(), event.getUserId());
 
@@ -68,7 +79,7 @@ public class EventProcessingService {
         log.info("✅ Notificación creada: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handlePaymentFailed(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentFailedEvent event) {
+    public void handlePaymentFailed(PaymentFailedEvent event) {
         log.info("📩 Procesando PaymentFailedEvent: paymentId={}, userId={}",
                 event.getPaymentId(), event.getUserId());
 
@@ -89,7 +100,7 @@ public class EventProcessingService {
         log.info("⚠️ Notificación de pago fallido creada: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handlePaymentRefunded(edu.dosw.rideci.infrastructure.messaging.events.payment.PaymentRefundedEvent event) {
+    public void handlePaymentRefunded(PaymentRefundedEvent event) {
         log.info("📩 Procesando PaymentRefundedEvent: refundId={}, userId={}",
                 event.getRefundId(), event.getUserId());
 
@@ -110,7 +121,7 @@ public class EventProcessingService {
     }
 
     // 2. Eventos de Reportes/Seguridad
-    public void handleReportCreated(edu.dosw.rideci.infrastructure.messaging.events.communication_security.ReportCreatedEvent event) {
+    public void handleReportCreated(ReportCreatedEvent event) {
         log.info("📩 Procesando ReportCreatedEvent: reportId={}, userId={}, severity={}",
                 event.getReportId(), event.getUserId(), event.getSeverity());
 
@@ -152,7 +163,7 @@ public class EventProcessingService {
     }
 
     // 3. Eventos de Viajes
-    public void handleTravelCreated(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCreatedEvent event) {
+    public void handleTravelCreated(TravelCreatedEvent event) {
         log.info("📩 Procesando TravelCreatedEvent: travelId={}, driverId={}",
                 event.getTravelId(), event.getDriverId());
 
@@ -173,7 +184,7 @@ public class EventProcessingService {
         log.info("🚗 Notificación de viaje creado: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handleTravelUpdated(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelUpdatedEvent event) {
+    public void handleTravelUpdated(TravelUpdatedEvent event) {
         log.info("📩 Procesando TravelUpdatedEvent: travelId={}, driverId={}, changes={}",
                 event.getTravelId(), event.getDriverId(), event.getChanges());
 
@@ -193,7 +204,7 @@ public class EventProcessingService {
         log.info("✏️ Notificación de viaje actualizado: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handleTravelCancelled(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCancelledEvent event) {
+    public void handleTravelCancelled(TravelCancelledEvent event) {
         log.info("📩 Procesando TravelCancelledEvent: travelId={}, driverId={}, reason={}",
                 event.getTravelId(), event.getDriverId(), event.getCancellationReason());
 
@@ -214,7 +225,7 @@ public class EventProcessingService {
         log.info("❌ Notificación de viaje cancelado: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handleTravelCompleted(edu.dosw.rideci.infrastructure.messaging.events.travel.TravelCompletedEvent event) {
+    public void handleTravelCompleted(TravelCompletedEvent event) {
         log.info("📩 Procesando TravelCompletedEvent: travelId={}, driverId={}, passengers={}",
                 event.getTravelId(), event.getDriverId(), event.getPassengerIds().size());
 
@@ -254,7 +265,7 @@ public class EventProcessingService {
     }
 
     // 4. Eventos de Reservas
-    public void handleBookingCreated(edu.dosw.rideci.infrastructure.messaging.events.booking.BookingCreatedEvent event) {
+    public void handleBookingCreated(BookingCreatedEvent event) {
         log.info("📩 Procesando BookingCreatedEvent: bookingId={}, travelId={}, passengerId={}",
                 event.getBookingId(), event.getTravelId(), event.getPassengerId());
 
@@ -275,35 +286,18 @@ public class EventProcessingService {
     }
 
     // 5. Eventos de Usuario/Autenticación
-    public void handleUserEvent(edu.dosw.rideci.infrastructure.messaging.events.authentication.UserEvent event) {
-        log.info("📩 Procesando UserEvent: userId={}, eventType={}, email={}",
-                event.getUserId(), event.getEventType(), event.getEmail());
+    public void handleUserEvent(UserEvent event) {
+        log.info("📩 Procesando UserEvent: userId={}, name={}, email={}",
+                event.getUserId(), event.getName(), event.getEmail());
 
-        NotificationType notificationType;
-        String message;
-
-        switch (event.getEventType()) {
-            case "CREATED":
-                notificationType = NotificationType.USER_REGISTERED;
-                message = String.format("¡Bienvenido %s! Tu cuenta ha sido creada exitosamente.", event.getName());
-                break;
-            case "UPDATED":
-                notificationType = NotificationType.NOTIFICATION_CREATED;
-                message = "Tu perfil ha sido actualizado exitosamente.";
-                break;
-            case "DELETED":
-                notificationType = NotificationType.NOTIFICATION_CREATED;
-                message = "Tu cuenta ha sido eliminada del sistema.";
-                break;
-            default:
-                notificationType = NotificationType.NOTIFICATION_CREATED;
-                message = "Evento de usuario procesado.";
-        }
+        // Asumimos que este evento es para creación de usuario
+        NotificationType notificationType = NotificationType.USER_REGISTERED;
+        String message = String.format("¡Bienvenido %s! Tu cuenta ha sido creada exitosamente.", event.getName());
 
         NotificationEvent notificationEvent = createNotificationEvent(
                 "AUTHENTICATION",
                 notificationType,
-                event.getUserId(),
+                event.getUserId().toString(),
                 message,
                 String.format("{\"name\":\"%s\",\"email\":\"%s\",\"role\":\"%s\"}",
                         event.getName(), event.getEmail(), event.getRole())
@@ -314,19 +308,28 @@ public class EventProcessingService {
         log.info("👤 Notificación de usuario creada: {}", inAppNotification.getDisplayMessage());
     }
 
-    public void handlePasswordReset(edu.dosw.rideci.infrastructure.messaging.events.authentication.PasswordResetEvent event) {
-        log.info("📩 Procesando PasswordResetEvent: userId={}, email={}",
-                event.getUserId(), event.getEmail());
+    public void handlePasswordReset(PasswordResetEvent event) {
+        log.info("📩 Procesando PasswordResetEvent: email={}, resetCode={}",
+                event.getEmail(), event.getResetCode());
 
-        String message = "Solicitud de recuperación de contraseña procesada";
+        // En este caso, como no tenemos userId, debemos obtenerlo de alguna manera
+        // Por ahora, asumiremos que el email es suficiente para identificar al usuario
+        // O podríamos buscar el userId a partir del email (pero eso requeriría una llamada a BD)
+
+        // Para propósitos de ejemplo, usaremos un UUID derivado del email
+        // EN PRODUCCIÓN: Deberías obtener el userId real a partir del email
+        String userId = UUID.nameUUIDFromBytes(event.getEmail().getBytes()).toString();
+
+        String message = String.format("Código de recuperación: %s. Expira en %d minutos",
+                event.getResetCode(), event.getExpiryMinutes());
 
         NotificationEvent notificationEvent = createNotificationEvent(
                 "AUTHENTICATION",
                 NotificationType.PASSWORD_RECOVERY,
-                event.getUserId(),
+                userId,
                 message,
-                String.format("{\"email\":\"%s\",\"expiryMinutes\":%d}",
-                        event.getEmail(), event.getExpiryMinutes())
+                String.format("{\"email\":\"%s\",\"resetCode\":\"%s\",\"expiryMinutes\":%d}",
+                        event.getEmail(), event.getResetCode(), event.getExpiryMinutes())
         );
 
         InAppNotification inAppNotification = createInAppNotification(notificationEvent);

@@ -1,8 +1,11 @@
-package edu.dosw.rideci.infrastructure.messaging.listeners;
+package edu.dosw.rideci.application.events.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.dosw.rideci.application.events.travel.TravelCancelledEvent;
+import edu.dosw.rideci.application.events.travel.TravelCompletedEvent;
+import edu.dosw.rideci.application.events.travel.TravelCreatedEvent;
+import edu.dosw.rideci.application.events.travel.TravelUpdatedEvent;
 import edu.dosw.rideci.infrastructure.config.RabbitMQConfig;
-import edu.dosw.rideci.infrastructure.messaging.events.travel.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
