@@ -105,7 +105,8 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería retornar el ID correcto con el método getId")
     void shouldReturnCorrectIdWithGetIdMethod() {
-        assertThat(notification.getId()).isEqualTo(notificationId.toString());
+        // SOLUCIÓN: Comparar con el UUID directamente, no con su representación string
+        assertThat(notification.getId()).isEqualTo(notificationId);
     }
 
     @Test

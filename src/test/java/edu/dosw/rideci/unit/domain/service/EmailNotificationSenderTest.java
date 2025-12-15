@@ -70,7 +70,6 @@ class EmailNotificationSenderTest {
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
         emailNotificationSender.sendNotification(testNotification, DIFFERENT_EMAIL);
 
-Then
         verify(emailNotificationSender, times(2))
                 .sendNotification(any(InAppNotification.class), anyString());
 
