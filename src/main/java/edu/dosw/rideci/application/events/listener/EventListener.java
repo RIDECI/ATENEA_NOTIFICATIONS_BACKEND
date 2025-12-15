@@ -24,8 +24,6 @@ public class EventListener {
 
     private final EventProcessingService eventProcessingService;
 
-    // ========== LISTENER PARA EVENTOS DE USUARIO ==========
-
     @RabbitListener(queues = "notif.user.events.queue")
     public void handleUserEvent(UserEvent event) {
         log.info("🎧 [User Queue] Recibido UserEvent: userId={}, email={}, name={}",
@@ -46,8 +44,6 @@ public class EventListener {
             log.error("❌ Error procesando PasswordResetEvent: {}", e.getMessage(), e);
         }
     }
-
-    // ========== LISTENER PARA EVENTOS DE VIAJES ==========
 
     @RabbitListener(queues = "notif.travel.events.queue")
     public void handleTravelCreated(TravelCreatedEvent event) {
@@ -99,8 +95,6 @@ public class EventListener {
         }
     }
 
-    // ========== LISTENER PARA EVENTOS DE PAGO ==========
-
     @RabbitListener(queues = "notif.payment.events.queue")
     public void handlePaymentCompleted(PaymentCompletedEvent event) {
         log.info("🎧 [Payment Queue] Recibido PaymentCompletedEvent: paymentId={}", event.getPaymentId());
@@ -131,8 +125,6 @@ public class EventListener {
         }
     }
 
-    // ========== LISTENER PARA EVENTOS DE COMUNICACIÓN/REPORTES ==========
-
     @RabbitListener(queues = "notif.communication.events.queue")
     public void handleReportCreated(ReportCreatedEvent event) {
         log.info("🎧 [Communication Queue] Recibido ReportCreatedEvent: reportId={}", event.getReportId());
@@ -143,17 +135,13 @@ public class EventListener {
         }
     }
 
-    // ========== LISTENERS PARA LAS DEMÁS COLAS ==========
-
     @RabbitListener(queues = "notif.profile.events.queue")
     public void handleProfileEvents(Object event) {
         log.info("🎧 [Profile Queue] Recibido evento: {}", event.getClass().getSimpleName());
-        // Eventos de perfil vendrán aquí
     }
 
     @RabbitListener(queues = "notif.admin.events.queue")
     public void handleAdminEvents(Object event) {
         log.info("🎧 [Admin Queue] Recibido evento: {}", event.getClass().getSimpleName());
-        // Eventos administrativos vendrán aquí
     }
 }

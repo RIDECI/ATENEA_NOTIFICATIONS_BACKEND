@@ -9,12 +9,7 @@ import java.util.UUID;
 @Service
 public class EmailTemplateService {
 
-    // ============================================================
-    //  HELPERS
-    // ============================================================
-
     private String defaultUserName(SendEmailNotificationUseCase.SendEmailNotificationCommand command) {
-        // Ajusta esto cuando tengas el nombre real del usuario:
         return (command.extraInfo() != null && !command.extraInfo().isBlank())
                 ? command.extraInfo()
                 : "Usuario";
@@ -23,10 +18,6 @@ public class EmailTemplateService {
     private String defaultAppName() {
         return "RideECI";
     }
-
-    // ============================================================
-    //  SEGURIDAD DE CUENTA: RECUPERACIÓN Y REGISTRO
-    // ============================================================
 
     public String buildPasswordRecoveryEmail(String userName, String appName,
                                              String recoveryCode, int expirationMinutes) {
@@ -62,10 +53,8 @@ public class EmailTemplateService {
     }
 
     public String buildPasswordRecoveryEmail(SendEmailNotificationUseCase.SendEmailNotificationCommand command) {
-        // Usamos el nombre genérico directamente en lugar de defaultUserName
         String appName = defaultAppName();
 
-        // De momento usamos reason como link / token (ajusta en tu endpoint)
         String recoveryCode = command.reason() != null ? command.reason() : "Código no disponible";
         int expirationMinutes = 30;
 
@@ -105,15 +94,10 @@ public class EmailTemplateService {
         String userName = defaultUserName(command);
         String appName = defaultAppName();
 
-        // De momento reason como link de verificación (ajusta en tu endpoint)
         String verificationLink = command.reason() != null ? command.reason() : "https://example.com/verify";
 
         return buildRegistrationVerificationEmail(userName, appName, verificationLink);
     }
-
-    // ============================================================
-    //  SUSPENSIÓN DE CUENTA
-    // ============================================================
 
     public String buildAccountSuspensionEmail(UUID userId, String reason,
                                               boolean permanent) {
@@ -172,10 +156,6 @@ public class EmailTemplateService {
         return buildAccountSuspensionEmail(userId, reason, permanent);
     }
 
-    // ============================================================
-    //  VERIFICACIÓN DE CONDUCTOR
-    // ============================================================
-
     public String buildDriverVerificationResultEmail(String driverName, String appName,
                                                      boolean approved, String reason) {
         String estado = approved ? "APROBADO" : "RECHAZADO";
@@ -224,16 +204,11 @@ public class EmailTemplateService {
         String driverName = defaultUserName(command);
         String appName = defaultAppName();
 
-        // Puedes codificar en reason si fue aprobado/rechazado y el motivo
         boolean approved = !"RECHAZADO".equalsIgnoreCase(command.reason());
         String reason = command.reason();
 
         return buildDriverVerificationResultEmail(driverName, appName, approved, reason);
     }
-
-    // ============================================================
-    //  CICLO DE VIAJE: RESERVA, ACTUALIZACIÓN, RECORDATORIO
-    // ============================================================
 
     public String buildTripBookingConfirmationEmail(String userName, String appName,
                                                     String tripId, String dateTime,
@@ -295,7 +270,6 @@ public class EmailTemplateService {
         OffsetDateTime dt = command.scheduledAt();
         String dateTime = dt != null ? dt.toString() : "Fecha y hora no disponibles";
 
-        // Por ahora no tenemos origen/destino/vehículo en el command
         String origin = "Origen no disponible";
         String destination = "Destino no disponible";
         String driverName = null;
@@ -377,7 +351,6 @@ public class EmailTemplateService {
         OffsetDateTime dt = command.scheduledAt();
         String newDateTime = dt != null ? dt.toString() : null;
 
-        // Por ahora sin origen/destino reales:
         String origin = "Origen no disponible";
         String destination = "Destino no disponible";
 
@@ -442,10 +415,6 @@ public class EmailTemplateService {
         );
     }
 
-    // ============================================================
-    //  PAGO
-    // ============================================================
-
     public String buildPaymentConfirmationEmail(String userName, String appName,
                                                 String paymentId, String amount,
                                                 String method, String tripId) {
@@ -495,7 +464,6 @@ public class EmailTemplateService {
         String paymentId = command.paymentId();
         String tripId = command.tripId();
 
-        // Por ahora reason como monto
         String amount = (command.reason() != null && !command.reason().isBlank())
                 ? command.reason()
                 : "Monto no disponible";
@@ -506,10 +474,6 @@ public class EmailTemplateService {
                 userName, appName, paymentId, amount, method, tripId
         );
     }
-
-    // ============================================================
-    //  EMERGENCIA
-    // ============================================================
 
     public String buildEmergencyAlertEmail(String userName, String appName,
                                            String tripId, String description) {
@@ -560,10 +524,6 @@ public class EmailTemplateService {
 
         return buildEmergencyAlertEmail(userName, appName, tripId, description);
     }
-
-    // ============================================================
-    //  BROADCAST ADMINISTRATIVO
-    // ============================================================
 
     /**
      * Plantilla para correos de broadcast administrativo / eventos extraordinarios.
@@ -654,11 +614,6 @@ public class EmailTemplateService {
         );
     }
 
-    // ============================================================
-    //  EVENTOS DE VIAJE (Travel Events)
-    // ============================================================
-
-    //  VIAJE CREADO (TravelCreatedEvent)
     public String buildTravelCreatedEmail(
             String userName,
             String appName,
@@ -713,7 +668,6 @@ public class EmailTemplateService {
         );
     }
 
-    //  VIAJE ACTUALIZADO (TravelUpdatedEvent)
     public String buildTravelUpdatedEmail(
             String userName,
             String appName,
@@ -766,7 +720,6 @@ public class EmailTemplateService {
         );
     }
 
-    //  VIAJE CANCELADO (TravelCancelledEvent)
     public String buildTravelCancelledEmail(
             String userName,
             String appName,

@@ -31,7 +31,6 @@ public class EventProcessingService {
 
     private final SendEmailNotificationUseCase sendEmailUseCase;
 
-    // Método para crear un NotificationEvent a partir de cualquier evento
     public NotificationEvent createNotificationEvent(String sourceModule, NotificationType type,
                                                      String userId, String message, String payload) {
         return NotificationEvent.builder()
@@ -40,13 +39,12 @@ public class EventProcessingService {
                 .sourceModule(sourceModule)
                 .userId(userId)
                 .message(message)
-                .priority(3) // Prioridad media por defecto
+                .priority(3)
                 .timestamp(Instant.now())
                 .payload(payload)
                 .build();
     }
 
-    // Método para crear InAppNotification a partir de un NotificationEvent
     public InAppNotification createInAppNotification(NotificationEvent event) {
         return InAppNotification.builder()
                 .notificationId(UUID.randomUUID())
@@ -61,7 +59,6 @@ public class EventProcessingService {
                 .build();
     }
 
-    // 1. Eventos de Pago
     public void handlePaymentCompleted(PaymentCompletedEvent event) {
         log.info("📩 Procesando PaymentCompletedEvent: paymentId={}, userId={}",
                 event.getPaymentId(), event.getUserId());
@@ -123,7 +120,6 @@ public class EventProcessingService {
         log.info("💰 Notificación de reembolso creada: {}", inAppNotification.getDisplayMessage());
     }
 
-    // 2. Eventos de Reportes/Seguridad
     public void handleReportCreated(ReportCreatedEvent event) {
         log.info("📩 Procesando ReportCreatedEvent: reportId={}, userId={}, severity={}",
                 event.getReportId(), event.getUserId(), event.getSeverity());
@@ -159,13 +155,11 @@ public class EventProcessingService {
 
         log.info("🛡️ Notificación de reporte creada: {}", inAppNotification.getDisplayMessage());
 
-        // Notificar a administradores si es crítico
         if ("CRITICAL".equals(event.getSeverity()) || "EMERGENCY".equals(event.getPriority())) {
             log.warn("🚨 Notificando a administradores sobre reporte crítico: {}", event.getReportId());
         }
     }
 
-    // 3. Eventos de Viajes
     public void handleTravelCreated(TravelCreatedEvent event) {
         log.info("📩 Procesando TravelCreatedEvent: travelId={}, driverId={}",
                 event.getTravelId(), event.getDriverId());
@@ -247,7 +241,6 @@ public class EventProcessingService {
         inAppNotification.setTitle("Viaje Completado");
         log.info("✅ Notificación de viaje completado: {}", inAppNotification.getDisplayMessage());
 
-        // Si ratingEnabled es true, crear notificación para calificación
         if (Boolean.TRUE.equals(event.getRatingEnabled())) {
             for (String passengerId : event.getPassengerIds()) {
                 NotificationEvent ratingEvent = createNotificationEvent(
@@ -267,7 +260,6 @@ public class EventProcessingService {
         }
     }
 
-    // 4. Eventos de Reservas
     public void handleBookingCreated(BookingCreatedEvent event) {
         log.info("📩 Procesando BookingCreatedEvent: bookingId={}, travelId={}, passengerId={}",
                 event.getBookingId(), event.getTravelId(), event.getPassengerId());
@@ -288,12 +280,10 @@ public class EventProcessingService {
         log.info("🎫 Notificación de reserva creada: {}", inAppNotification.getDisplayMessage());
     }
 
-    // 5. Eventos de Usuario/Autenticación
     public void handleUserEvent(UserEvent event) {
         log.info("📩 Procesando UserEvent: userId={}, name={}, email={}",
                 event.getUserId(), event.getName(), event.getEmail());
 
-        // Asumimos que este evento es para creación de usuario
         NotificationType notificationType = NotificationType.USER_REGISTERED;
         String message = String.format("¡Bienvenido %s! Tu cuenta ha sido creada exitosamente.", event.getName());
 
@@ -315,7 +305,6 @@ public class EventProcessingService {
         log.info("📩 Procesando PasswordResetEvent: email={}, resetCode={}",
                 event.getEmail(), event.getResetCode());
 
-        // Generar un userId temporal a partir del email
         String userId = UUID.nameUUIDFromBytes(event.getEmail().getBytes()).toString();
 
         String message = String.format("Código de recuperación: %s. Expira en %d minutos",
@@ -336,7 +325,6 @@ public class EventProcessingService {
         inAppNotification.setExpiresAt(OffsetDateTime.now().plusMinutes(event.getExpiryMinutes()));
         log.info("🔐 Notificación de recuperación de contraseña creada: {}", inAppNotification.getDisplayMessage());
 
-        // ENVIAR CORREO DE RECUPERACIÓN DE CONTRASEÑA
         sendPasswordRecoveryEmail(event);
     }
 

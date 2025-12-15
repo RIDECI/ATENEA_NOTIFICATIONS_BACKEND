@@ -66,7 +66,6 @@ public class TravelEventsListener {
                 event.getAvailableSeats(), event.getPricePerSeat());
         log.info("   Vehículo: {} - {}", event.getVehicleType(), event.getVehiclePlate());
 
-        // Aquí se llamará al servicio para notificar a usuarios cercanos sobre nuevo viaje
         log.info("   📢 Notificando a usuarios cercanos sobre nuevo viaje disponible");
     }
 
@@ -79,7 +78,6 @@ public class TravelEventsListener {
         log.info("   Nuevos datos - Salida: {}, Asientos: {}, Precio: ${}",
                 event.getDepartureTime(), event.getAvailableSeats(), event.getPricePerSeat());
 
-        // Aquí se llamará al servicio para notificar a pasajeros sobre cambios
         log.info("   📢 Notificando a pasajeros sobre cambios en el viaje");
     }
 
@@ -93,7 +91,6 @@ public class TravelEventsListener {
         log.info("   Pasajeros afectados: {}", event.getAffectedPassengers());
         log.info("   Política de reembolso: {}", event.getRefundPolicy());
 
-        // Aquí se llamará al servicio para notificar a pasajeros sobre cancelación
         log.info("   📢 Notificando a {} pasajeros sobre cancelación", event.getAffectedPassengers());
     }
 
@@ -108,7 +105,6 @@ public class TravelEventsListener {
         log.info("   Total recaudado: ${}", event.getTotalAmount());
         log.info("   Habilitar calificación: {}", event.getRatingEnabled());
 
-        // Aquí se llamará al servicio para enviar encuestas/calificaciones
         if (Boolean.TRUE.equals(event.getRatingEnabled())) {
             log.info("   ⭐ Enviando solicitud de calificación a conductor y pasajeros");
         }

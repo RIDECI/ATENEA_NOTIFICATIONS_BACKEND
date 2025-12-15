@@ -21,9 +21,7 @@ public class EmailNotificationController {
                         .type(NotificationType.PASSWORD_RECOVERY)
                         .userId(request.userId())
                         .emailOverride(request.email())
-                        // reason la usamos como enlace de recuperación
                         .reason(request.reason())
-                        // extraInfo puede ser nombre del usuario u otro texto
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())
                         .build()
@@ -38,7 +36,6 @@ public class EmailNotificationController {
                         .type(NotificationType.USER_REGISTERED)
                         .userId(request.userId())
                         .emailOverride(request.email())
-                        // reason = enlace de verificación
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())
@@ -55,7 +52,6 @@ public class EmailNotificationController {
                         .userId(request.userId())
                         .emailOverride(request.email())
                         .driverId(request.driverId())
-                        // reason: aquí puedes mandar "APROBADO" / "RECHAZADO: motivo..."
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())
@@ -68,15 +64,13 @@ public class EmailNotificationController {
     public ResponseEntity<Void> sendTripBookingConfirmation(@RequestBody EmailNotificationRequest request) {
         sendEmailUseCase.send(
                 SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        // Nueva reserva aceptada por el conductor
                         .type(NotificationType.RESERVATION_ACCEPTED)
                         .userId(request.userId())
                         .emailOverride(request.email())
                         .tripId(request.tripId())
-                        // reason: notas sobre la reserva si quieres
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
-                        .scheduledAt(request.scheduledAt()) // fecha/hora del viaje
+                        .scheduledAt(request.scheduledAt())
                         .build()
         );
         return ResponseEntity.accepted().build();
@@ -122,10 +116,9 @@ public class EmailNotificationController {
                         .userId(request.userId())
                         .emailOverride(request.email())
                         .tripId(request.tripId())
-                        // reason: aquí puedes mandar "CANCELACION: motivo..." o "MODIFICACION: ..."
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
-                        .scheduledAt(request.scheduledAt()) // nueva fecha/hora, si aplica
+                        .scheduledAt(request.scheduledAt())
                         .build()
         );
         return ResponseEntity.accepted().build();
@@ -139,10 +132,9 @@ public class EmailNotificationController {
                         .userId(request.userId())
                         .emailOverride(request.email())
                         .tripId(request.tripId())
-                        // reason: texto opcional del recordatorio
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
-                        .scheduledAt(request.scheduledAt()) // fecha/hora del viaje
+                        .scheduledAt(request.scheduledAt())
                         .build()
         );
         return ResponseEntity.accepted().build();
@@ -191,9 +183,8 @@ public class EmailNotificationController {
                         .emailOverride(request.email())
                         .tripId(request.tripId())
                         .paymentId(request.paymentId())
-                        // reason: monto (ej. "15000 COP")
                         .reason(request.reason())
-                        .extraInfo(request.extraInfo()) // nombre usuario u otro texto
+                        .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())
                         .build()
         );
@@ -208,7 +199,6 @@ public class EmailNotificationController {
                         .type(NotificationType.ACCOUNT_SUSPENDED)
                         .userId(request.userId())
                         .emailOverride(request.email())
-                        // reason: motivo de la suspensión
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())
@@ -225,7 +215,6 @@ public class EmailNotificationController {
                         .userId(request.userId())
                         .emailOverride(request.email())
                         .tripId(request.tripId())
-                        // reason: descripción breve del incidente
                         .reason(request.reason())
                         .extraInfo(request.extraInfo())
                         .scheduledAt(request.scheduledAt())

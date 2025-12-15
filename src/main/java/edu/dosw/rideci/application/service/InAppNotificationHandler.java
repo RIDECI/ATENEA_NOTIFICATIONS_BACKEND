@@ -63,7 +63,6 @@ public class InAppNotificationHandler implements NotificationSubscriber {
     }
 
     private String buildTitle(NotificationEvent event) {
-        // IMPORTANTE: event.getEventType() debe ser NotificationType
         return switch (event.getEventType()) {
             case TRIP_CREATED -> "New trip created";
             case TRIP_CANCELLED -> "Trip cancelled";

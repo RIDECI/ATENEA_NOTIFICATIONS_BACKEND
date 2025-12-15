@@ -70,7 +70,6 @@ public class NotificationController {
 
     @PostMapping("/{id}/send")
     public ResponseEntity<Void> send(@PathVariable String id) {
-        // TODO: aquí podrías publicar un evento o mandar email explícito
         return ResponseEntity.accepted().build();
     }
 }

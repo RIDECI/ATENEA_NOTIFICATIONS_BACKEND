@@ -48,34 +48,29 @@ public class CreateEmergencyBroadcastService implements CreateEmergencyBroadcast
 
         for (String userIdStr : targets) {
             try {
-                // 1) Construir HTML del correo con la plantilla de administración
                 String htmlBody = emailTemplateService.buildAdminBroadcastEmail(
-                        null,                               // userName (puedes mejorarlo luego)
-                        "RideECI",                          // appName
+                        null,
+                        "RideECI",
                         buildBroadcastTitle(command.broadcastType()),
                         command.emergencyMessage(),
-                        null,                               // reason: lo puede rellenar admin si quieres
+                        null,
                         command.broadcastType().name(),
                         command.priorityLevel(),
                         OffsetDateTime.now(ZoneOffset.UTC)
                 );
 
-                // 2) Intentar parsear el userId a UUID SOLO si el string lo permite
                 UUID userUuid = null;
                 try {
                     userUuid = UUID.fromString(userIdStr);
                 } catch (IllegalArgumentException ex) {
-                    // No tumbes todo por esto: lo registras y sigues, al menos el correo se envía.
                     log.warn("Broadcast: userId '{}' no es un UUID válido. " +
                             "Se enviará solo el correo si es posible.", userIdStr);
                 }
 
-                // 3) Crear notificación in-app (si tienes userUuid podrás guardar en BD)
                 InAppNotification notification = InAppNotification.builder()
                         .notificationId(UUID.randomUUID())
                         .userId(userUuid)
                         .title(buildBroadcastTitle(command.broadcastType()))
-                        // En in-app lo ideal es mensaje de texto, pero puedes guardar resumen o HTML.
                         .message(htmlBody)
                         .eventType(NotificationType.EMERGENCY_ALERT)
                         .priority(command.priorityLevel() != null ? command.priorityLevel() : "HIGH")
@@ -85,7 +80,6 @@ public class CreateEmergencyBroadcastService implements CreateEmergencyBroadcast
 
                 notificationDomainService.initializeNotification(notification);
 
-                // Si la BD exige userId != null y aquí es null, comenta esta línea mientras pruebas:
                 if (userUuid != null) {
                     notificationRepositoryPort.save(notification);
                 } else {
@@ -94,12 +88,10 @@ public class CreateEmergencyBroadcastService implements CreateEmergencyBroadcast
 
                 created.add(notification);
 
-                // 4) Resolver correo destino y enviar SIEMPRE correo
                 String destinationEmail = userEmailResolver.resolveEmail(userIdStr);
                 emailNotificationSender.sendNotification(notification, destinationEmail);
 
             } catch (Exception ex) {
-                // NO tumbes todo el broadcast por un solo usuario
                 log.error("Error procesando broadcast para userId {}: {}", userIdStr, ex.getMessage(), ex);
             }
         }

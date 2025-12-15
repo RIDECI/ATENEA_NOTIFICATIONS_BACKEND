@@ -58,14 +58,11 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería marcar la notificación como leída y establecer readAt")
     void shouldMarkNotificationAsRead() {
-        // Given
         assertThat(notification.getStatus()).isEqualTo(NotificationStatus.UNREAD);
         assertThat(notification.getReadAt()).isNull();
 
-        // When
         notification.markAsRead();
 
-        // Then
         assertThat(notification.getStatus()).isEqualTo(NotificationStatus.READ);
         assertThat(notification.getReadAt()).isNotNull();
         assertThat(notification.getReadAt()).isBeforeOrEqualTo(OffsetDateTime.now());
@@ -74,63 +71,52 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería retornar true cuando la notificación está expirada")
     void shouldReturnTrueWhenNotificationIsExpired() {
-        // Given - crear notificación con fecha de expiración pasada
         OffsetDateTime pastExpiryDate = OffsetDateTime.now().minusDays(1);
         notification.setExpiresAt(pastExpiryDate);
 
-        // When & Then
         assertThat(notification.isExpired()).isTrue();
     }
 
     @Test
     @DisplayName("Debería retornar false cuando la notificación no está expirada")
     void shouldReturnFalseWhenNotificationIsNotExpired() {
-        // Given - crear notificación con fecha de expiración futura
         OffsetDateTime futureExpiryDate = OffsetDateTime.now().plusDays(1);
         notification.setExpiresAt(futureExpiryDate);
 
-        // When & Then
         assertThat(notification.isExpired()).isFalse();
     }
 
     @Test
     @DisplayName("Debería retornar false cuando expiresAt es null")
     void shouldReturnFalseWhenExpiresAtIsNull() {
-        // Given
         notification.setExpiresAt(null);
 
-        // When & Then
         assertThat(notification.isExpired()).isFalse();
     }
 
     @Test
     @DisplayName("Debería retornar el mensaje de visualización correcto")
     void shouldReturnCorrectDisplayMessage() {
-        // Given
         String expectedDisplayMessage = "Test Notification - This is a test message";
 
-        // When & Then
         assertThat(notification.getDisplayMessage()).isEqualTo(expectedDisplayMessage);
     }
 
     @Test
     @DisplayName("Debería retornar el ID correcto con el método getId")
     void shouldReturnCorrectIdWithGetIdMethod() {
-        // When & Then
-        assertThat(notification.getId()).isEqualTo(notificationId);
+        assertThat(notification.getId()).isEqualTo(notificationId.toString());
     }
 
     @Test
     @DisplayName("Debería poder actualizar los campos de la notificación")
     void shouldUpdateNotificationFields() {
-        // When
         notification.setTitle("Updated Title");
         notification.setMessage("Updated Message");
         notification.setPriority("HIGH");
         notification.setStatus(NotificationStatus.READ);
         notification.setReadAt(OffsetDateTime.now());
 
-        // Then
         assertThat(notification.getTitle()).isEqualTo("Updated Title");
         assertThat(notification.getMessage()).isEqualTo("Updated Message");
         assertThat(notification.getPriority()).isEqualTo("HIGH");
@@ -141,7 +127,6 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería poder crear notificación usando constructor con todos los argumentos")
     void shouldCreateNotificationWithAllArgsConstructor() {
-        // Given
         OffsetDateTime readAt = OffsetDateTime.now();
         InAppNotification newNotification = new InAppNotification(
                 notificationId,
@@ -156,7 +141,6 @@ class InAppNotificationTest {
                 expiresAt
         );
 
-        // Then
         assertThat(newNotification.getNotificationId()).isEqualTo(notificationId);
         assertThat(newNotification.getUserId()).isEqualTo(userId);
         assertThat(newNotification.getTitle()).isEqualTo("Constructor Title");
@@ -172,10 +156,8 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería poder crear notificación usando constructor sin argumentos")
     void shouldCreateNotificationWithNoArgsConstructor() {
-        // Given
         InAppNotification newNotification = new InAppNotification();
 
-        // Then
         assertThat(newNotification.getNotificationId()).isNull();
         assertThat(newNotification.getUserId()).isNull();
         assertThat(newNotification.getTitle()).isNull();
@@ -191,28 +173,22 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería mostrar mensaje de visualización incluso con campos nulos")
     void shouldDisplayMessageEvenWithNullFields() {
-        // Given
         InAppNotification newNotification = new InAppNotification();
         newNotification.setTitle(null);
         newNotification.setMessage(null);
 
-        // When
         String displayMessage = newNotification.getDisplayMessage();
 
-        // Then
         assertThat(displayMessage).isEqualTo("null - null");
     }
 
     @Test
     @DisplayName("Debería manejar correctamente diferentes tipos de notificaciones")
     void shouldHandleDifferentNotificationTypes() {
-        // Given
         NotificationType[] types = NotificationType.values();
 
         for (NotificationType type : types) {
             notification.setEventType(type);
-
-            // Then
             assertThat(notification.getEventType()).isEqualTo(type);
         }
     }
@@ -220,13 +196,10 @@ class InAppNotificationTest {
     @Test
     @DisplayName("Debería manejar correctamente diferentes estados de notificación")
     void shouldHandleDifferentNotificationStatuses() {
-        // Given
         NotificationStatus[] statuses = NotificationStatus.values();
 
         for (NotificationStatus status : statuses) {
             notification.setStatus(status);
-
-            // Then
             assertThat(notification.getStatus()).isEqualTo(status);
         }
     }

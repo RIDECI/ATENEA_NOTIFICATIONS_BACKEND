@@ -34,53 +34,40 @@ class TripCreatedNotificationSubscriberTest {
 
     @Test
     void init_ShouldSubscribeToEventBus() {
-        // When
         subscriber.init();
 
-        // Then
         verify(eventBus).subscribe(eq(NotificationType.TRIP_CREATED), eq(subscriber));
     }
 
     @Test
     void destroy_ShouldUnsubscribeFromEventBus() {
-        // Given
         subscriber.init();
 
-        // When
         subscriber.destroy();
 
-        // Then
         verify(eventBus).unsubscribe(eq(NotificationType.TRIP_CREATED), eq(subscriber));
     }
 
     @Test
     void handleEvent_ShouldProcessEvent() {
-        // Given
         when(notificationEvent.getUserId()).thenReturn("user123");
 
-        // When
         subscriber.handleEvent(notificationEvent);
 
-        // Then
         verify(notificationEvent).getUserId();
-        // Method should complete without exception
     }
 
     @Test
     void handleEvent_ShouldIgnoreNullEvent() {
-        // When
         subscriber.handleEvent(null);
 
-        // Then - No exception should be thrown
         assertDoesNotThrow(() -> subscriber.handleEvent(null));
     }
 
     @Test
     void getSubscribedEvents_ShouldReturnTripCreatedOnly() {
-        // When
         List<NotificationType> events = subscriber.getSubscribedEvents();
 
-        // Then
         assertEquals(List.of(NotificationType.TRIP_CREATED), events);
     }
 
@@ -92,7 +79,6 @@ class TripCreatedNotificationSubscriberTest {
     @Test
     void constructor_ShouldInitializeWithEventBus() {
         assertNotNull(subscriber);
-        // Can't directly verify private field, but we can test through behavior
         subscriber.init();
         verify(eventBus).subscribe(eq(NotificationType.TRIP_CREATED), eq(subscriber));
     }

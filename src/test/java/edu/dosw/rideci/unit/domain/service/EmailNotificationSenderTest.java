@@ -32,7 +32,6 @@ class EmailNotificationSenderTest {
 
     @BeforeEach
     void setUp() {
-        // Crear una notificación de prueba
         testNotification = new InAppNotification();
         testNotification.setNotificationId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
         testNotification.setTitle("Test Notification");
@@ -42,14 +41,11 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería enviar notificación con parámetros correctos")
     void shouldSendNotificationWithCorrectParameters() {
-        // Given - Configurar el comportamiento del mock
         doNothing().when(emailNotificationSender)
                 .sendNotification(any(InAppNotification.class), anyString());
 
-        // When
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
 
-        // Then - Verificar que se llamó con los parámetros correctos
         verify(emailNotificationSender, times(1))
                 .sendNotification(testNotification, TEST_EMAIL);
     }
@@ -57,16 +53,13 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería verificar que se envía una notificación específica")
     void shouldVerifySpecificNotificationIsSent() {
-        // Given
         InAppNotification specificNotification = new InAppNotification();
         specificNotification.setNotificationId(UUID.randomUUID());
         specificNotification.setTitle("Specific Notification");
         specificNotification.setMessage("Specific message");
 
-        // When
         emailNotificationSender.sendNotification(specificNotification, TEST_EMAIL);
 
-        // Then
         verify(emailNotificationSender, times(1))
                 .sendNotification(eq(specificNotification), eq(TEST_EMAIL));
     }
@@ -74,11 +67,10 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería enviar múltiples notificaciones a diferentes emails")
     void shouldSendMultipleNotificationsToDifferentEmails() {
-        // When
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
         emailNotificationSender.sendNotification(testNotification, DIFFERENT_EMAIL);
 
-        // Then
+Then
         verify(emailNotificationSender, times(2))
                 .sendNotification(any(InAppNotification.class), anyString());
 
@@ -92,7 +84,6 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería verificar que no se enviaron notificaciones cuando no se llamó")
     void shouldVerifyNoNotificationsSentWhenNotCalled() {
-        // Then - Verificar que no hubo interacciones con el mock
         verify(emailNotificationSender, never())
                 .sendNotification(any(InAppNotification.class), anyString());
     }
@@ -100,10 +91,8 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería manejar notificación con email nulo")
     void shouldHandleNotificationWithNullEmail() {
-        // When
         emailNotificationSender.sendNotification(testNotification, null);
 
-        // Then
         verify(emailNotificationSender, times(1))
                 .sendNotification(eq(testNotification), isNull());
     }
@@ -111,10 +100,8 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería manejar notificación nula")
     void shouldHandleNullNotification() {
-        // When
         emailNotificationSender.sendNotification(null, TEST_EMAIL);
 
-        // Then
         verify(emailNotificationSender, times(1))
                 .sendNotification(isNull(), eq(TEST_EMAIL));
     }
@@ -122,18 +109,15 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería verificar el orden de las llamadas")
     void shouldVerifyCallOrder() {
-        // Given
         InAppNotification notification1 = new InAppNotification();
         notification1.setNotificationId(UUID.randomUUID());
 
         InAppNotification notification2 = new InAppNotification();
         notification2.setNotificationId(UUID.randomUUID());
 
-        // When
         emailNotificationSender.sendNotification(notification1, "first@example.com");
         emailNotificationSender.sendNotification(notification2, "second@example.com");
 
-        // Then - Verificar el orden de las llamadas
         verify(emailNotificationSender, times(1))
                 .sendNotification(notification1, "first@example.com");
 
@@ -144,17 +128,14 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería enviar notificación usando argument captor")
     void shouldSendNotificationUsingArgumentCaptor() {
-        // Given
         org.mockito.ArgumentCaptor<InAppNotification> notificationCaptor =
                 org.mockito.ArgumentCaptor.forClass(InAppNotification.class);
 
         org.mockito.ArgumentCaptor<String> emailCaptor =
                 org.mockito.ArgumentCaptor.forClass(String.class);
 
-        // When
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
 
-        // Then - Capturar y verificar los argumentos
         verify(emailNotificationSender, times(1))
                 .sendNotification(notificationCaptor.capture(), emailCaptor.capture());
 
@@ -168,12 +149,10 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería verificar número exacto de llamadas")
     void shouldVerifyExactNumberOfCalls() {
-        // When
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
 
-        // Then
         verify(emailNotificationSender, times(3))
                 .sendNotification(testNotification, TEST_EMAIL);
 
@@ -187,10 +166,8 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería verificar que se llama solo una vez")
     void shouldVerifyCalledOnlyOnce() {
-        // When
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
 
-        // Then
         verify(emailNotificationSender, only())
                 .sendNotification(any(InAppNotification.class), anyString());
     }
@@ -198,15 +175,12 @@ class EmailNotificationSenderTest {
     @Test
     @DisplayName("Debería resetear el mock y verificar después")
     void shouldResetMockAndVerifyAfter() {
-        // Given
         emailNotificationSender.sendNotification(testNotification, TEST_EMAIL);
         verify(emailNotificationSender, times(1))
                 .sendNotification(testNotification, TEST_EMAIL);
 
-        // When - Resetear el mock
         reset(emailNotificationSender);
 
-        // Then - Verificar que no hay interacciones después del reset
         verifyNoInteractions(emailNotificationSender);
     }
 }

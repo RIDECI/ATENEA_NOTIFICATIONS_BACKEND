@@ -66,20 +66,16 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería serializar correctamente a JSON")
     void shouldSerializeToJson() {
-        // When
         String json = notificationEvent.toJSON();
 
-        // Then - Dado que el método toJSON puede estar fallando, solo verificamos lo básico
         assertThat(json).isNotEmpty();
         assertThat(json).contains(eventId);
         assertThat(json).contains("PASSWORD_RECOVERY");
-        // No asumimos que todos los campos están presentes debido a posibles fallos en ObjectMapper
     }
 
     @Test
     @DisplayName("Debería manejar correctamente el método toJSON con campos nulos")
     void shouldHandleToJsonWithNullFields() {
-        // Given
         NotificationEvent eventWithNulls = NotificationEvent.builder()
                 .eventId(eventId)
                 .eventType(null)
@@ -92,22 +88,17 @@ class NotificationEventTest {
                 .notification(null)
                 .build();
 
-        // When
         String json = eventWithNulls.toJSON();
 
-        // Then - El método debe manejar campos nulos sin excepción
         assertThat(json).isNotEmpty();
-        // Puede contener el eventId y "null" o "UNKNOWN" para eventType, dependiendo de si ObjectMapper falla
         assertThat(json).contains(eventId);
     }
 
     @Test
     @DisplayName("Debería usar el constructor sin argumentos correctamente")
     void shouldUseNoArgsConstructor() {
-        // Given
         NotificationEvent emptyEvent = new NotificationEvent();
 
-        // Then
         assertThat(emptyEvent.getEventId()).isNull();
         assertThat(emptyEvent.getEventType()).isNull();
         assertThat(emptyEvent.getSourceModule()).isNull();
@@ -122,7 +113,6 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería usar el constructor con todos los argumentos correctamente")
     void shouldUseAllArgsConstructor() {
-        // Given
         String testEventId = "test-event-id";
         NotificationType testType = NotificationType.TRIP_CREATED;
         String testSource = "TRAVEL";
@@ -144,7 +134,6 @@ class NotificationEventTest {
                 testPriority, testTimestamp, testPayload, testNotification
         );
 
-        // Then
         assertThat(event.getEventId()).isEqualTo(testEventId);
         assertThat(event.getEventType()).isEqualTo(testType);
         assertThat(event.getSourceModule()).isEqualTo(testSource);
@@ -159,14 +148,12 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería actualizar los campos correctamente")
     void shouldUpdateFieldsCorrectly() {
-        // When
         notificationEvent.setEventType(NotificationType.PAYMENT_CONFIRMED);
         notificationEvent.setSourceModule("PAYMENT");
         notificationEvent.setMessage("Pago confirmado");
         notificationEvent.setPriority(2);
         notificationEvent.setPayload("{\"paymentId\":\"PAY123\",\"amount\":50.0}");
 
-        // Then
         assertThat(notificationEvent.getEventType()).isEqualTo(NotificationType.PAYMENT_CONFIRMED);
         assertThat(notificationEvent.getSourceModule()).isEqualTo("PAYMENT");
         assertThat(notificationEvent.getMessage()).isEqualTo("Pago confirmado");
@@ -177,13 +164,11 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería retornar JSON incluso cuando el ObjectMapper falla")
     void shouldReturnJsonWhenObjectMapperFails() {
-        // Crear un evento básico
         NotificationEvent event = NotificationEvent.builder()
                 .eventId(eventId)
                 .eventType(NotificationType.USER_REGISTERED)
                 .build();
 
-        // El método toJSON no debe lanzar excepción
         String json = event.toJSON();
 
         assertThat(json).isNotEmpty();
@@ -193,13 +178,10 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería manejar diferentes tipos de notificaciones")
     void shouldHandleDifferentNotificationTypes() {
-        // Given
         for (NotificationType type : NotificationType.values()) {
             notificationEvent.setEventType(type);
 
-            // Then
             assertThat(notificationEvent.getEventType()).isEqualTo(type);
-            // Verificamos que toJSON no lance excepción
             assertThat(notificationEvent.toJSON()).contains(type.name());
         }
     }
@@ -207,13 +189,11 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería manejar prioridades diferentes")
     void shouldHandleDifferentPriorities() {
-        // Given
         int[] priorities = {1, 2, 3, 4, 5};
 
         for (int priority : priorities) {
             notificationEvent.setPriority(priority);
 
-            // Then
             assertThat(notificationEvent.getPriority()).isEqualTo(priority);
         }
     }
@@ -221,7 +201,6 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería mantener la referencia al ObjectMapper estático")
     void shouldHaveStaticObjectMapper() {
-        // Este test verifica que el método toJSON funciona sin lanzar excepción
         String json = notificationEvent.toJSON();
         assertThat(json).isNotEmpty();
     }
@@ -229,7 +208,6 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería incluir la notificación in-app en el JSON cuando existe")
     void shouldIncludeInAppNotificationInJson() {
-        // Cuando existe una notificación, el método toJSON debe manejarla sin excepción
         String json = notificationEvent.toJSON();
         assertThat(json).isNotEmpty();
         assertThat(json).contains(eventId);
@@ -238,7 +216,6 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería manejar eventos sin notificación in-app")
     void shouldHandleEventsWithoutInAppNotification() {
-        // Given
         NotificationEvent eventWithoutNotification = NotificationEvent.builder()
                 .eventId("event-no-notif")
                 .eventType(NotificationType.SECURITY_REPORT_CREATED)
@@ -251,10 +228,8 @@ class NotificationEventTest {
                 .notification(null)
                 .build();
 
-        // When
         String json = eventWithoutNotification.toJSON();
 
-        // Then
         assertThat(json).isNotEmpty();
         assertThat(json).contains("event-no-notif");
         assertThat(json).contains("SECURITY_REPORT_CREATED");
@@ -263,9 +238,6 @@ class NotificationEventTest {
     @Test
     @DisplayName("Debería tener métodos getter y setter para todos los campos")
     void shouldHaveGettersAndSettersForAllFields() {
-        // Test de getters ya cubiertos en otros tests
-
-        // Test de setters
         String newEventId = "new-event-id";
         notificationEvent.setEventId(newEventId);
         assertThat(notificationEvent.getEventId()).isEqualTo(newEventId);

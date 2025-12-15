@@ -23,18 +23,15 @@ class EmailNotificationSenderExceptionTest {
     @Test
     @DisplayName("Debería lanzar excepción cuando falla el envío")
     void shouldThrowExceptionWhenSendingFails() {
-        // Given
         InAppNotification notification = new InAppNotification();
         notification.setNotificationId(UUID.randomUUID());
 
         String email = "test@example.com";
 
-        // Configurar el mock para lanzar excepción
         doThrow(new RuntimeException("SMTP server unavailable"))
                 .when(emailNotificationSender)
                 .sendNotification(notification, email);
 
-        // When & Then
         assertThrows(RuntimeException.class, () -> {
             emailNotificationSender.sendNotification(notification, email);
         });
@@ -43,18 +40,15 @@ class EmailNotificationSenderExceptionTest {
     @Test
     @DisplayName("Debería manejar múltiples excepciones")
     void shouldHandleMultipleExceptions() {
-        // Given
         InAppNotification notification = new InAppNotification();
         String email = "test@example.com";
 
-        // Configurar para lanzar diferentes excepciones en diferentes llamadas
         doThrow(new RuntimeException("First error"))
                 .doThrow(new IllegalArgumentException("Invalid email"))
                 .doNothing()
                 .when(emailNotificationSender)
                 .sendNotification(notification, email);
 
-        // When & Then
         assertThrows(RuntimeException.class, () -> {
             emailNotificationSender.sendNotification(notification, email);
         });
@@ -63,7 +57,6 @@ class EmailNotificationSenderExceptionTest {
             emailNotificationSender.sendNotification(notification, email);
         });
 
-        // Tercera llamada debería funcionar
         emailNotificationSender.sendNotification(notification, email);
 
         verify(emailNotificationSender, times(3))
