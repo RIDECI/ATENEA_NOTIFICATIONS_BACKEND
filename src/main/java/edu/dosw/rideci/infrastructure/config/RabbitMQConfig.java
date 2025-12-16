@@ -22,6 +22,9 @@ public class RabbitMQConfig {
     public static final String CONVERSATION_EXCHANGE = "rideci.conversation.exchange";
     public static final String BOOKING_EXCHANGE = "booking.exchange";
 
+    // Exchange propio del módulo de notificaciones
+    public static final String NOTIFICATIONS_EXCHANGE = "notifications.exchange";
+
     public static final String NOTIF_USER_EVENTS_QUEUE = "notif.user.events.queue";
 
     public static final String NOTIF_PROFILE_EVENTS_QUEUE = "notif.profile.events.queue";
@@ -43,7 +46,7 @@ public class RabbitMQConfig {
     public Binding bindNotifUserEvents() {
         return BindingBuilder
                 .bind(notifUserEventsQueue())
-                .to(new TopicExchange(USER_EXCHANGE))  // Exchange existente
+                .to(new TopicExchange(USER_EXCHANGE)) // Exchange existente
                 .with("auth.user.#");
     }
 
@@ -134,6 +137,41 @@ public class RabbitMQConfig {
                 .bind(notifTravelEventsQueue())
                 .to(new TopicExchange(BOOKING_EXCHANGE))
                 .with("booking.#");
+    }
+
+    // ========================================
+    // Configuración del Exchange de Notificaciones
+    // ========================================
+
+    /**
+     * Exchange propio del módulo de notificaciones para publicar eventos
+     * cuando se envían notificaciones (email enviado, notificación leída, etc.)
+     */
+    @Bean
+    public TopicExchange notificationsExchange() {
+        return new TopicExchange(NOTIFICATIONS_EXCHANGE, true, false);
+    }
+
+    /**
+     * Queue para eventos de notificaciones enviadas
+     * Otros módulos pueden suscribirse a esta queue para saber cuándo se envió una
+     * notificación
+     */
+    @Bean
+    public Queue notificationsSentQueue() {
+        return QueueBuilder.durable("notifications.sent.queue").build();
+    }
+
+    /**
+     * Binding para eventos de notificaciones enviadas
+     * Routing key: "notification.sent.#"
+     */
+    @Bean
+    public Binding bindNotificationsSent() {
+        return BindingBuilder
+                .bind(notificationsSentQueue())
+                .to(notificationsExchange())
+                .with("notification.sent.#");
     }
 
     @Bean
