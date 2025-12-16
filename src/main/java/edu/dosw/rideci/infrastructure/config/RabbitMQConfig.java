@@ -44,7 +44,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifUserEventsQueue())
                 .to(new TopicExchange(USER_EXCHANGE))  // Exchange existente
-                .with("auth.user.#");
+                .with("notifications.auth.user.#");
     }
 
     @Bean
@@ -57,7 +57,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifProfileEventsQueue())
                 .to(new TopicExchange(PROFILE_EXCHANGE))
-                .with("profile.#");
+                .with("notifications.profile.#");
     }
 
     @Bean
@@ -70,7 +70,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifTravelEventsQueue())
                 .to(new TopicExchange(TRAVEL_EXCHANGE))
-                .with("travel.#");
+                .with("notifications.travel.#");
     }
 
     @Bean
@@ -83,7 +83,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifAdminEventsQueue())
                 .to(new TopicExchange(ADMIN_EXCHANGE))
-                .with("admin.#");
+                .with("notifications.admin.#");
     }
 
     @Bean
@@ -96,7 +96,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifPaymentEventsQueue())
                 .to(new TopicExchange(PAYMENT_EXCHANGE))
-                .with("payment.#");
+                .with("notifications.payment.#");
     }
 
     @Bean
@@ -109,7 +109,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifCommunicationEventsQueue())
                 .to(new TopicExchange(REPORT_EXCHANGE))
-                .with("report.#");
+                .with("notifications.report.#");
     }
 
     @Bean
@@ -117,7 +117,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifCommunicationEventsQueue())
                 .to(new TopicExchange(CHAT_EXCHANGE))
-                .with("chat.#");
+                .with("notifications.chat.#");
     }
 
     @Bean
@@ -125,7 +125,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifCommunicationEventsQueue())
                 .to(new TopicExchange(CONVERSATION_EXCHANGE))
-                .with("conversation.#");
+                .with("notifications.conversation.#");
     }
 
     @Bean
@@ -133,7 +133,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notifTravelEventsQueue())
                 .to(new TopicExchange(BOOKING_EXCHANGE))
-                .with("booking.#");
+                .with("notifications.booking.#");
     }
 
     @Bean

@@ -12,6 +12,7 @@ import edu.dosw.rideci.application.events.travel.TravelCompletedEvent;
 import edu.dosw.rideci.application.events.travel.TravelCreatedEvent;
 import edu.dosw.rideci.application.events.travel.TravelUpdatedEvent;
 import edu.dosw.rideci.application.service.EventProcessingService;
+import edu.dosw.rideci.infrastructure.config.RabbitMQConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -24,24 +25,39 @@ public class EventListener {
 
     private final EventProcessingService eventProcessingService;
 
-    @RabbitListener(queues = "notif.user.events.queue")
-    public void handleUserEvent(UserEvent event) {
-        log.info("🎧 [User Queue] Recibido UserEvent: userId={}, email={}, name={}",
-                event.getUserId(), event.getEmail(), event.getName());
-        try {
-            eventProcessingService.handleUserEvent(event);
-        } catch (Exception e) {
-            log.error("❌ Error procesando UserEvent: {}", e.getMessage(), e);
-        }
+    @RabbitListener(
+            queues = RabbitMQConfig.NOTIF_USER_EVENTS_QUEUE,
+            containerFactory = "rabbitListenerContainerFactory"
+    )
+    public void handleUserQueue(PasswordResetEvent resetEvent) {
+        log.info("📥 Evento de PasswordReset recibido: {}", resetEvent.getEmail());
+        eventProcessingService.handlePasswordReset(resetEvent);
     }
 
-    @RabbitListener(queues = "notif.user.events.queue")
-    public void handlePasswordResetEvent(PasswordResetEvent event) {
-        log.info("🎧 [User Queue] Recibido PasswordResetEvent: email={}", event.getEmail());
-        try {
-            eventProcessingService.handlePasswordReset(event);
-        } catch (Exception e) {
-            log.error("❌ Error procesando PasswordResetEvent: {}", e.getMessage(), e);
+    @RabbitListener(
+            queues = RabbitMQConfig.NOTIF_USER_EVENTS_QUEUE,
+            containerFactory = "rabbitListenerContainerFactory"
+    )
+    public void handleUserQueue(UserEvent event) {
+        log.info("📥 Evento de PasswordReset recibido: {}", event.getEmail());
+        eventProcessingService.handleUserEvent(event);
+    }
+
+
+    public void handleUserQueue(Object event) {
+
+        log.info("📥 Evento recibido: {}", event.getClass().getSimpleName());
+        log.info("Evento recibido tipo REAL: {}", event.getClass());
+
+
+        if (event instanceof UserEvent userEvent) {
+            eventProcessingService.handleUserEvent(userEvent);
+
+        } else if (event instanceof PasswordResetEvent resetEvent) {
+            eventProcessingService.handlePasswordReset(resetEvent);
+
+        } else {
+            log.warn("⚠️ Evento desconocido: {}", event.getClass());
         }
     }
 

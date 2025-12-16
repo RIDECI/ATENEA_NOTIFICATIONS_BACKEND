@@ -41,7 +41,7 @@ class EventListenerTest {
 
         doNothing().when(eventProcessingService).handleUserEvent(any(UserEvent.class));
 
-        eventListener.handleUserEvent(event);
+        eventListener.handleUserQueue(event);
 
         verify(eventProcessingService, times(1)).handleUserEvent(event);
     }
@@ -54,7 +54,7 @@ class EventListenerTest {
         doThrow(new RuntimeException("Test exception"))
                 .when(eventProcessingService).handleUserEvent(any(UserEvent.class));
 
-        eventListener.handleUserEvent(event);
+        eventListener.handleUserQueue(event);
 
         verify(eventProcessingService, times(1)).handleUserEvent(event);
     }
@@ -67,7 +67,7 @@ class EventListenerTest {
 
         doNothing().when(eventProcessingService).handlePasswordReset(any(PasswordResetEvent.class));
 
-        eventListener.handlePasswordResetEvent(event);
+        eventListener.handleUserQueue(event);
 
         verify(eventProcessingService, times(1)).handlePasswordReset(event);
     }
@@ -80,7 +80,7 @@ class EventListenerTest {
         doThrow(new RuntimeException("Test exception"))
                 .when(eventProcessingService).handlePasswordReset(any(PasswordResetEvent.class));
 
-        eventListener.handlePasswordResetEvent(event);
+        eventListener.handleUserQueue(event);
 
         verify(eventProcessingService, times(1)).handlePasswordReset(event);
     }
