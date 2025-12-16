@@ -2,11 +2,8 @@ package edu.dosw.rideci.infrastructure.notification;
 
 import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.domain.service.EmailNotificationSender;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EmailNotificationSenderImpl implements EmailNotificationSender {
 
-    private final JavaMailSender mailSender;
+    private final ZohoApiService zohoApiService;
 
     @Async
     @Override
@@ -32,19 +29,15 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
         }
 
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
+            String subject = buildSubject(notification);
+            String body = buildBody(notification);
 
-            helper.setTo(destinationEmail);
-            helper.setSubject(buildSubject(notification));
-            helper.setText(buildBody(notification), true);
-            helper.setFrom("rideci-email@rideci.online");
+            zohoApiService.sendEmail(destinationEmail, subject, body);
 
-            mailSender.send(mimeMessage);
-            log.info("Correo enviado exitosamente a {} para notificación id={}",
+            log.info("Correo enviado exitosamente vía API a {} para notificación id={}",
                     destinationEmail, notification.getId());
         } catch (Exception ex) {
-            log.error("Error al enviar correo a {} para notificación id={}: {}",
+            log.error("Error al enviar correo API a {} para notificación id={}: {}",
                     destinationEmail,
                     notification.getId(),
                     ex.getMessage(),
@@ -60,10 +53,6 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
         return title;
     }
 
-    /**
-     * Aquí asumimos que `notification.getMessage()` ya contiene el HTML
-     * construido por `EmailTemplateService` (buildPasswordRecoveryEmail, etc.).
-     */
     private String buildBody(InAppNotification notification) {
         String message = notification.getMessage();
         if (message == null || message.isBlank()) {
