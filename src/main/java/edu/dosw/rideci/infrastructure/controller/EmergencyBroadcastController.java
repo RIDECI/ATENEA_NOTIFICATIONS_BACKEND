@@ -27,10 +27,15 @@ public class EmergencyBroadcastController {
             }
 
 
+            if (request.broadcastType() == null || request.broadcastType().isBlank()) {
+                return ResponseEntity.badRequest()
+                        .body("broadcastType es obligatorio");
+            }
+
             BroadcastType broadcastType;
             try {
                 broadcastType = BroadcastType.valueOf(request.broadcastType().toUpperCase());
-            } catch (Exception ex) {
+            } catch (IllegalArgumentException ex) {
                 return ResponseEntity.badRequest()
                         .body("broadcastType inválido: " + request.broadcastType());
             }

@@ -257,6 +257,10 @@
                                 <exclude>**/infrastructure/controller/dto/Response/**</exclude>
                                 <exclude>**/infrastructure/adapters/messaging/**</exclude>
                                 <exclude>**/AteneaNotificationsBackendApplication.class</exclude>
+                                <!-- Excluir clases de configuración, DTOs simples y enums que no requieren pruebas unitarias -->
+                                <exclude>**/infrastructure/config/**</exclude>
+                                <exclude>**/domain/model/Enum/**</exclude>
+                                <exclude>**/exceptions/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
