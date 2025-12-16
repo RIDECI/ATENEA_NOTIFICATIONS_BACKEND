@@ -23,10 +23,11 @@ public class OpenApiConfig {
                                                 .version("1.0.0")
                                                 .description("API Documentation for Atenea Notifications Backend"))
                                 .servers(List.of(
-                .servers(List.of(
-                        new Server().url("/").description("Default Server (Relative)"),
-                        new Server().url("https://ateneanotificationsbackend-production.up.railway.app").description("Production Server (Force HTTPS)"),
-                        new Server().url("http://localhost:8080").description("Local Development")
-                ));
+                                                new Server().url("/").description("Default Server (Relative)"),
+                                                new Server().url(
+                                                                "https://ateneanotificationsbackend-production.up.railway.app")
+                                                                .description("Production Server (Force HTTPS)"),
+                                                new Server().url("http://localhost:8080")
+                                                                .description("Local Development")));
         }
 }
