@@ -12,19 +12,24 @@ import java.util.List;
 @Configuration
 public class OpenApiConfig {
 
-    @Value("${spring.application.name:ATENEA_NOTIFICATIONS_BACKEND}")
-    private String appName;
+        @Value("${spring.application.name:ATENEA_NOTIFICATIONS_BACKEND}")
+        private String appName;
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title(appName)
-                        .version("1.0.0")
-                        .description("API Documentation for Atenea Notifications Backend"))
-                .servers(List.of(
-                        new Server().url("https://ateneanotificationsbackend-production.up.railway.app")
-                                .description("Production Server (HTTPS)"),
-                        new Server().url("http://localhost:8080").description("Local Development")));
-    }
+        @Bean
+        public OpenAPI customOpenAPI() {
+                return new OpenAPI()
+                                .info(new Info()
+                                                .title(appName)
+                                                .version("1.0.0")
+                                                .description("API Documentation for Atenea Notifications Backend"))
+                                .servers(List.of(
+                                                new Server().url(
+                                                                "https://ateneanotificationsbackend-production.up.railway.app")
+                                                                .description("Production Server (HTTPS)"),
+                                                new Server().url(
+                                                                "http://ateneanotificationsbackend-production.up.railway.app")
+                                                                .description("Production Server (HTTP)"),
+                                                new Server().url("http://localhost:8080")
+                                                                .description("Local Development")));
+        }
 }
