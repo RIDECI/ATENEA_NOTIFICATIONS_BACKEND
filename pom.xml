@@ -34,7 +34,6 @@
 
     <properties>
         <java.version>17</java.version>
-        <sonar.host.url>http://localhost:9004</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -121,13 +120,6 @@
 
     <build>
         <plugins>
-
-            <!-- Sonar -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>4.0.0.4121</version>
-            </plugin>
 
             <!-- Compilador Java + Lombok + MapStruct -->
             <plugin>
