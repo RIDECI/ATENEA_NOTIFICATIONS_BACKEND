@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: edu.dosw.rideci.unit.domain.model.InAppNotificationTest
+-------------------------------------------------------------------------------
+Tests run: 13, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.326 s <<< FAILURE! -- in edu.dosw.rideci.unit.domain.model.InAppNotificationTest
+edu.dosw.rideci.unit.domain.model.InAppNotificationTest.shouldReturnCorrectIdWithGetIdMethod -- Time elapsed: 0.022 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: "90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97"
+ but was: 90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97
+	at edu.dosw.rideci.unit.domain.model.InAppNotificationTest.shouldReturnCorrectIdWithGetIdMethod(InAppNotificationTest.java:108)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

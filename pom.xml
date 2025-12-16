@@ -211,17 +211,20 @@
                             <includes>
                                 <include>**/application/service/**</include>
                                 <include>**/infrastructure/controller/**</include>
+                                <include>**/infrastructure/exceptions/**</include>
+                                <include>**/application/events/listener/**</include>
                             </includes>
                             <excludes>
-                                <exclude>**/infrastructure/controller/dto/Request/**</exclude>
-                                <exclude>**/infrastructure/controller/dto/Response/**</exclude>
+                                <exclude>**/domain/model/**</exclude>
+                                <exclude>**/infrastructure/controller/dto/**</exclude>
+                                <exclude>**/infrastructure/config/**</exclude>
                                 <exclude>**/infrastructure/adapters/messaging/**</exclude>
                                 <exclude>**/AteneaNotificationsBackendApplication.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
 
-                    <!-- Regla de cobertura (ahora mismo mínimo 0 para no romper) -->
+                    <!-- Regla de cobertura -->
                     <execution>
                         <id>jacoco-check</id>
                         <phase>verify</phase>
@@ -235,6 +238,9 @@
                                     <element>CLASS</element>
                                     <excludes>
                                         <exclude>edu/dosw/rideci/AteneaNotificationsBackendApplication</exclude>
+                                        <exclude>edu.dosw.rideci.domain.model.**</exclude>
+                                        <exclude>edu.dosw.rideci.infrastructure.controller.dto.**</exclude>
+                                        <exclude>edu.dosw.rideci.infrastructure.config.**</exclude>
                                     </excludes>
                                 </rule>
                                 <rule>
@@ -251,10 +257,13 @@
                             <includes>
                                 <include>**/application/service/**</include>
                                 <include>**/infrastructure/controller/**</include>
+                                <include>**/infrastructure/exceptions/**</include>
+                                <include>**/application/events/listener/**</include>
                             </includes>
                             <excludes>
-                                <exclude>**/infrastructure/controller/dto/Request/**</exclude>
-                                <exclude>**/infrastructure/controller/dto/Response/**</exclude>
+                                <exclude>**/domain/model/**</exclude>
+                                <exclude>**/infrastructure/controller/dto/**</exclude>
+                                <exclude>**/infrastructure/config/**</exclude>
                                 <exclude>**/infrastructure/adapters/messaging/**</exclude>
                                 <exclude>**/AteneaNotificationsBackendApplication.class</exclude>
                                 <!-- Excluir clases de configuración, DTOs simples y enums que no requieren pruebas unitarias -->

@@ -1,0 +1,697 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< edu.dosw.rideci:ATENEA_NOTIFICATIONS_BACKEND >------------
+[INFO] Building ATENEA_NOTIFICATIONS_BACKEND 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] argLine set to -javaagent:C:\\Users\\juanp\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=D:\\cursor\\ATENEA_NOTIFICATIONS_BACKEND\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] skip non existing resourceDirectory D:\cursor\ATENEA_NOTIFICATIONS_BACKEND\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ ATENEA_NOTIFICATIONS_BACKEND ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running edu.dosw.rideci.AteneaNotificationsBackendApplicationTests
+17:55:51.587 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [edu.dosw.rideci.AteneaNotificationsBackendApplicationTests]: AteneaNotificationsBackendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:55:51.858 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration edu.dosw.rideci.AteneaNotificationsBackendApplication for test class edu.dosw.rideci.AteneaNotificationsBackendApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-12-15T17:55:52.798-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] eneaNotificationsBackendApplicationTests : Starting AteneaNotificationsBackendApplicationTests using Java 17.0.16 with PID 15112 (started by juanp in D:\cursor\ATENEA_NOTIFICATIONS_BACKEND)
+2025-12-15T17:55:52.800-05:00 DEBUG 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] eneaNotificationsBackendApplicationTests : Running with Spring Boot v3.5.7, Spring v6.2.12
+2025-12-15T17:55:52.802-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] eneaNotificationsBackendApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2025-12-15T17:55:55.204-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus started
+2025-12-15T17:55:55.209-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : EmailNotificationSubscriber suscrito a eventos: [NOTIFICATION_CREATED]
+2025-12-15T17:55:55.213-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Subscriber registrado para TRIP_CREATED
+2025-12-15T17:55:56.880-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [leopard-01.lmq.cloudamqp.com:5672]
+2025-12-15T17:55:57.422-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2fc51562:0/SimpleConnection@2be41d90 [delegate=amqp://cwyxvdym@52.2.116.232:5672/cwyxvdym, localPort=58056]
+2025-12-15T17:55:58.504-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [.2.116.232:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - Exchange 'rideci.chat.exchange' not found, class-id=50, method-id=20)
+2025-12-15T17:56:00.558-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [.2.116.232:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - Exchange 'rideci.chat.exchange' not found, class-id=50, method-id=20)
+2025-12-15T17:56:03.576-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [.2.116.232:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - Exchange 'rideci.chat.exchange' not found, class-id=50, method-id=20)
+2025-12-15T17:56:08.643-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [.2.116.232:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - Exchange 'rideci.chat.exchange' not found, class-id=50, method-id=20)
+2025-12-15T17:56:14.992-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [.2.116.232:5672] o.s.a.r.c.CachingConnectionFactory       : Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - Exchange 'rideci.chat.exchange' not found, class-id=50, method-id=20)
+2025-12-15T17:56:15.067-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.a.r.l.SimpleMessageListenerContainer : Broker not available; cannot force queue declarations during start: java.io.IOException
+2025-12-15T17:56:31.332-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] eneaNotificationsBackendApplicationTests : Started AteneaNotificationsBackendApplicationTests in 39.102 seconds (process running for 41.532)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 41.46 s -- in edu.dosw.rideci.AteneaNotificationsBackendApplicationTests
+[INFO] Running edu.dosw.rideci.unit.application.mapper.NotificationApplicationMapperTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.120 s -- in edu.dosw.rideci.unit.application.mapper.NotificationApplicationMapperTest
+[INFO] Running EmailNotificationApplicationService Tests
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.550 s -- in EmailNotificationApplicationService Tests
+[INFO] Running edu.dosw.rideci.unit.application.service.EventProcessingServiceTest
+2025-12-15T17:56:34.372-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando PasswordResetEvent: email=test@example.com, resetCode=RESET123
+2025-12-15T17:56:34.377-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de recuperación de contraseña creada: Recuperación de Contraseña - Código de recuperación: RESET123. Expira en 30 minutos
+2025-12-15T17:56:34.377-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Enviando correo de recuperación de contraseña a: test@example.com
+2025-12-15T17:56:34.377-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Correo de recuperación enviado exitosamente a: test@example.com
+2025-12-15T17:56:34.389-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando ReportCreatedEvent: reportId=report-123, userId=32604948-5ca3-460d-b87f-021d53c2c974, severity=CRITICAL
+2025-12-15T17:56:34.390-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ?? Notificación de reporte creada: Reporte de Seguridad - Reporte EMERGENCY creado: Test Report
+2025-12-15T17:56:34.390-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificando a administradores sobre reporte crítico: report-123
+2025-12-15T17:56:34.395-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando TravelCompletedEvent: travelId=travel-123, driverId=2c3215d4-10aa-43f7-a887-039aacf143fc, passengers=1
+2025-12-15T17:56:34.395-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de viaje completado: Viaje Completado - Viaje completado exitosamente
+2025-12-15T17:56:34.400-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando TravelCompletedEvent: travelId=travel-123, driverId=dd1565b1-6d51-4b79-8dc6-6691cbb4880e, passengers=2
+2025-12-15T17:56:34.406-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de viaje completado: Viaje Completado - Viaje completado exitosamente
+2025-12-15T17:56:34.428-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando PaymentCompletedEvent: paymentId=payment-123, userId=329def1a-eee0-452d-8962-64dd293c9592
+2025-12-15T17:56:34.429-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación creada: Notificación del Sistema - Pago completado exitosamente por $100,50. ID: payment-123
+2025-12-15T17:56:34.440-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando TravelCancelledEvent: travelId=travel-123, driverId=0285bcb8-0159-4200-90bd-7c4a600fa833, reason=Driver unavailable
+2025-12-15T17:56:34.440-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de viaje cancelado: Viaje Cancelado - Viaje cancelado: Driver unavailable
+2025-12-15T17:56:34.447-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando TravelCreatedEvent: travelId=travel-123, driverId=8eacba9f-b330-4a00-8888-49ec372bcc2c
+2025-12-15T17:56:34.450-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de viaje creado: Viaje Creado - Viaje creado exitosamente de Origin Address a Destination Address
+2025-12-15T17:56:34.455-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando TravelUpdatedEvent: travelId=travel-123, driverId=07eac9b5-51ac-4ff9-af7b-16960a4655cf, changes=Updated departure time
+2025-12-15T17:56:34.455-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ?? Notificación de viaje actualizado: Viaje Actualizado - Viaje actualizado: Schedule change
+2025-12-15T17:56:34.460-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando BookingCreatedEvent: bookingId=booking-123, travelId=travel-123, passengerId=123
+2025-12-15T17:56:34.467-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando UserEvent: userId=123, name=Test User, email=test@example.com
+2025-12-15T17:56:34.479-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando PaymentRefundedEvent: refundId=refund-123, userId=482597b4-1b29-4a15-ac0b-0f1bdbc57a33
+2025-12-15T17:56:34.480-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Notificación de reembolso creada: Notificación del Sistema - Reembolso procesado por $50,00. ID Reembolso: refund-123
+2025-12-15T17:56:34.489-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ? Procesando PaymentFailedEvent: paymentId=payment-123, userId=7ca19fbe-2d72-414e-a8cb-ed274935e80b
+2025-12-15T17:56:34.490-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.a.service.EventProcessingService   : ?? Notificación de pago fallido creada: Notificación del Sistema - El pago por $100,50 ha fallado. ID: payment-123
+[ERROR] Tests run: 14, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.170 s <<< FAILURE! -- in edu.dosw.rideci.unit.application.service.EventProcessingServiceTest
+[ERROR] edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleTravelCompleted_ShouldProcessEvent -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: passenger-1
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleTravelCompleted(EventProcessingService.java:255)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleTravelCompleted_ShouldProcessEvent(EventProcessingServiceTest.java:187)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[ERROR] edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleBookingCreated_ShouldProcessEvent -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: 123
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleBookingCreated(EventProcessingService.java:278)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleBookingCreated_ShouldProcessEvent(EventProcessingServiceTest.java:213)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[ERROR] edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleUserEvent_ShouldProcessEvent -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: 123
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleUserEvent(EventProcessingService.java:299)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleUserEvent_ShouldProcessEvent(EventProcessingServiceTest.java:226)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] Running edu.dosw.rideci.unit.application.service.InAppNotificationApplicationServiceTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 s -- in edu.dosw.rideci.unit.application.service.InAppNotificationApplicationServiceTest
+[INFO] Running edu.dosw.rideci.unit.application.service.NotificationServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.159 s -- in edu.dosw.rideci.unit.application.service.NotificationServiceTest
+[INFO] Running edu.dosw.rideci.unit.application.service.ReceiveExternalEventServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in edu.dosw.rideci.unit.application.service.ReceiveExternalEventServiceTest
+[INFO] Running edu.dosw.rideci.unit.domain.model.InAppNotificationTest
+[ERROR] Tests run: 13, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.326 s <<< FAILURE! -- in edu.dosw.rideci.unit.domain.model.InAppNotificationTest
+[ERROR] edu.dosw.rideci.unit.domain.model.InAppNotificationTest.shouldReturnCorrectIdWithGetIdMethod -- Time elapsed: 0.022 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: "90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97"
+ but was: 90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97
+	at edu.dosw.rideci.unit.domain.model.InAppNotificationTest.shouldReturnCorrectIdWithGetIdMethod(InAppNotificationTest.java:108)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] Running edu.dosw.rideci.unit.domain.model.NotificationEventTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.207 s -- in edu.dosw.rideci.unit.domain.model.NotificationEventTest
+[INFO] Running edu.dosw.rideci.unit.domain.repository.InMemoryNotificationStoreTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in edu.dosw.rideci.unit.domain.repository.InMemoryNotificationStoreTest
+[INFO] Running EmailNotificationSender Exception Tests
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in EmailNotificationSender Exception Tests
+[INFO] Running EmailNotificationSender Tests
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.050 s -- in EmailNotificationSender Tests
+[INFO] Running edu.dosw.rideci.unit.domain.service.EmailNotificationSubscriberTest
+2025-12-15T17:56:35.442-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : EmailNotificationSubscriber suscrito a eventos: [NOTIFICATION_CREATED]
+2025-12-15T17:56:35.447-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Notificación por correo enviada a test@example.com (userId=123e4567-e89b-12d3-a456-426614174000, notificationId=223e4567-e89b-12d3-a456-426614174001)
+2025-12-15T17:56:35.448-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Notificación por correo enviada a test@example.com (userId=123e4567-e89b-12d3-a456-426614174000, notificationId=223e4567-e89b-12d3-a456-426614174001)
+2025-12-15T17:56:35.454-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : No se encontró correo electrónico para userId=123e4567-e89b-12d3-a456-426614174000
+2025-12-15T17:56:35.472-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Notificación por correo enviada a test@example.com (userId=123e4567-e89b-12d3-a456-426614174000, notificationId=223e4567-e89b-12d3-a456-426614174001)
+2025-12-15T17:56:35.477-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : No se encontró correo electrónico para userId=123e4567-e89b-12d3-a456-426614174000
+2025-12-15T17:56:35.480-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Notificación sin userId, no se puede resolver email. notificationId=223e4567-e89b-12d3-a456-426614174001
+2025-12-15T17:56:35.485-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Notificación por correo enviada a test@example.com (userId=123e4567-e89b-12d3-a456-426614174000, notificationId=223e4567-e89b-12d3-a456-426614174001)
+2025-12-15T17:56:35.489-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Evento NOTIFICATION_CREATED sin InAppNotification, se omite envío de email
+2025-12-15T17:56:35.495-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.d.s.EmailNotificationSubscriber    : Error procesando envío de email para evento NOTIFICATION_CREATED: SMTP Error
+
+java.lang.RuntimeException: SMTP Error
+	at edu.dosw.rideci.domain.service.EmailNotificationSubscriber.handleEvent(EmailNotificationSubscriber.java:55) ~[classes/:na]
+	at edu.dosw.rideci.unit.domain.service.EmailNotificationSubscriberTest.shouldHandleExceptionsDuringEmailSending(EmailNotificationSubscriberTest.java:141) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.081 s -- in edu.dosw.rideci.unit.domain.service.EmailNotificationSubscriberTest
+[INFO] Running edu.dosw.rideci.unit.domain.service.EventBusTest
+2025-12-15T17:56:35.527-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus started
+2025-12-15T17:56:35.533-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus stopped
+2025-12-15T17:56:35.677-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus stopped
+2025-12-15T17:56:35.680-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus stopped
+2025-12-15T17:56:35.794-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus stopped
+2025-12-15T17:56:35.796-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.dosw.rideci.domain.service.EventBus    : EventBus stopped
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.273 s -- in edu.dosw.rideci.unit.domain.service.EventBusTest
+[INFO] Running edu.dosw.rideci.unit.domain.service.NotificationDomainServiceTest
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.113 s -- in edu.dosw.rideci.unit.domain.service.NotificationDomainServiceTest
+[INFO] Running edu.dosw.rideci.unit.domain.service.TripCreatedNotificationSubscriberTest
+2025-12-15T17:56:35.956-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Procesando evento TRIP_CREATED para userId=user123
+2025-12-15T17:56:35.965-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Subscriber registrado para TRIP_CREATED
+2025-12-15T17:56:35.969-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Subscriber registrado para TRIP_CREATED
+2025-12-15T17:56:35.970-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Subscriber removido para TRIP_CREATED
+2025-12-15T17:56:35.976-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] .r.d.s.TripCreatedNotificationSubscriber : Subscriber registrado para TRIP_CREATED
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 s -- in edu.dosw.rideci.unit.domain.service.TripCreatedNotificationSubscriberTest
+[INFO] Running edu.dosw.rideci.unit.infrastructure.controller.dto.NotificationDtoMapperTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in edu.dosw.rideci.unit.infrastructure.controller.dto.NotificationDtoMapperTest
+[INFO] Running EmailNotificationController Tests
+2025-12-15T17:56:36.086-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.087-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.092-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-12-15T17:56:36.564-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.564-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.564-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.607-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.607-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.607-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.646-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.646-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.646-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.681-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.682-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.682-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.712-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.713-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.713-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.744-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.745-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.745-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.778-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.778-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.779-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.819-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.821-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.821-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.854-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.855-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.855-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.890-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.890-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.890-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.926-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.926-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.926-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:36.980-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:36.981-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:36.982-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.993 s -- in EmailNotificationController Tests
+[INFO] Running NotificationController Tests
+2025-12-15T17:56:37.084-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.084-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.084-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.273-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.273-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.273-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.320-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.320-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.320-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.353-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.353-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.354-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-12-15T17:56:37.383-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.383-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.383-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.402-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.403-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.404-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-12-15T17:56:37.438-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.438-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.438-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.461-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.461-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.462-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.492-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.492-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.492-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-12-15T17:56:37.525-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2025-12-15T17:56:37.526-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-12-15T17:56:37.526-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.534 s -- in NotificationController Tests
+[INFO] Running edu.dosw.rideci.unit.infrastructure.notification.EmailNotificationSenderImplTest
+2025-12-15T17:56:37.913-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Correo enviado exitosamente a test@example.com para notificación id=f0061d44-9b50-4723-a807-638b428f8e71
+2025-12-15T17:56:37.929-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Correo enviado exitosamente a test@example.com para notificación id=8d327a32-ecfd-4aa5-a1e6-fef443848f9c
+2025-12-15T17:56:37.943-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : No se envía correo: InAppNotification es null para destino=test@example.com
+2025-12-15T17:56:37.947-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : No se envía correo: destinationEmail es null o vacío. Notificación id=60c314bd-0f72-4b13-8eb7-10718e234db5
+2025-12-15T17:56:37.972-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Correo enviado exitosamente a test@example.com para notificación id=fba1d477-50f6-4b50-afb2-2405a1620d32
+2025-12-15T17:56:38.009-05:00 ERROR 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Error al enviar correo a test@example.com para notificación id=ca6a476c-bd89-4df4-81ad-b8622b71515b: Test exception
+
+java.lang.RuntimeException: Test exception
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101) ~[spring-context-support-6.2.12.jar:6.2.12]
+	at edu.dosw.rideci.infrastructure.notification.EmailNotificationSenderImpl.sendNotification(EmailNotificationSenderImpl.java:41) ~[classes/:na]
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailNotificationSenderImplTest.lambda$sendNotification_ShouldHandleMessagingException$0(EmailNotificationSenderImplTest.java:83) ~[test-classes/:na]
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:49) ~[junit-jupiter-api-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:36) ~[junit-jupiter-api-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3199) ~[junit-jupiter-api-5.12.2.jar:5.12.2]
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailNotificationSenderImplTest.sendNotification_ShouldHandleMessagingException(EmailNotificationSenderImplTest.java:82) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+2025-12-15T17:56:38.045-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Correo enviado exitosamente a test@example.com para notificación id=c549362c-a527-4c6f-a3cb-7d004b9c11eb
+2025-12-15T17:56:38.070-05:00  INFO 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : Correo enviado exitosamente a test@example.com para notificación id=3f27e659-0bf2-47e4-9624-b039eee74305
+2025-12-15T17:56:38.081-05:00  WARN 15112 --- [ATENEA_NOTIFICATIONS_BACKEND] [           main] e.d.r.i.n.EmailNotificationSenderImpl    : No se envía correo: destinationEmail es null o vacío. Notificación id=81754496-8994-4f75-b31b-f880051e295f
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.551 s -- in edu.dosw.rideci.unit.infrastructure.notification.EmailNotificationSenderImplTest
+[INFO] Running EmailTemplateService Tests
+[ERROR] Tests run: 15, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.064 s <<< FAILURE! -- in EmailTemplateService Tests
+[ERROR] edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmail -- Time elapsed: 0.015 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideApp</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 15 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideApp
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "RideApp", "123456", "15 minutos"]
+but could not find:
+  ["Juan"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmail(EmailTemplateServiceTest.java:32)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[ERROR] edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildTravelCreatedEmail -- Time elapsed: 0.006 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body style="font-family: Arial, sans-serif;">
+    <p>Hola Juan,</p>
+
+    <p>
+      Se ha creado un nuevo viaje en <strong>RideApp</strong> con la siguiente información:
+    </p>
+
+    <ul>
+      <li><strong>Origen:</strong> Bogotá</li>
+      <li><strong>Destino:</strong> Medellín</li>
+      <li><strong>Hora de salida:</strong> 10:00 AM</li>
+      <li><strong>Cupos:</strong> 4 cupos disponibles</li>
+      <li><strong>Precio:</strong> $15000,00 por cupo</li>
+    </ul>
+
+    <p>
+      Puedes ver más detalles y gestionar este viaje desde la aplicación.
+    </p>
+
+    <br/>
+    <p>Saludos,<br/>El equipo de RideApp</p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "Bogotá", "Medellín", "10:00 AM", "4 cupos", "15000.00"]
+but could not find:
+  ["15000.00"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildTravelCreatedEmail(EmailTemplateServiceTest.java:146)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[ERROR] edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmailFromCommand -- Time elapsed: 0.002 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideECI</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 30 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideECI
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "123456"]
+but could not find:
+  ["Juan"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmailFromCommand(EmailTemplateServiceTest.java:48)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] Running edu.dosw.rideci.unit.infrastructure.persistance.Repository.mapper.NotificationPersistenceMapperTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 s -- in edu.dosw.rideci.unit.infrastructure.persistance.Repository.mapper.NotificationPersistenceMapperTest
+[INFO] Running edu.dosw.rideci.unit.infrastructure.persistance.Repository.NotificationRepositoryAdapterTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s -- in edu.dosw.rideci.unit.infrastructure.persistance.Repository.NotificationRepositoryAdapterTest
+[INFO] Running edu.dosw.rideci.unit.infrastructure.resolver.UserEmailResolverImplTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in edu.dosw.rideci.unit.infrastructure.resolver.UserEmailResolverImplTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   InAppNotificationTest.shouldReturnCorrectIdWithGetIdMethod:108 
+expected: "90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97"
+ but was: 90419f8e-d6f6-4ed6-9fcd-0a01c96ffd97
+[ERROR]   EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmail:32 
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideApp</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 15 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideApp
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "RideApp", "123456", "15 minutos"]
+but could not find:
+  ["Juan"]
+ 
+[ERROR]   EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmailFromCommand:48 
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideECI</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 30 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideECI
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "123456"]
+but could not find:
+  ["Juan"]
+ 
+[ERROR]   EmailTemplateServiceTest.shouldBuildTravelCreatedEmail:146 
+Expecting actual:
+  "<html>
+  <body style="font-family: Arial, sans-serif;">
+    <p>Hola Juan,</p>
+
+    <p>
+      Se ha creado un nuevo viaje en <strong>RideApp</strong> con la siguiente información:
+    </p>
+
+    <ul>
+      <li><strong>Origen:</strong> Bogotá</li>
+      <li><strong>Destino:</strong> Medellín</li>
+      <li><strong>Hora de salida:</strong> 10:00 AM</li>
+      <li><strong>Cupos:</strong> 4 cupos disponibles</li>
+      <li><strong>Precio:</strong> $15000,00 por cupo</li>
+    </ul>
+
+    <p>
+      Puedes ver más detalles y gestionar este viaje desde la aplicación.
+    </p>
+
+    <br/>
+    <p>Saludos,<br/>El equipo de RideApp</p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "Bogotá", "Medellín", "10:00 AM", "4 cupos", "15000.00"]
+but could not find:
+  ["15000.00"]
+ 
+[ERROR] Errors: 
+[ERROR]   EventProcessingServiceTest.handleBookingCreated_ShouldProcessEvent:213 » IllegalArgument Invalid UUID string: 123
+[ERROR]   EventProcessingServiceTest.handleTravelCompleted_ShouldProcessEvent:187 » IllegalArgument Invalid UUID string: passenger-1
+[ERROR]   EventProcessingServiceTest.handleUserEvent_ShouldProcessEvent:226 » IllegalArgument Invalid UUID string: 123
+[INFO] 
+[ERROR] Tests run: 214, Failures: 4, Errors: 3, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  58.217 s
+[INFO] Finished at: 2025-12-15T17:56:43-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project ATENEA_NOTIFICATIONS_BACKEND: There are test failures.
+[ERROR] 
+[ERROR] See D:\cursor\ATENEA_NOTIFICATIONS_BACKEND\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
