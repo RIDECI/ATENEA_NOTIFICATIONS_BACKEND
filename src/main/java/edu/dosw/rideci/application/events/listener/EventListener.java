@@ -43,24 +43,6 @@ public class EventListener {
         eventProcessingService.handleUserEvent(event);
     }
 
-
-    public void handleUserQueue(Object event) {
-
-        log.info("📥 Evento recibido: {}", event.getClass().getSimpleName());
-        log.info("Evento recibido tipo REAL: {}", event.getClass());
-
-
-        if (event instanceof UserEvent userEvent) {
-            eventProcessingService.handleUserEvent(userEvent);
-
-        } else if (event instanceof PasswordResetEvent resetEvent) {
-            eventProcessingService.handlePasswordReset(resetEvent);
-
-        } else {
-            log.warn("⚠️ Evento desconocido: {}", event.getClass());
-        }
-    }
-
     @RabbitListener(queues = "notif.travel.events.queue")
     public void handleTravelCreated(TravelCreatedEvent event) {
         log.info("🎧 [Travel Queue] Recibido TravelCreatedEvent: travelId={}", event.getTravelId());

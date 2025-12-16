@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -54,7 +55,8 @@ class EventListenerTest {
         doThrow(new RuntimeException("Test exception"))
                 .when(eventProcessingService).handleUserEvent(any(UserEvent.class));
 
-        eventListener.handleUserQueue(event);
+        // Ahora el test espera que se lance la excepción
+        assertThrows(RuntimeException.class, () -> eventListener.handleUserQueue(event));
 
         verify(eventProcessingService, times(1)).handleUserEvent(event);
     }
@@ -80,7 +82,8 @@ class EventListenerTest {
         doThrow(new RuntimeException("Test exception"))
                 .when(eventProcessingService).handlePasswordReset(any(PasswordResetEvent.class));
 
-        eventListener.handleUserQueue(event);
+        // El test espera la excepción
+        assertThrows(RuntimeException.class, () -> eventListener.handleUserQueue(event));
 
         verify(eventProcessingService, times(1)).handlePasswordReset(event);
     }
