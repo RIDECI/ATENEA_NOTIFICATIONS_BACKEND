@@ -1,11 +1,33 @@
+version: "3.9"
+
 services:
+  rabbitmq:
+    image: rabbitmq:4-management   # incluye consola web en 15672
+    container_name: atenea-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # UI de administración
+    environment:
+      RABBITMQ_DEFAULT_USER: atenea
+      RABBITMQ_DEFAULT_PASS: atenea
+
   app:
     build: .
     ports:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: local
+
+      # 👇 Estas variables sobreescriben spring.rabbitmq.* en Spring Boot
+      SPRING_RABBITMQ_HOST: rabbitmq   # nombre del servicio de arriba, NO localhost
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: atenea
+      SPRING_RABBITMQ_PASSWORD: atenea
+
     restart: unless-stopped
+    depends_on:
+      - rabbitmq
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 30s

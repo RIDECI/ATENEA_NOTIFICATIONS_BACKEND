@@ -1,0 +1,127 @@
+-------------------------------------------------------------------------------
+Test set: edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.064 s <<< FAILURE! -- in edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest
+edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmail -- Time elapsed: 0.015 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideApp</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 15 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideApp
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "RideApp", "123456", "15 minutos"]
+but could not find:
+  ["Juan"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmail(EmailTemplateServiceTest.java:32)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildTravelCreatedEmail -- Time elapsed: 0.006 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body style="font-family: Arial, sans-serif;">
+    <p>Hola Juan,</p>
+
+    <p>
+      Se ha creado un nuevo viaje en <strong>RideApp</strong> con la siguiente información:
+    </p>
+
+    <ul>
+      <li><strong>Origen:</strong> Bogotá</li>
+      <li><strong>Destino:</strong> Medellín</li>
+      <li><strong>Hora de salida:</strong> 10:00 AM</li>
+      <li><strong>Cupos:</strong> 4 cupos disponibles</li>
+      <li><strong>Precio:</strong> $15000,00 por cupo</li>
+    </ul>
+
+    <p>
+      Puedes ver más detalles y gestionar este viaje desde la aplicación.
+    </p>
+
+    <br/>
+    <p>Saludos,<br/>El equipo de RideApp</p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "Bogotá", "Medellín", "10:00 AM", "4 cupos", "15000.00"]
+but could not find:
+  ["15000.00"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildTravelCreatedEmail(EmailTemplateServiceTest.java:146)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmailFromCommand -- Time elapsed: 0.002 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  "<html>
+  <body>
+    <p>Hola Usuario de RideECI,</p>
+    <p>
+      Hemos recibido una solicitud para restablecer la contraseña de tu cuenta
+      en <strong>RideECI</strong>.
+    </p>
+    <p>
+      Si fuiste tú quien solicitó el cambio, usa el siguiente código
+      para crear una nueva contraseña:
+    </p>
+
+    <!-- AQUÍ VA EL CÓDIGO EN VEZ DEL BOTÓN -->
+    <p style="text-align:center; font-size:24px;">
+      <strong>123456</strong>
+    </p>
+
+    <p>
+      Por seguridad, este código expirará en 30 minutos. Si no solicitaste
+      este cambio, puedes ignorar este mensaje.
+    </p>
+    <p>
+      Saludos,<br/>
+      El equipo de RideECI
+    </p>
+  </body>
+</html>
+"
+to contain:
+  ["Juan", "123456"]
+but could not find:
+  ["Juan"]
+ 
+	at edu.dosw.rideci.unit.infrastructure.notification.EmailTemplateServiceTest.shouldBuildPasswordRecoveryEmailFromCommand(EmailTemplateServiceTest.java:48)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

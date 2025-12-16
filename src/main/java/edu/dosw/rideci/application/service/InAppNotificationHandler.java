@@ -2,7 +2,7 @@ package edu.dosw.rideci.application.service;
 
 import edu.dosw.rideci.application.mapper.NotificationApplicationMapper;
 import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
-import edu.dosw.rideci.domain.model.Enum.EventType;
+import edu.dosw.rideci.domain.model.Enum.NotificationType;
 import edu.dosw.rideci.domain.model.InAppNotification;
 import edu.dosw.rideci.domain.model.NotificationEvent;
 import edu.dosw.rideci.domain.service.EventBus;
@@ -29,7 +29,7 @@ public class InAppNotificationHandler implements NotificationSubscriber {
         if (!isActive) {
             return;
         }
-        getSubscribedEvents().forEach(e -> eventBus.subscribe(e, this));
+        getSubscribedEvents().forEach(type -> eventBus.subscribe(type, this));
     }
 
     @Override
@@ -44,16 +44,16 @@ public class InAppNotificationHandler implements NotificationSubscriber {
     }
 
     @Override
-    public List<EventType> getSubscribedEvents() {
+    public List<NotificationType> getSubscribedEvents() {
         return List.of(
-                EventType.TRIP_CREATED,
-                EventType.TRIP_CANCELLED,
-                EventType.TRIP_COMPLETED,
-                EventType.PAYMENT_CONFIRMED,
-                EventType.PAYMENT_FAILED,
-                EventType.EMERGY_BOTON,
-                EventType.LOCATION_ALERT,
-                EventType.SECURITY_INCIDENT
+                NotificationType.TRIP_CREATED,
+                NotificationType.TRIP_CANCELLED,
+                NotificationType.TRIP_COMPLETED,
+                NotificationType.PAYMENT_CONFIRMED,
+                NotificationType.PAYMENT_FAILED,
+                NotificationType.EMERGENCY_BUTTON_PRESSED,
+                NotificationType.LOCATION_ALERT,
+                NotificationType.SECURITY_INCIDENT
         );
     }
 
@@ -69,7 +69,7 @@ public class InAppNotificationHandler implements NotificationSubscriber {
             case TRIP_COMPLETED -> "Trip completed";
             case PAYMENT_FAILED -> "Payment failed";
             case PAYMENT_CONFIRMED -> "Payment confirmed";
-            case EMERGY_BOTON -> "Emergency alert";
+            case EMERGENCY_BUTTON_PRESSED -> "Emergency alert";
             case LOCATION_ALERT -> "Location alert";
             case SECURITY_INCIDENT -> "Security incident";
             default -> "Notification";
@@ -77,7 +77,6 @@ public class InAppNotificationHandler implements NotificationSubscriber {
     }
 
     private String buildMessage(NotificationEvent event) {
-        // ajusta esto según lo que tengas en NotificationEvent
         return event.toJSON();
     }
 }

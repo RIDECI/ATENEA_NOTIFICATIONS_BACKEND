@@ -1,61 +1,75 @@
 package edu.dosw.rideci.infrastructure.controller;
 
-import edu.dosw.rideci.application.port.in.CreateNotificationUseCase;
-import edu.dosw.rideci.application.port.in.GetUserNotificationsUseCase;
-import edu.dosw.rideci.application.port.in.MarkNotificationAsReadUseCase;
+import edu.dosw.rideci.application.service.InAppNotificationApplicationService;
 import edu.dosw.rideci.domain.model.InAppNotification;
-import edu.dosw.rideci.infrastructure.controller.dto.NotificationDtoMapper;
-import edu.dosw.rideci.infrastructure.controller.dto.Request.CreateNotificationRequest;
-import edu.dosw.rideci.infrastructure.controller.dto.Response.NotificationResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/notifications")
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final CreateNotificationUseCase createNotificationUseCase;
-    private final GetUserNotificationsUseCase getUserNotificationsUseCase;
-    private final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
+    private final InAppNotificationApplicationService notificationService;
 
     @PostMapping
-    public ResponseEntity<NotificationResponse> createNotification(
-            @Valid @RequestBody CreateNotificationRequest request) {
-
-        InAppNotification domain = NotificationDtoMapper.toDomain(request);
-        InAppNotification created = createNotificationUseCase.createNotification(domain);
-        NotificationResponse response = NotificationDtoMapper.toResponse(created);
-
-        return ResponseEntity.ok(response);
+    public ResponseEntity<InAppNotification> create(@RequestBody InAppNotification request) {
+        InAppNotification created = notificationService.createNotification(request);
+        return ResponseEntity.ok(created);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<NotificationResponse>> getUserNotifications(
-            @PathVariable UUID userId) {
-
-        List<InAppNotification> notifications =
-                getUserNotificationsUseCase.getNotificationsByUserId(userId);
-
-        List<NotificationResponse> responses = notifications.stream()
-                .map(NotificationDtoMapper::toResponse)
-                .toList();
-
-        return ResponseEntity.ok(responses);
+    @GetMapping
+    public ResponseEntity<List<InAppNotification>> list() {
+        return ResponseEntity.ok(notificationService.list());
     }
 
-    @PatchMapping("/{notificationId}/read")
-    public ResponseEntity<NotificationResponse> markAsRead(
-            @PathVariable UUID notificationId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<InAppNotification> get(@PathVariable String id) {
+        return ResponseEntity.ok(notificationService.get(id));
+    }
 
-        InAppNotification updated = markNotificationAsReadUseCase.markAsRead(notificationId);
-        NotificationResponse response = NotificationDtoMapper.toResponse(updated);
+    @PutMapping("/{id}")
+    public ResponseEntity<InAppNotification> update(@PathVariable String id,
+                                                    @RequestBody InAppNotification update) {
+        return ResponseEntity.ok(notificationService.update(id, update));
+    }
 
-        return ResponseEntity.ok(response);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        notificationService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/read")
+    public ResponseEntity<InAppNotification> markAsRead(@PathVariable String id) {
+        return ResponseEntity.ok(notificationService.markAsRead(id));
+    }
+
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<InAppNotification> cancel(@PathVariable String id) {
+        return ResponseEntity.ok(notificationService.cancel(id));
+    }
+
+    @PostMapping("/{id}/retry")
+    public ResponseEntity<InAppNotification> retry(@PathVariable String id) {
+        return ResponseEntity.ok(notificationService.retry(id));
+    }
+
+    @GetMapping("/metrics")
+    public ResponseEntity<?> metrics() {
+        return ResponseEntity.ok(
+                java.util.Map.of(
+                        "totalNotifications", notificationService.count(),
+                        "module", notificationService.getModuleName()
+                )
+        );
+    }
+
+    @PostMapping("/{id}/send")
+    public ResponseEntity<Void> send(@PathVariable String id) {
+        return ResponseEntity.accepted().build();
     }
 }

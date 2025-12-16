@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+Test set: edu.dosw.rideci.unit.application.service.EventProcessingServiceTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.170 s <<< FAILURE! -- in edu.dosw.rideci.unit.application.service.EventProcessingServiceTest
+edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleTravelCompleted_ShouldProcessEvent -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: passenger-1
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleTravelCompleted(EventProcessingService.java:255)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleTravelCompleted_ShouldProcessEvent(EventProcessingServiceTest.java:187)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleBookingCreated_ShouldProcessEvent -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: 123
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleBookingCreated(EventProcessingService.java:278)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleBookingCreated_ShouldProcessEvent(EventProcessingServiceTest.java:213)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleUserEvent_ShouldProcessEvent -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.IllegalArgumentException: Invalid UUID string: 123
+	at java.base/java.util.UUID.fromString1(UUID.java:280)
+	at java.base/java.util.UUID.fromString(UUID.java:258)
+	at edu.dosw.rideci.application.service.EventProcessingService.createInAppNotification(EventProcessingService.java:51)
+	at edu.dosw.rideci.application.service.EventProcessingService.handleUserEvent(EventProcessingService.java:299)
+	at edu.dosw.rideci.unit.application.service.EventProcessingServiceTest.handleUserEvent_ShouldProcessEvent(EventProcessingServiceTest.java:226)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
