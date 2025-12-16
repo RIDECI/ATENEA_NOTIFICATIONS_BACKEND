@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -16,6 +17,7 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
 
     private final JavaMailSender mailSender;
 
+    @Async
     @Override
     public void sendNotification(InAppNotification notification, String destinationEmail) {
         if (destinationEmail == null || destinationEmail.isBlank()) {
@@ -66,13 +68,13 @@ public class EmailNotificationSenderImpl implements EmailNotificationSender {
         String message = notification.getMessage();
         if (message == null || message.isBlank()) {
             return """
-                <html>
-                  <body>
-                    <p>Hola,</p>
-                    <p>Tienes una nueva notificación en RideECI.</p>
-                  </body>
-                </html>
-                """;
+                    <html>
+                      <body>
+                        <p>Hola,</p>
+                        <p>Tienes una nueva notificación en RideECI.</p>
+                      </body>
+                    </html>
+                    """;
         }
         return message;
     }
