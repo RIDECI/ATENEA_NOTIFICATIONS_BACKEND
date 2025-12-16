@@ -28,8 +28,7 @@ class EmailTemplateServiceTest {
                 "Usuario Test",
                 "RideECI",
                 "ABC123",
-                30
-        );
+                30);
 
         assertNotNull(html);
         assertTrue(html.contains("ABC123"));
@@ -41,10 +40,10 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildPasswordRecoveryEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .reason("RESET456")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .reason("RESET456")
+                .build();
 
         String html = templateService.buildPasswordRecoveryEmail(command);
 
@@ -55,10 +54,10 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildPasswordRecoveryEmail_WithCommandNullReason_ShouldUseDefault() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .reason(null)
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .reason(null)
+                .build();
 
         String html = templateService.buildPasswordRecoveryEmail(command);
 
@@ -71,8 +70,7 @@ class EmailTemplateServiceTest {
         String html = templateService.buildRegistrationVerificationEmail(
                 "Usuario Test",
                 "RideECI",
-                "https://example.com/verify"
-        );
+                "https://example.com/verify");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -83,11 +81,11 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildRegistrationVerificationEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .reason("https://example.com/verify")
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .reason("https://example.com/verify")
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildRegistrationVerificationEmail(command);
 
@@ -102,8 +100,7 @@ class EmailTemplateServiceTest {
         String html = templateService.buildAccountSuspensionEmail(
                 userId,
                 "Violación de términos",
-                true
-        );
+                true);
 
         assertNotNull(html);
         assertTrue(html.contains(userId.toString()));
@@ -117,8 +114,7 @@ class EmailTemplateServiceTest {
         String html = templateService.buildAccountSuspensionEmail(
                 userId,
                 "Suspensión temporal",
-                false
-        );
+                false);
 
         assertNotNull(html);
         assertTrue(html.contains(userId.toString()));
@@ -129,11 +125,11 @@ class EmailTemplateServiceTest {
     @Test
     void buildAccountSuspensionEmail_WithCommand_ShouldGenerateValidHTML() {
         UUID userId = UUID.randomUUID();
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .userId(userId)
-                        .reason("Violación de términos")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .userId(userId)
+                .reason("Violación de términos")
+                .build();
 
         String html = templateService.buildAccountSuspensionEmail(command);
 
@@ -147,8 +143,7 @@ class EmailTemplateServiceTest {
                 "Conductor Test",
                 "RideECI",
                 true,
-                null
-        );
+                null);
 
         assertNotNull(html);
         assertTrue(html.contains("Conductor Test"));
@@ -162,8 +157,7 @@ class EmailTemplateServiceTest {
                 "Conductor Test",
                 "RideECI",
                 false,
-                "Documentación incompleta"
-        );
+                "Documentación incompleta");
 
         assertNotNull(html);
         assertTrue(html.contains("Conductor Test"));
@@ -173,11 +167,11 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildDriverVerificationResultEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .extraInfo("Conductor Test")
-                        .reason("APROBADO")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .extraInfo("Conductor Test")
+                .reason("APROBADO")
+                .build();
 
         String html = templateService.buildDriverVerificationResultEmail(command);
 
@@ -195,8 +189,7 @@ class EmailTemplateServiceTest {
                 "Origen",
                 "Destino",
                 "Conductor Test",
-                "Sedan ABC123"
-        );
+                "Sedan ABC123");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -209,12 +202,12 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildTripBookingConfirmationEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .tripId("trip-123")
-                        .scheduledAt(OffsetDateTime.now())
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .tripId("trip-123")
+                .scheduledAt(OffsetDateTime.now())
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildTripBookingConfirmationEmail(command);
 
@@ -232,8 +225,7 @@ class EmailTemplateServiceTest {
                 null,
                 null,
                 null,
-                "Razón de cancelación"
-        );
+                "Razón de cancelación");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -252,8 +244,7 @@ class EmailTemplateServiceTest {
                 "2024-01-01T11:00:00Z",
                 "Nuevo Origen",
                 "Nuevo Destino",
-                null
-        );
+                null);
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -263,12 +254,12 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildTripUpdateEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .tripId("trip-123")
-                        .reason("Cancelación por conductor")
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .tripId("trip-123")
+                .reason("Cancelación por conductor")
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildTripUpdateEmail(command);
 
@@ -284,8 +275,7 @@ class EmailTemplateServiceTest {
                 "trip-123",
                 "2024-01-01T10:00:00Z",
                 "Origen",
-                "Destino"
-        );
+                "Destino");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -296,12 +286,12 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildTripReminderEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .tripId("trip-123")
-                        .scheduledAt(OffsetDateTime.now())
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .tripId("trip-123")
+                .scheduledAt(OffsetDateTime.now())
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildTripReminderEmail(command);
 
@@ -317,8 +307,7 @@ class EmailTemplateServiceTest {
                 "payment-123",
                 "$50.00",
                 "Tarjeta de crédito",
-                "trip-123"
-        );
+                "trip-123");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -329,13 +318,13 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildPaymentConfirmationEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .paymentId("payment-123")
-                        .tripId("trip-123")
-                        .reason("$50.00")
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .paymentId("payment-123")
+                .tripId("trip-123")
+                .reason("$50.00")
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildPaymentConfirmationEmail(command);
 
@@ -349,8 +338,7 @@ class EmailTemplateServiceTest {
                 "Usuario Test",
                 "RideECI",
                 "trip-123",
-                "Descripción del incidente"
-        );
+                "Descripción del incidente");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -361,12 +349,12 @@ class EmailTemplateServiceTest {
 
     @Test
     void buildEmergencyAlertEmail_WithCommand_ShouldGenerateValidHTML() {
-        SendEmailNotificationUseCase.SendEmailNotificationCommand command =
-                SendEmailNotificationUseCase.SendEmailNotificationCommand.builder()
-                        .tripId("trip-123")
-                        .reason("Emergencia reportada")
-                        .extraInfo("Usuario Test")
-                        .build();
+        SendEmailNotificationUseCase.SendEmailNotificationCommand command = SendEmailNotificationUseCase.SendEmailNotificationCommand
+                .builder()
+                .tripId("trip-123")
+                .reason("Emergencia reportada")
+                .extraInfo("Usuario Test")
+                .build();
 
         String html = templateService.buildEmergencyAlertEmail(command);
 
@@ -384,8 +372,7 @@ class EmailTemplateServiceTest {
                 "Motivo del broadcast",
                 "EMERGENCY",
                 "HIGH",
-                OffsetDateTime.now()
-        );
+                OffsetDateTime.now());
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -405,8 +392,7 @@ class EmailTemplateServiceTest {
                 null,
                 null,
                 null,
-                null
-        );
+                null);
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario"));
@@ -422,15 +408,16 @@ class EmailTemplateServiceTest {
                 "Destino",
                 "2024-01-01T10:00:00Z",
                 4,
-                50.0
-        );
+                50.0);
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
         assertTrue(html.contains("Origen"));
         assertTrue(html.contains("Destino"));
         assertTrue(html.contains("4 cupos disponibles"));
-        assertTrue(html.contains("$50.00"));
+        // Check for price with either dot or comma decimal separator to handle system
+        // locale
+        assertTrue(html.contains("$50.00") || html.contains("$50,00"));
     }
 
     @Test
@@ -441,8 +428,7 @@ class EmailTemplateServiceTest {
                 "travel-123",
                 "ACTIVO",
                 "Cambio de horario",
-                "Nueva hora de salida: 11:00 AM"
-        );
+                "Nueva hora de salida: 11:00 AM");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));
@@ -461,8 +447,7 @@ class EmailTemplateServiceTest {
                 "Destino",
                 "Razón de cancelación",
                 "DRIVER",
-                "Reembolso completo"
-        );
+                "Reembolso completo");
 
         assertNotNull(html);
         assertTrue(html.contains("Usuario Test"));

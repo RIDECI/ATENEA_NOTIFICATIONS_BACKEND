@@ -183,7 +183,7 @@ class EventProcessingServiceTest {
     }
 
     @Test
-    @Test
+
     void handleTravelCompleted_ShouldCreateNotificationAndRatingRequests() {
         // Arrange
         String driverId = UUID.randomUUID().toString();
@@ -205,7 +205,7 @@ class EventProcessingServiceTest {
         TravelCompletedEvent event = new TravelCompletedEvent();
         event.setTravelId("travel-123");
         event.setDriverId(UUID.randomUUID().toString());
-        event.setPassengerIds(Arrays.asList("passenger-1"));
+        event.setPassengerIds(List.of("passenger-1"));
         event.setRatingEnabled(false);
 
         service.handleTravelCompleted(event);
@@ -214,7 +214,7 @@ class EventProcessingServiceTest {
     }
 
     @Test
-    @Test
+
     void handleBookingCreated_ShouldCreateNotification() {
         // Arrange
         String passengerId = UUID.randomUUID().toString();
@@ -231,7 +231,7 @@ class EventProcessingServiceTest {
     }
 
     @Test
-    @Test
+
     void handleUserEvent_ShouldCreateNotification() {
         // Arrange
         // UserEvent uses Long for userId based on definition
